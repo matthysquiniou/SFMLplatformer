@@ -3,17 +3,16 @@
 
 
 void LevelChoiceState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
-    //TODO
-    if (event->is<sf::Event::KeyPressed>()) {
-        ctx.currentState = GameState::MENU;
+    if (event.has_value()) {
+        const sf::Event& e = *event;
+        entityManager.handleEvents(e, ctx);
     }
 }
 
 void LevelChoiceState::update(float dt, GameContext& ctx) {
-    //TODO
+    entityManager.update(dt, ctx);
 }
 
 void LevelChoiceState::draw(sf::RenderWindow& window, GameContext& ctx) {
-    //TODO
-    window.clear(sf::Color::Cyan);
+    entityManager.draw(window, ctx);
 }

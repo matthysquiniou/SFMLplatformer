@@ -10,6 +10,7 @@ class Button : public Entity {
 
 public:
     Button(std::string t, SpriteComposite s, std::function<void(GameContext&)> action);
+    Button(SpriteComposite s, std::function<void(GameContext&)> action);
 
     void handleEvents(const sf::Event& e, GameContext& ctx) override;
 

@@ -3,17 +3,16 @@
 
 
 void SoundState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
-    //TODO
-    if (event->is<sf::Event::KeyPressed>()) {
-        ctx.currentState = GameState::LEVEL_CHOICE;
+    if (event.has_value()) {
+        const sf::Event& e = *event;
+        entityManager.handleEvents(e, ctx);
     }
 }
 
 void SoundState::update(float dt, GameContext& ctx) {
-    //TODO
+    entityManager.update(dt, ctx);
 }
 
 void SoundState::draw(sf::RenderWindow& window, GameContext& ctx) {
-    //TODO
-    window.clear(sf::Color::Red);
+    entityManager.draw(window, ctx);
 }

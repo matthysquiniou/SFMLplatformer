@@ -9,13 +9,15 @@
 
 class Game {
 public:
-    Game() : window(sf::VideoMode({ 1280, 720 }), "Platformer") {
+    Game() {
+        sf::Vector2u windowSize = { 1280, 720 };
+        window = sf::RenderWindow(sf::VideoMode(windowSize), "Platformer");
         window.setVerticalSyncEnabled(true);
-        ctx.menuState = std::make_unique<MenuState>();
+        ctx.menuState = std::make_unique<MenuState>(windowSize);
         ctx.playState = std::make_unique<PlayState>();
         ctx.pauseState = std::make_unique<PauseState>();
-        ctx.soundState = std::make_unique<SoundState>();
-        ctx.levelChoiceState = std::make_unique<LevelChoiceState>();
+        ctx.soundState = std::make_unique<SoundState>(windowSize);
+        ctx.levelChoiceState = std::make_unique<LevelChoiceState>(windowSize);
     }
 
     void run();

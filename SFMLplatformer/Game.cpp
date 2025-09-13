@@ -65,6 +65,10 @@ void Game::update(float dt) {
         ctx.levelChoiceState->update(dt, ctx);
         break;
 
+    case GameState::EXIT:
+        window.close();
+        break;
+
     default:
         break;
     }
