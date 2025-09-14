@@ -1,5 +1,7 @@
 #include "EntityFactory.hpp"
+#include "PlayState.hpp"
 #include "Assets.hpp"
+
 
 Text EntityFactory::makeText(std::string text, unsigned int size, sf::Vector2f pos) {
     return Text(text, size, pos);
@@ -8,7 +10,8 @@ Text EntityFactory::makeText(std::string text, unsigned int size, sf::Vector2f p
 Entity EntityFactory::makeVisual(const std::string& path, sf::Vector2f pos) {
     SpriteComposite sprite;
     sprite.addChild(path, false);
-    return Entity(std::move(sprite), pos);
+    sprite.setPosition(pos);
+    return Entity(sprite);
 }
 
 Button EntityFactory::makeTextButtonBlue(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
@@ -18,7 +21,7 @@ Button EntityFactory::makeTextButtonBlue(std::string text, sf::Vector2f pos, std
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, std::move(sprite), onClick);
+    return Button(text, sprite, onClick);
 }
 
 Button EntityFactory::makeTextButtonOrange(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
@@ -28,7 +31,7 @@ Button EntityFactory::makeTextButtonOrange(std::string text, sf::Vector2f pos, s
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, std::move(sprite), onClick);
+    return Button(text, sprite, onClick);
 }
 
 Button EntityFactory::makeTextButtonGreen(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
@@ -38,7 +41,27 @@ Button EntityFactory::makeTextButtonGreen(std::string text, sf::Vector2f pos, st
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, std::move(sprite), onClick);
+    return Button(text, sprite, onClick);
+}
+
+Button EntityFactory::makeTextButtonGrey(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::BUTTON_GREY_UP), false);
+    sprite.addChild(assetPath(AssetID::BUTTON_GREY_DOWN), false);
+    sprite.setVisible(1, false);
+    sprite.setPosition(pos);
+
+    return Button(text, sprite, onClick);
+}
+
+Button EntityFactory::makeTextButtonYellow(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::BUTTON_YELLOW_UP), false);
+    sprite.addChild(assetPath(AssetID::BUTTON_YELLOW_DOWN), false);
+    sprite.setVisible(1, false);
+    sprite.setPosition(pos);
+
+    return Button(text, sprite, onClick);
 }
 
 Button EntityFactory::makeLevelButton(unsigned int level, sf::Vector2f pos) {
@@ -257,10 +280,34 @@ Button EntityFactory::makeLevelButton(unsigned int level, sf::Vector2f pos) {
     sprite.setPosition(pos);
 
     return Button(
-        std::move(sprite),
+        sprite,
         [level](GameContext& ctx) {
-            ctx.currentState = GameState::PLAY;
             ctx.currentLevel = level;
+            ctx.playState->loadLevel(level);
+            ctx.currentState = GameState::PLAY;
         });
 
+}
+
+Player EntityFactory::makePlayer1(sf::Vector2f pos) {
+
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::MC_1_DOUBLE_JUMP),true,{32,32},6,0.1f,6,1);
+    sprite.addChild(assetPath(AssetID::MC_1_FALL), false);
+    sprite.addChild(assetPath(AssetID::MC_1_HIT), true, { 32,32 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::MC_1_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::MC_1_JUMP), false);
+    sprite.addChild(assetPath(AssetID::MC_1_RUN), true, { 32,32 }, 12, 0.1f, 12, 1);
+    sprite.addChild(assetPath(AssetID::MC_1_WALL_JUMP), true, { 32,32 }, 5, 0.1f, 5, 1);
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(2, false);
+    sprite.setVisible(4, false);
+    sprite.setVisible(5, false);
+    sprite.setVisible(6, false);
+
+    sprite.setPosition(pos);
+
+    return Player(sprite);
 }

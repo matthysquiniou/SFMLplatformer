@@ -139,6 +139,8 @@
     <ClCompile Include="LevelChoiceState.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PauseState.cpp" />
+    <ClCompile Include="PhysicEngine.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SFMLplatformer.cpp" />
     <ClCompile Include="SoundState.cpp" />
@@ -162,6 +164,8 @@
     <ClInclude Include="LevelChoiceState.hpp" />
     <ClInclude Include="MenuState.hpp" />
     <ClInclude Include="PauseState.hpp" />
+    <ClInclude Include="PhysicEngine.hpp" />
+    <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayState.hpp" />
     <ClInclude Include="SoundState.hpp" />
     <ClInclude Include="State.hpp" />

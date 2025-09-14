@@ -20,6 +20,8 @@ enum class AssetID {
     BUTTON_BLUE_DOWN,
     BUTTON_PINK_UP,
     BUTTON_PINK_DOWN,
+    BUTTON_GREY_UP,
+    BUTTON_GREY_DOWN,
     BUTTON_ORANGE_UP,
     BUTTON_ORANGE_DOWN,
     BUTTON_GREEN_UP,
@@ -184,6 +186,31 @@ enum class AssetID {
     WARN_BAR_LEFT,
     WARN_BAR_MIDDLE,
     WARN_BAR_RIGHT,
+
+    // MAIN CHARACTER
+    MC_1_DOUBLE_JUMP,
+    MC_1_FALL,
+    MC_1_HIT,
+    MC_1_IDLE,
+    MC_1_JUMP,
+    MC_1_RUN,
+    MC_1_WALL_JUMP,
+
+    MC_2_DOUBLE_JUMP,
+    MC_2_FALL,
+    MC_2_HIT,
+    MC_2_IDLE,
+    MC_2_JUMP,
+    MC_2_RUN,
+    MC_2_WALL_JUMP,
+
+    MC_3_DOUBLE_JUMP,
+    MC_3_FALL,
+    MC_3_HIT,
+    MC_3_IDLE,
+    MC_3_JUMP,
+    MC_3_RUN,
+    MC_3_WALL_JUMP
 };
 
 inline const std::string& assetPath(AssetID id) {
@@ -204,6 +231,8 @@ inline const std::string& assetPath(AssetID id) {
     static const std::string BUTTON_BLUE_DOWN_PATH = "assets/5 GUI/Buttons/Button_02.png";
     static const std::string BUTTON_PINK_UP_PATH = "assets/5 GUI/Buttons/Button_03.png";
     static const std::string BUTTON_PINK_DOWN_PATH = "assets/5 GUI/Buttons/Button_04.png";
+    static const std::string BUTTON_GREY_UP_PATH = "assets/5 GUI/Buttons/Button_05.png";
+    static const std::string BUTTON_GREY_DOWN_PATH = "assets/5 GUI/Buttons/Button_06.png";
     static const std::string BUTTON_ORANGE_UP_PATH = "assets/5 GUI/Buttons/Button_07.png";
     static const std::string BUTTON_ORANGE_DOWN_PATH = "assets/5 GUI/Buttons/Button_08.png";
     static const std::string BUTTON_GREEN_UP_PATH = "assets/5 GUI/Buttons/Button_09.png";
@@ -316,57 +345,82 @@ inline const std::string& assetPath(AssetID id) {
     static const std::string BUTTON_LEVEL_50_DOWN_PATH = "assets/5 GUI/Levels/2/2_50.png";
 
     //INTERFACE
-    static const std::string GREEN_FRAME_TOP_LEFT = "assets/5 GUI/Interface/Tile_01.png";
-    static const std::string GREEN_FRAME_TOP = "assets/5 GUI/Interface/Tile_02.png";
-    static const std::string GREEN_FRAME_TOP_RIGHT = "assets/5 GUI/Interface/Tile_03.png";
-    static const std::string GREEN_FRAME_LEFT = "assets/5 GUI/Interface/Tile_14.png";
-    static const std::string GREEN_FRAME_MIDDLE = "assets/5 GUI/Interface/Tile_15.png";
-    static const std::string GREEN_FRAME_RIGHT = "assets/5 GUI/Interface/Tile_16.png";
-    static const std::string GREEN_FRAME_BOTTOM_LEFT = "assets/5 GUI/Interface/Tile_27.png";
-    static const std::string GREEN_FRAME_BOTTOM = "assets/5 GUI/Interface/Tile_28.png";
-    static const std::string GREEN_FRAME_BOTTOM_RIGHT = "assets/5 GUI/Interface/Tile_29.png";
-    static const std::string GREEN_BAR_LEFT = "assets/5 GUI/Interface/Tile_11.png";
-    static const std::string GREEN_BAR_MIDDLE = "assets/5 GUI/Interface/Tile_12.png";
-    static const std::string GREEN_BAR_RIGHT = "assets/5 GUI/Interface/Tile_13.png";
+    static const std::string GREEN_FRAME_TOP_LEFT_PATH = "assets/5 GUI/Interface/Tile_01.png";
+    static const std::string GREEN_FRAME_TOP_PATH = "assets/5 GUI/Interface/Tile_02.png";
+    static const std::string GREEN_FRAME_TOP_RIGHT_PATH = "assets/5 GUI/Interface/Tile_03.png";
+    static const std::string GREEN_FRAME_LEFT_PATH = "assets/5 GUI/Interface/Tile_14.png";
+    static const std::string GREEN_FRAME_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_15.png";
+    static const std::string GREEN_FRAME_RIGHT_PATH = "assets/5 GUI/Interface/Tile_16.png";
+    static const std::string GREEN_FRAME_BOTTOM_LEFT_PATH = "assets/5 GUI/Interface/Tile_27.png";
+    static const std::string GREEN_FRAME_BOTTOM_PATH = "assets/5 GUI/Interface/Tile_28.png";
+    static const std::string GREEN_FRAME_BOTTOM_RIGHT_PATH = "assets/5 GUI/Interface/Tile_29.png";
+    static const std::string GREEN_BAR_LEFT_PATH = "assets/5 GUI/Interface/Tile_11.png";
+    static const std::string GREEN_BAR_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_12.png";
+    static const std::string GREEN_BAR_RIGHT_PATH = "assets/5 GUI/Interface/Tile_13.png";
 
-    static const std::string GRAY_FRAME_TOP_LEFT = "assets/5 GUI/Interface/Tile_06.png";
-    static const std::string GRAY_FRAME_TOP = "assets/5 GUI/Interface/Tile_07.png";
-    static const std::string GRAY_FRAME_TOP_RIGHT = "assets/5 GUI/Interface/Tile_08.png";
-    static const std::string GRAY_FRAME_LEFT = "assets/5 GUI/Interface/Tile_19.png";
-    static const std::string GRAY_FRAME_MIDDLE = "assets/5 GUI/Interface/Tile_20.png";
-    static const std::string GRAY_FRAME_RIGHT = "assets/5 GUI/Interface/Tile_21.png";
-    static const std::string GRAY_FRAME_BOTTOM_LEFT = "assets/5 GUI/Interface/Tile_32.png";
-    static const std::string GRAY_FRAME_BOTTOM = "assets/5 GUI/Interface/Tile_33.png";
-    static const std::string GRAY_FRAME_BOTTOM_RIGHT = "assets/5 GUI/Interface/Tile_34.png";
-    static const std::string GRAY_BAR_LEFT = "assets/5 GUI/Interface/Tile_24.png";
-    static const std::string GRAY_BAR_MIDDLE = "assets/5 GUI/Interface/Tile_25.png";
-    static const std::string GRAY_BAR_RIGHT = "assets/5 GUI/Interface/Tile_26.png";
+    static const std::string GRAY_FRAME_TOP_LEFT_PATH = "assets/5 GUI/Interface/Tile_06.png";
+    static const std::string GRAY_FRAME_TOP_PATH = "assets/5 GUI/Interface/Tile_07.png";
+    static const std::string GRAY_FRAME_TOP_RIGHT_PATH = "assets/5 GUI/Interface/Tile_08.png";
+    static const std::string GRAY_FRAME_LEFT_PATH = "assets/5 GUI/Interface/Tile_19.png";
+    static const std::string GRAY_FRAME_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_20.png";
+    static const std::string GRAY_FRAME_RIGHT_PATH = "assets/5 GUI/Interface/Tile_21.png";
+    static const std::string GRAY_FRAME_BOTTOM_LEFT_PATH = "assets/5 GUI/Interface/Tile_32.png";
+    static const std::string GRAY_FRAME_BOTTOM_PATH = "assets/5 GUI/Interface/Tile_33.png";
+    static const std::string GRAY_FRAME_BOTTOM_RIGHT_PATH = "assets/5 GUI/Interface/Tile_34.png";
+    static const std::string GRAY_BAR_LEFT_PATH = "assets/5 GUI/Interface/Tile_24.png";
+    static const std::string GRAY_BAR_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_25.png";
+    static const std::string GRAY_BAR_RIGHT_PATH = "assets/5 GUI/Interface/Tile_26.png";
 
-    static const std::string BRICK_FRAME_TOP_LEFT = "assets/5 GUI/Interface/Tile_40.png";
-    static const std::string BRICK_FRAME_TOP = "assets/5 GUI/Interface/Tile_41.png";
-    static const std::string BRICK_FRAME_TOP_RIGHT = "assets/5 GUI/Interface/Tile_42.png";
-    static const std::string BRICK_FRAME_LEFT = "assets/5 GUI/Interface/Tile_53.png";
-    static const std::string BRICK_FRAME_MIDDLE = "assets/5 GUI/Interface/Tile_54.png";
-    static const std::string BRICK_FRAME_RIGHT = "assets/5 GUI/Interface/Tile_55.png";
-    static const std::string BRICK_FRAME_BOTTOM_LEFT = "assets/5 GUI/Interface/Tile_66.png";
-    static const std::string BRICK_FRAME_BOTTOM = "assets/5 GUI/Interface/Tile_67.png";
-    static const std::string BRICK_FRAME_BOTTOM_RIGHT = "assets/5 GUI/Interface/Tile_68.png";
-    static const std::string BRICK_BAR_LEFT = "assets/5 GUI/Interface/Tile_37.png";
-    static const std::string BRICK_BAR_MIDDLE = "assets/5 GUI/Interface/Tile_38.png";
-    static const std::string BRICK_BAR_RIGHT = "assets/5 GUI/Interface/Tile_39.png";
+    static const std::string BRICK_FRAME_TOP_LEFT_PATH = "assets/5 GUI/Interface/Tile_40.png";
+    static const std::string BRICK_FRAME_TOP_PATH = "assets/5 GUI/Interface/Tile_41.png";
+    static const std::string BRICK_FRAME_TOP_RIGHT_PATH = "assets/5 GUI/Interface/Tile_42.png";
+    static const std::string BRICK_FRAME_LEFT_PATH = "assets/5 GUI/Interface/Tile_53.png";
+    static const std::string BRICK_FRAME_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_54.png";
+    static const std::string BRICK_FRAME_RIGHT_PATH = "assets/5 GUI/Interface/Tile_55.png";
+    static const std::string BRICK_FRAME_BOTTOM_LEFT_PATH = "assets/5 GUI/Interface/Tile_66.png";
+    static const std::string BRICK_FRAME_BOTTOM_PATH = "assets/5 GUI/Interface/Tile_67.png";
+    static const std::string BRICK_FRAME_BOTTOM_RIGHT_PATH = "assets/5 GUI/Interface/Tile_68.png";
+    static const std::string BRICK_BAR_LEFT_PATH = "assets/5 GUI/Interface/Tile_37.png";
+    static const std::string BRICK_BAR_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_38.png";
+    static const std::string BRICK_BAR_RIGHT_PATH = "assets/5 GUI/Interface/Tile_39.png";
 
-    static const std::string WARN_FRAME_TOP_LEFT = "assets/5 GUI/Interface/Tile_45.png";
-    static const std::string WARN_FRAME_TOP = "assets/5 GUI/Interface/Tile_46.png";
-    static const std::string WARN_FRAME_TOP_RIGHT = "assets/5 GUI/Interface/Tile_47.png";
-    static const std::string WARN_FRAME_LEFT = "assets/5 GUI/Interface/Tile_58.png";
-    static const std::string WARN_FRAME_MIDDLE = "assets/5 GUI/Interface/Tile_59.png";
-    static const std::string WARN_FRAME_RIGHT = "assets/5 GUI/Interface/Tile_60.png";
-    static const std::string WARN_FRAME_BOTTOM_LEFT = "assets/5 GUI/Interface/Tile_71.png";
-    static const std::string WARN_FRAME_BOTTOM = "assets/5 GUI/Interface/Tile_72.png";
-    static const std::string WARN_FRAME_BOTTOM_RIGHT = "assets/5 GUI/Interface/Tile_73.png";
-    static const std::string WARN_BAR_LEFT = "assets/5 GUI/Interface/Tile_50.png";
-    static const std::string WARN_BAR_MIDDLE = "assets/5 GUI/Interface/Tile_51.png";
-    static const std::string WARN_BAR_RIGHT = "assets/5 GUI/Interface/Tile_52.png";
+    static const std::string WARN_FRAME_TOP_LEFT_PATH = "assets/5 GUI/Interface/Tile_45.png";
+    static const std::string WARN_FRAME_TOP_PATH = "assets/5 GUI/Interface/Tile_46.png";
+    static const std::string WARN_FRAME_TOP_RIGHT_PATH = "assets/5 GUI/Interface/Tile_47.png";
+    static const std::string WARN_FRAME_LEFT_PATH = "assets/5 GUI/Interface/Tile_58.png";
+    static const std::string WARN_FRAME_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_59.png";
+    static const std::string WARN_FRAME_RIGHT_PATH = "assets/5 GUI/Interface/Tile_60.png";
+    static const std::string WARN_FRAME_BOTTOM_LEFT_PATH = "assets/5 GUI/Interface/Tile_71.png";
+    static const std::string WARN_FRAME_BOTTOM_PATH = "assets/5 GUI/Interface/Tile_72.png";
+    static const std::string WARN_FRAME_BOTTOM_RIGHT_PATH = "assets/5 GUI/Interface/Tile_73.png";
+    static const std::string WARN_BAR_LEFT_PATH = "assets/5 GUI/Interface/Tile_50.png";
+    static const std::string WARN_BAR_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_51.png";
+    static const std::string WARN_BAR_RIGHT_PATH = "assets/5 GUI/Interface/Tile_52.png";
+
+    // MAIN CHARACTER
+    static const std::string MC_1_DOUBLE_JUMP_PATH = "assets/1 Main Characters/1/Double_Jump.png";
+    static const std::string MC_1_FALL_PATH = "assets/1 Main Characters/1/Fall.png";
+    static const std::string MC_1_HIT_PATH = "assets/1 Main Characters/1/Hit.png";
+    static const std::string MC_1_IDLE_PATH = "assets/1 Main Characters/1/Idle.png";
+    static const std::string MC_1_JUMP_PATH = "assets/1 Main Characters/1/Jump.png";
+    static const std::string MC_1_RUN_PATH = "assets/1 Main Characters/1/Run.png";
+    static const std::string MC_1_WALL_JUMP_PATH = "assets/1 Main Characters/1/Wall_Jump.png";
+
+    static const std::string MC_2_DOUBLE_JUMP_PATH = "assets/1 Main Characters/2/Double_Jump.png";
+    static const std::string MC_2_FALL_PATH = "assets/1 Main Characters/2/Fall.png";
+    static const std::string MC_2_HIT_PATH = "assets/1 Main Characters/2/Hit.png";
+    static const std::string MC_2_IDLE_PATH = "assets/1 Main Characters/2/Idle.png";
+    static const std::string MC_2_JUMP_PATH = "assets/1 Main Characters/2/Jump.png";
+    static const std::string MC_2_RUN_PATH = "assets/1 Main Characters/2/Run.png";
+    static const std::string MC_2_WALL_JUMP_PATH = "assets/1 Main Characters/2/Wall_Jump.png";
+
+    static const std::string MC_3_DOUBLE_JUMP_PATH = "assets/1 Main Characters/3/Double_Jump.png";
+    static const std::string MC_3_FALL_PATH = "assets/1 Main Characters/3/Fall.png";
+    static const std::string MC_3_HIT_PATH = "assets/1 Main Characters/3/Hit.png";
+    static const std::string MC_3_IDLE_PATH = "assets/1 Main Characters/3/Idle.png";
+    static const std::string MC_3_JUMP_PATH = "assets/1 Main Characters/3/Jump.png";
+    static const std::string MC_3_RUN_PATH = "assets/1 Main Characters/3/Run.png";
+    static const std::string MC_3_WALL_JUMP_PATH = "assets/1 Main Characters/3/Wall_Jump.png";
 
     switch (id) {
 
@@ -386,6 +440,8 @@ inline const std::string& assetPath(AssetID id) {
     case AssetID::BUTTON_BLUE_DOWN: return BUTTON_BLUE_DOWN_PATH;
     case AssetID::BUTTON_PINK_UP:   return BUTTON_PINK_UP_PATH;
     case AssetID::BUTTON_PINK_DOWN: return BUTTON_PINK_DOWN_PATH;
+    case AssetID::BUTTON_GREY_UP:   return BUTTON_GREY_UP_PATH;
+    case AssetID::BUTTON_GREY_DOWN: return BUTTON_GREY_DOWN_PATH;
     case AssetID::BUTTON_ORANGE_UP:   return BUTTON_ORANGE_UP_PATH;
     case AssetID::BUTTON_ORANGE_DOWN: return BUTTON_ORANGE_DOWN_PATH;
     case AssetID::BUTTON_GREEN_UP:   return BUTTON_GREEN_UP_PATH;
@@ -498,57 +554,83 @@ inline const std::string& assetPath(AssetID id) {
     case AssetID::BUTTON_LEVEL_50_DOWN:return BUTTON_LEVEL_50_DOWN_PATH;
 
         //INTERFACE
-    case AssetID::GREEN_FRAME_TOP_LEFT:     return GREEN_FRAME_TOP_LEFT;
-    case AssetID::GREEN_FRAME_TOP:          return GREEN_FRAME_TOP;
-    case AssetID::GREEN_FRAME_TOP_RIGHT:    return GREEN_FRAME_TOP_RIGHT;
-    case AssetID::GREEN_FRAME_LEFT:         return GREEN_FRAME_LEFT;
-    case AssetID::GREEN_FRAME_MIDDLE:       return GREEN_FRAME_MIDDLE;
-    case AssetID::GREEN_FRAME_RIGHT:        return GREEN_FRAME_RIGHT;
-    case AssetID::GREEN_FRAME_BOTTOM_LEFT:  return GREEN_FRAME_BOTTOM_LEFT;
-    case AssetID::GREEN_FRAME_BOTTOM:       return GREEN_FRAME_BOTTOM;
-    case AssetID::GREEN_FRAME_BOTTOM_RIGHT: return GREEN_FRAME_BOTTOM_RIGHT;
-    case AssetID::GREEN_BAR_LEFT:           return GREEN_BAR_LEFT;
-    case AssetID::GREEN_BAR_MIDDLE:         return GREEN_BAR_MIDDLE;
-    case AssetID::GREEN_BAR_RIGHT:          return GREEN_BAR_RIGHT;
+    case AssetID::GREEN_FRAME_TOP_LEFT:     return GREEN_FRAME_TOP_LEFT_PATH;
+    case AssetID::GREEN_FRAME_TOP:          return GREEN_FRAME_TOP_PATH;
+    case AssetID::GREEN_FRAME_TOP_RIGHT:    return GREEN_FRAME_TOP_RIGHT_PATH;
+    case AssetID::GREEN_FRAME_LEFT:         return GREEN_FRAME_LEFT_PATH;
+    case AssetID::GREEN_FRAME_MIDDLE:       return GREEN_FRAME_MIDDLE_PATH;
+    case AssetID::GREEN_FRAME_RIGHT:        return GREEN_FRAME_RIGHT_PATH;
+    case AssetID::GREEN_FRAME_BOTTOM_LEFT:  return GREEN_FRAME_BOTTOM_LEFT_PATH;
+    case AssetID::GREEN_FRAME_BOTTOM:       return GREEN_FRAME_BOTTOM_PATH;
+    case AssetID::GREEN_FRAME_BOTTOM_RIGHT: return GREEN_FRAME_BOTTOM_RIGHT_PATH;
+    case AssetID::GREEN_BAR_LEFT:           return GREEN_BAR_LEFT_PATH;
+    case AssetID::GREEN_BAR_MIDDLE:         return GREEN_BAR_MIDDLE_PATH;
+    case AssetID::GREEN_BAR_RIGHT:          return GREEN_BAR_RIGHT_PATH;
 
-    case AssetID::GRAY_FRAME_TOP_LEFT:     return GRAY_FRAME_TOP_LEFT;
-    case AssetID::GRAY_FRAME_TOP:          return GRAY_FRAME_TOP;
-    case AssetID::GRAY_FRAME_TOP_RIGHT:    return GRAY_FRAME_TOP_RIGHT;
-    case AssetID::GRAY_FRAME_LEFT:         return GRAY_FRAME_LEFT;
-    case AssetID::GRAY_FRAME_MIDDLE:       return GRAY_FRAME_MIDDLE;
-    case AssetID::GRAY_FRAME_RIGHT:        return GRAY_FRAME_RIGHT;
-    case AssetID::GRAY_FRAME_BOTTOM_LEFT:  return GRAY_FRAME_BOTTOM_LEFT;
-    case AssetID::GRAY_FRAME_BOTTOM:       return GRAY_FRAME_BOTTOM;
-    case AssetID::GRAY_FRAME_BOTTOM_RIGHT: return GRAY_FRAME_BOTTOM_RIGHT;
-    case AssetID::GRAY_BAR_LEFT:           return GRAY_BAR_LEFT;
-    case AssetID::GRAY_BAR_MIDDLE:         return GRAY_BAR_MIDDLE;
-    case AssetID::GRAY_BAR_RIGHT:          return GRAY_BAR_RIGHT;
+    case AssetID::GRAY_FRAME_TOP_LEFT:     return GRAY_FRAME_TOP_LEFT_PATH;
+    case AssetID::GRAY_FRAME_TOP:          return GRAY_FRAME_TOP_PATH;
+    case AssetID::GRAY_FRAME_TOP_RIGHT:    return GRAY_FRAME_TOP_RIGHT_PATH;
+    case AssetID::GRAY_FRAME_LEFT:         return GRAY_FRAME_LEFT_PATH;
+    case AssetID::GRAY_FRAME_MIDDLE:       return GRAY_FRAME_MIDDLE_PATH;
+    case AssetID::GRAY_FRAME_RIGHT:        return GRAY_FRAME_RIGHT_PATH;
+    case AssetID::GRAY_FRAME_BOTTOM_LEFT:  return GRAY_FRAME_BOTTOM_LEFT_PATH;
+    case AssetID::GRAY_FRAME_BOTTOM:       return GRAY_FRAME_BOTTOM_PATH;
+    case AssetID::GRAY_FRAME_BOTTOM_RIGHT: return GRAY_FRAME_BOTTOM_RIGHT_PATH;
+    case AssetID::GRAY_BAR_LEFT:           return GRAY_BAR_LEFT_PATH;
+    case AssetID::GRAY_BAR_MIDDLE:         return GRAY_BAR_MIDDLE_PATH;
+    case AssetID::GRAY_BAR_RIGHT:          return GRAY_BAR_RIGHT_PATH;
 
-    case AssetID::BRICK_FRAME_TOP_LEFT:     return BRICK_FRAME_TOP_LEFT;
-    case AssetID::BRICK_FRAME_TOP:          return BRICK_FRAME_TOP;
-    case AssetID::BRICK_FRAME_TOP_RIGHT:    return BRICK_FRAME_TOP_RIGHT;
-    case AssetID::BRICK_FRAME_LEFT:         return BRICK_FRAME_LEFT;
-    case AssetID::BRICK_FRAME_MIDDLE:       return BRICK_FRAME_MIDDLE;
-    case AssetID::BRICK_FRAME_RIGHT:        return BRICK_FRAME_RIGHT;
-    case AssetID::BRICK_FRAME_BOTTOM_LEFT:  return BRICK_FRAME_BOTTOM_LEFT;
-    case AssetID::BRICK_FRAME_BOTTOM:       return BRICK_FRAME_BOTTOM;
-    case AssetID::BRICK_FRAME_BOTTOM_RIGHT: return BRICK_FRAME_BOTTOM_RIGHT;
-    case AssetID::BRICK_BAR_LEFT:           return BRICK_BAR_LEFT;
-    case AssetID::BRICK_BAR_MIDDLE:         return BRICK_BAR_MIDDLE;
-    case AssetID::BRICK_BAR_RIGHT:          return BRICK_BAR_RIGHT;
+    case AssetID::BRICK_FRAME_TOP_LEFT:     return BRICK_FRAME_TOP_LEFT_PATH;
+    case AssetID::BRICK_FRAME_TOP:          return BRICK_FRAME_TOP_PATH;
+    case AssetID::BRICK_FRAME_TOP_RIGHT:    return BRICK_FRAME_TOP_RIGHT_PATH;
+    case AssetID::BRICK_FRAME_LEFT:         return BRICK_FRAME_LEFT_PATH;
+    case AssetID::BRICK_FRAME_MIDDLE:       return BRICK_FRAME_MIDDLE_PATH;
+    case AssetID::BRICK_FRAME_RIGHT:        return BRICK_FRAME_RIGHT_PATH;
+    case AssetID::BRICK_FRAME_BOTTOM_LEFT:  return BRICK_FRAME_BOTTOM_LEFT_PATH;
+    case AssetID::BRICK_FRAME_BOTTOM:       return BRICK_FRAME_BOTTOM_PATH;
+    case AssetID::BRICK_FRAME_BOTTOM_RIGHT: return BRICK_FRAME_BOTTOM_RIGHT_PATH;
+    case AssetID::BRICK_BAR_LEFT:           return BRICK_BAR_LEFT_PATH;
+    case AssetID::BRICK_BAR_MIDDLE:         return BRICK_BAR_MIDDLE_PATH;
+    case AssetID::BRICK_BAR_RIGHT:          return BRICK_BAR_RIGHT_PATH;
 
-    case AssetID::WARN_FRAME_TOP_LEFT:     return WARN_FRAME_TOP_LEFT;
-    case AssetID::WARN_FRAME_TOP:          return WARN_FRAME_TOP;
-    case AssetID::WARN_FRAME_TOP_RIGHT:    return WARN_FRAME_TOP_RIGHT;
-    case AssetID::WARN_FRAME_LEFT:         return WARN_FRAME_LEFT;
-    case AssetID::WARN_FRAME_MIDDLE:       return WARN_FRAME_MIDDLE;
-    case AssetID::WARN_FRAME_RIGHT:        return WARN_FRAME_RIGHT;
-    case AssetID::WARN_FRAME_BOTTOM_LEFT:  return WARN_FRAME_BOTTOM_LEFT;
-    case AssetID::WARN_FRAME_BOTTOM:       return WARN_FRAME_BOTTOM;
-    case AssetID::WARN_FRAME_BOTTOM_RIGHT: return WARN_FRAME_BOTTOM_RIGHT;
-    case AssetID::WARN_BAR_LEFT:           return WARN_BAR_LEFT;
-    case AssetID::WARN_BAR_MIDDLE:         return WARN_BAR_MIDDLE;
-    case AssetID::WARN_BAR_RIGHT:          return WARN_BAR_RIGHT;
+    case AssetID::WARN_FRAME_TOP_LEFT:     return WARN_FRAME_TOP_LEFT_PATH;
+    case AssetID::WARN_FRAME_TOP:          return WARN_FRAME_TOP_PATH;
+    case AssetID::WARN_FRAME_TOP_RIGHT:    return WARN_FRAME_TOP_RIGHT_PATH;
+    case AssetID::WARN_FRAME_LEFT:         return WARN_FRAME_LEFT_PATH;
+    case AssetID::WARN_FRAME_MIDDLE:       return WARN_FRAME_MIDDLE_PATH;
+    case AssetID::WARN_FRAME_RIGHT:        return WARN_FRAME_RIGHT_PATH;
+    case AssetID::WARN_FRAME_BOTTOM_LEFT:  return WARN_FRAME_BOTTOM_LEFT_PATH;
+    case AssetID::WARN_FRAME_BOTTOM:       return WARN_FRAME_BOTTOM_PATH;
+    case AssetID::WARN_FRAME_BOTTOM_RIGHT: return WARN_FRAME_BOTTOM_RIGHT_PATH;
+    case AssetID::WARN_BAR_LEFT:           return WARN_BAR_LEFT_PATH;
+    case AssetID::WARN_BAR_MIDDLE:         return WARN_BAR_MIDDLE_PATH;
+    case AssetID::WARN_BAR_RIGHT:          return WARN_BAR_RIGHT_PATH;
+
+        // MAIN CHARACTER
+    case AssetID::MC_1_DOUBLE_JUMP:          return MC_1_DOUBLE_JUMP_PATH;
+    case AssetID::MC_1_FALL:          return MC_1_FALL_PATH;
+    case AssetID::MC_1_HIT:          return MC_1_HIT_PATH;
+    case AssetID::MC_1_IDLE:          return MC_1_IDLE_PATH;
+    case AssetID::MC_1_JUMP:          return MC_1_JUMP_PATH;
+    case AssetID::MC_1_RUN:          return MC_1_RUN_PATH;
+    case AssetID::MC_1_WALL_JUMP:          return MC_1_WALL_JUMP_PATH;
+
+    case AssetID::MC_2_DOUBLE_JUMP:          return MC_2_DOUBLE_JUMP_PATH;
+    case AssetID::MC_2_FALL:          return MC_2_FALL_PATH;
+    case AssetID::MC_2_HIT:          return MC_2_HIT_PATH;
+    case AssetID::MC_2_IDLE:          return MC_2_IDLE_PATH;
+    case AssetID::MC_2_JUMP:          return MC_2_JUMP_PATH;
+    case AssetID::MC_2_RUN:          return MC_2_RUN_PATH;
+    case AssetID::MC_2_WALL_JUMP:          return MC_2_WALL_JUMP_PATH;
+
+    case AssetID::MC_3_DOUBLE_JUMP:          return MC_3_DOUBLE_JUMP_PATH;
+    case AssetID::MC_3_FALL:          return MC_3_FALL_PATH;
+    case AssetID::MC_3_HIT:          return MC_3_HIT_PATH;
+    case AssetID::MC_3_IDLE:          return MC_3_IDLE_PATH;
+    case AssetID::MC_3_JUMP:          return MC_3_JUMP_PATH;
+    case AssetID::MC_3_RUN:          return MC_3_RUN_PATH;
+    case AssetID::MC_3_WALL_JUMP:          return MC_3_WALL_JUMP_PATH;
+
     }
 
     static const std::string EMPTY = "";

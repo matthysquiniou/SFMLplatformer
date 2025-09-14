@@ -3,17 +3,26 @@
 
 
 void PauseState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
-    //TODO
-    if (event->is<sf::Event::KeyPressed>()) {
-        ctx.currentState = GameState::SOUND;
+    if (event.has_value()) {
+        const sf::Event& e = *event;
+
+        if (e.is<sf::Event::KeyPressed>())
+        {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+                ctx.currentState = GameState::PLAY;
+                return;
+            }
+        }
+
+        entityManager.handleEvents(e, ctx);
     }
 }
 
 void PauseState::update(float dt, GameContext& ctx) {
-    //TODO
+    entityManager.update(dt, ctx);
 }
 
 void PauseState::draw(sf::RenderWindow& window, GameContext& ctx) {
-    //TODO
-    window.clear(sf::Color::Yellow);
+    window.draw(overlay);
+    entityManager.draw(window, ctx);
 }

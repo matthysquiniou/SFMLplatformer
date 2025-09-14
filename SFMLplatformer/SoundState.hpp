@@ -49,17 +49,17 @@ public:
 
         // TITLE 
 
-        sf::Vector2f titlePos = { framePos.x + frameSize.x / 2, framePos.y + 50.f };
+        sf::Vector2f titlePos = { framePos.x + frameSize.x / 2, framePos.y + (frameSize.y / 6) };
 
         entityManager.addEntity<Text>(EntityFactory::makeText("SOUND", 40, titlePos));
 
         // RETURN MENU BUTTON
 
-        sf::Vector2f returnMenuPos = { framePos.x + 50.f, framePos.y + 50.f };
+        sf::Vector2f buttonMenuPos = { framePos.x + frameSize.x / 3, framePos.y + (frameSize.y / 6) * 5 };
 
-        entityManager.addEntity<Button>(EntityFactory::makeTextButtonGreen(
+        entityManager.addEntity<Button>(EntityFactory::makeTextButtonGrey(
             "MENU",
-            returnMenuPos,
+            buttonMenuPos,
             [](GameContext& ctx) {
                 ctx.currentState = GameState::MENU;
             })
@@ -74,6 +74,8 @@ public:
     void update(float dt, GameContext& ctx) override;
 
     void draw(sf::RenderWindow& window, GameContext& ctx) override;
+
+private:
 
     EntityManager entityManager;
 };

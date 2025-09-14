@@ -87,6 +87,7 @@ void Game::draw() {
         break;
 
     case GameState::PAUSE:
+        ctx.playState->draw(window, ctx);
         ctx.pauseState->draw(window, ctx);
         break;
 

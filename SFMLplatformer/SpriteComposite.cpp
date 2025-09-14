@@ -47,9 +47,13 @@ void SpriteComposite::setAnimationActive(std::size_t index, bool active) {
     }
 }
 
+void SpriteComposite::resetAnimation(std::size_t index) {
+    if (index < m_children.size() && m_children[index].anim) m_children[index].anim->reset();
+}
+
 bool SpriteComposite::isAnimationGoing() {
     for (auto& child : m_children) {
-        if (child.animActive) return true;
+        if (child.animActive && child.visible) return true;
     }
     return false;
 }

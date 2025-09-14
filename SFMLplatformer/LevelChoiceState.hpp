@@ -97,5 +97,6 @@ public:
 
     void draw(sf::RenderWindow& window, GameContext& ctx) override;
 
+private:
     EntityManager entityManager;
 };

@@ -1,5 +1,4 @@
 #include "Button.hpp"
-#include <iostream>
 
 Button::Button(std::string t, SpriteComposite s, std::function<void(GameContext&)> action) :
     Entity(std::move(s)),

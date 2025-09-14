@@ -14,8 +14,8 @@ public:
         window = sf::RenderWindow(sf::VideoMode(windowSize), "Platformer");
         window.setVerticalSyncEnabled(true);
         ctx.menuState = std::make_unique<MenuState>(windowSize);
-        ctx.playState = std::make_unique<PlayState>();
-        ctx.pauseState = std::make_unique<PauseState>();
+        ctx.playState = std::make_unique<PlayState>(windowSize);
+        ctx.pauseState = std::make_unique<PauseState>(windowSize);
         ctx.soundState = std::make_unique<SoundState>(windowSize);
         ctx.levelChoiceState = std::make_unique<LevelChoiceState>(windowSize);
     }

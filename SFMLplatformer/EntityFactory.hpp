@@ -2,6 +2,7 @@
 #include "Entity.hpp"
 #include "Button.hpp"
 #include "Text.hpp"
+#include "Player.hpp"
 
 class EntityFactory {
 public:
@@ -15,5 +16,11 @@ public:
 
     static Button makeTextButtonGreen(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick);
 
+    static Button makeTextButtonGrey(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick);
+
+    static Button makeTextButtonYellow(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick);
+
     static Button makeLevelButton(unsigned int level, sf::Vector2f pos);
+
+    static Player makePlayer1(sf::Vector2f pos);
 };

@@ -33,6 +33,7 @@ public:
     void setVisible(std::size_t index, bool visible);
     void setAnimationActive(std::size_t index, bool active);
     bool isAnimationGoing();
+    void resetAnimation(std::size_t index);
     void update(float dt);
     void stopAnimationAfterLoop(std::size_t index, bool visibleToggle = false);
     sf::FloatRect getGlobalBounds() const;
