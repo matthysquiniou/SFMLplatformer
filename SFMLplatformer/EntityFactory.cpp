@@ -3,68 +3,68 @@
 #include "Assets.hpp"
 
 
-Text EntityFactory::makeText(std::string text, unsigned int size, sf::Vector2f pos) {
-    return Text(text, size, pos);
+std::shared_ptr <Text> EntityFactory::makeText(std::string text, unsigned int size, sf::Vector2f pos) {
+    return std::make_shared<Text>(text, size, pos);
 }
 
-Entity EntityFactory::makeVisual(const std::string& path, sf::Vector2f pos) {
+std::shared_ptr <Entity> EntityFactory::makeVisual(const std::string& path, sf::Vector2f pos) {
     SpriteComposite sprite;
     sprite.addChild(path, false);
     sprite.setPosition(pos);
-    return Entity(sprite);
+    return std::make_shared<Entity>(sprite);
 }
 
-Button EntityFactory::makeTextButtonBlue(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
+std::shared_ptr <Button> EntityFactory::makeTextButtonBlue(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick, sf::View& view) {
     SpriteComposite sprite;
     sprite.addChild(assetPath(AssetID::BUTTON_BLUE_UP), false);
     sprite.addChild(assetPath(AssetID::BUTTON_BLUE_DOWN), false);
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, sprite, onClick);
+    return std::make_shared<Button>(text, sprite, onClick, view);
 }
 
-Button EntityFactory::makeTextButtonOrange(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
+std::shared_ptr <Button> EntityFactory::makeTextButtonOrange(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick, sf::View& view) {
     SpriteComposite sprite;
     sprite.addChild(assetPath(AssetID::BUTTON_ORANGE_UP), false);
     sprite.addChild(assetPath(AssetID::BUTTON_ORANGE_DOWN), false);
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, sprite, onClick);
+    return std::make_shared<Button>(text, sprite, onClick, view);
 }
 
-Button EntityFactory::makeTextButtonGreen(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
+std::shared_ptr <Button> EntityFactory::makeTextButtonGreen(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick, sf::View& view) {
     SpriteComposite sprite;
     sprite.addChild(assetPath(AssetID::BUTTON_GREEN_UP), false);
     sprite.addChild(assetPath(AssetID::BUTTON_GREEN_DOWN), false);
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, sprite, onClick);
+    return std::make_shared<Button>(text, sprite, onClick, view);
 }
 
-Button EntityFactory::makeTextButtonGrey(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
+std::shared_ptr <Button> EntityFactory::makeTextButtonGrey(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick, sf::View& view) {
     SpriteComposite sprite;
     sprite.addChild(assetPath(AssetID::BUTTON_GREY_UP), false);
     sprite.addChild(assetPath(AssetID::BUTTON_GREY_DOWN), false);
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, sprite, onClick);
+    return std::make_shared<Button>(text, sprite, onClick, view);
 }
 
-Button EntityFactory::makeTextButtonYellow(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick) {
+std::shared_ptr <Button> EntityFactory::makeTextButtonYellow(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick, sf::View& view) {
     SpriteComposite sprite;
     sprite.addChild(assetPath(AssetID::BUTTON_YELLOW_UP), false);
     sprite.addChild(assetPath(AssetID::BUTTON_YELLOW_DOWN), false);
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(text, sprite, onClick);
+    return std::make_shared<Button>(text, sprite, onClick, view);
 }
 
-Button EntityFactory::makeLevelButton(unsigned int level, sf::Vector2f pos) {
+std::shared_ptr <Button> EntityFactory::makeLevelButton(unsigned int level, sf::Vector2f pos, sf::View& view) {
     SpriteComposite sprite;
 
     switch (level)
@@ -279,17 +279,18 @@ Button EntityFactory::makeLevelButton(unsigned int level, sf::Vector2f pos) {
     sprite.setVisible(1, false);
     sprite.setPosition(pos);
 
-    return Button(
+    return std::make_shared<Button>(
         sprite,
         [level](GameContext& ctx) {
             ctx.currentLevel = level;
             ctx.playState->loadLevel(level);
             ctx.currentState = GameState::PLAY;
-        });
+        },
+        view);
 
 }
 
-Player EntityFactory::makePlayer1(sf::Vector2f pos) {
+std::shared_ptr <Player> EntityFactory::makePlayer1(sf::Vector2f pos, sf::View& view) {
 
     SpriteComposite sprite;
     sprite.addChild(assetPath(AssetID::MC_1_DOUBLE_JUMP),true,{32,32},6,0.1f,6,1);
@@ -309,5 +310,35 @@ Player EntityFactory::makePlayer1(sf::Vector2f pos) {
 
     sprite.setPosition(pos);
 
-    return Player(sprite);
+    return std::make_shared<Player>(sprite, view);
+}
+
+std::shared_ptr <Platform> EntityFactory::makePlatform(sf::Vector2f pos, const std::string& path, bool hasColision, sf::FloatRect box, bool flipX, bool flipY) {
+    SpriteComposite sprite;
+    sprite.addChild(path, false);
+
+    sprite.flipX = flipX;
+    sprite.flipY = flipY;
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Platform>(sprite,box, hasColision);
+}
+
+std::shared_ptr <EnemyCactus> EntityFactory::makeEnemyCactus(sf::Vector2f pos) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::MC_1_FALL), false);
+    sprite.addChild(assetPath(AssetID::MC_1_HIT), true, { 32,32 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::MC_1_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::MC_1_JUMP), false);
+    sprite.addChild(assetPath(AssetID::MC_1_RUN), true, { 32,32 }, 12, 0.1f, 12, 1);
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(3, false);
+    sprite.setVisible(4, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<EnemyCactus>(sprite);
 }

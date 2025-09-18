@@ -64,7 +64,7 @@ void SpriteComposite::update(float dt) {
         if (child.anim) {
             bool finishedLoop = false;
             if (child.animActive) finishedLoop = child.anim->update(dt);
-            child.sprite->setTextureRect(child.anim->getRect());
+            child.sprite->setRect(child.anim->getRect());
 
             if (child.stopAfterCurrentLoop && finishedLoop) {
                 child.animActive = false;

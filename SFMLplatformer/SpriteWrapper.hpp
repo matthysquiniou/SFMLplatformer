@@ -9,7 +9,7 @@ public:
     sf::Sprite& get();
     const sf::Sprite& get() const;
 
-    void setTextureRect(const sf::IntRect& rect);
+    void setRect(const sf::IntRect& rect);
 
 private:
     static sf::Sprite initSprite(sf::Texture& tex, const std::string& path);

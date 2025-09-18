@@ -77,6 +77,8 @@ void Game::update(float dt) {
 void Game::draw() {
     window.clear();
 
+    window.setView(view);
+
     switch (ctx.currentState) {
     case GameState::MENU:
         ctx.menuState->draw(window, ctx);

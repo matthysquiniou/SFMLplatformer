@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayState.hpp"
+#include "PauseState.hpp"
 
 void PlayState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
     if (event.has_value()) {
@@ -8,6 +9,7 @@ void PlayState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
         if (e.is<sf::Event::KeyPressed>())
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+                ctx.pauseState->loadPause();
                 ctx.currentState = GameState::PAUSE;
                 return;
             }
@@ -19,6 +21,7 @@ void PlayState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
 
 void PlayState::update(float dt, GameContext& ctx) {
     entityManager.update(dt, ctx);
+    Collision::processAll();
 }
 
 void PlayState::draw(sf::RenderWindow& window, GameContext& ctx) {
@@ -43,19 +46,32 @@ void PlayState::loadLevelBase(unsigned int levelBase) {
     switch (levelBase)
     {
     case 0:
-        entityManager.addEntity<Player>(EntityFactory::makePlayer1({ 100.f,500.f }));
+        entityManager.addEntity(EntityFactory::makePlayer1({ 100.f,500.f },view));
+        for (int i = 0; i < 50; i++) {
+            entityManager.addEntity(EntityFactory::makePlatform({ i * 16.f, 550.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
+        }
+
+        for (int i = 60; i < 150; i++) {
+            entityManager.addEntity(EntityFactory::makePlatform({ i * 16.f, 550.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
+        }
+
+        for (int i = 0; i < 6; i++) {
+            entityManager.addEntity(EntityFactory::makePlatform({ 200.f + i * 16.f, 450.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
+        }
+
+        for (int j = 0; j < 12; j++) {
+            entityManager.addEntity(EntityFactory::makePlatform({ 600.f, 534.f - j * 16.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
+        }
+
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 600.f,400.f }));
         break;
     case 1:
-        entityManager.addEntity<Player>(EntityFactory::makePlayer1({ 100.f,500.f }));
         break;
     case 2:
-        entityManager.addEntity<Player>(EntityFactory::makePlayer1({ 100.f,500.f }));
         break;
     case 3:
-        entityManager.addEntity<Player>(EntityFactory::makePlayer1({ 100.f,500.f }));
         break;
     case 4:
-        entityManager.addEntity<Player>(EntityFactory::makePlayer1({ 100.f,500.f }));
         break;
     default:
         break;

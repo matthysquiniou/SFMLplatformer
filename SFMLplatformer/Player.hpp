@@ -1,24 +1,33 @@
 #pragma once
 #include "Entity.hpp"
-#include "Assets.hpp"
 #include "PhysicEngine.hpp"
+#include "BoxManager.hpp"
 #include <functional>
 #include <cmath>
 
-enum PlayerAnimation {
-	DOUBLE_JUMP = 0,
-	FALL = 1,
-	HIT = 2,
-	IDLE = 3,
-	JUMP = 4,
-	RUN = 5,
-	WALL_JUMP = 6
-};
+
 
 class Player : public Entity {
 
+	struct PendingCollision {
+		Entity* other;
+		Box myBox;
+		Box otherBox;
+		sf::FloatRect intersection;
+	};
+
+	enum PlayerAnimation {
+		DOUBLE_JUMP = 0,
+		FALL = 1,
+		HIT = 2,
+		IDLE = 3,
+		JUMP = 4,
+		RUN = 5,
+		WALL_JUMP = 6
+	};
+
 public:
-    Player(SpriteComposite s) : Entity(std::move(s)) {}
+	Player(SpriteComposite s, sf::View& view);
 
     void handleEvents(const sf::Event& e, GameContext& ctx) override;
 
@@ -26,9 +35,15 @@ public:
 
     void draw(sf::RenderWindow& window, GameContext& ctx) override;
 
+	EntityType getType() override;
+
+	void onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) override;
+
+	void doCollision();
+
 	void switchAnimation(PlayerAnimation newAnimation);
 
-	bool isGrounded = true;
+	bool isGrounded = false;
 
 	bool doubleJumpUsed = false;
 
@@ -50,4 +65,10 @@ private:
 	PlayerAnimation activeAnimation = PlayerAnimation::IDLE;
 
 	PhysicEngine physicEngine;
+
+	BoxManager boxManager;
+
+	std::vector<PendingCollision> pendingCollisions;
+
+	sf::View& view;
 };

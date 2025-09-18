@@ -13,7 +13,7 @@ const sf::Sprite& SpriteWrapper::get() const {
     return m_sprite;
 }
 
-void SpriteWrapper::setTextureRect(const sf::IntRect& rect) {
+void SpriteWrapper::setRect(const sf::IntRect& rect) {
     m_sprite.setTextureRect(rect);
 }
 

@@ -2,10 +2,11 @@
 #include "State.hpp"
 #include "EntityManager.hpp"
 #include "EntityFactory.hpp"
+#include "Collision.hpp"
 
 class PlayState : public State {
 public:
-    PlayState(sf::Vector2u windowSize) : windowSize(windowSize) {}
+    PlayState(sf::Vector2u windowSize, sf::View& view) : windowSize(windowSize), view(view) {}
 
     void handleEvents(std::optional<sf::Event> event, GameContext& ctx) override;
 
@@ -23,4 +24,6 @@ private:
     EntityManager entityManager;
 
     sf::Vector2u windowSize;
+
+    sf::View& view;
 };

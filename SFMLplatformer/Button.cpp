@@ -1,6 +1,7 @@
 #include "Button.hpp"
+#include "Assets.hpp"
 
-Button::Button(std::string t, SpriteComposite s, std::function<void(GameContext&)> action) :
+Button::Button(std::string t, SpriteComposite s, std::function<void(GameContext&)> action, sf::View& view) :
     Entity(std::move(s)),
     onClick(std::move(action)),
     text(getMainFont(), t, 24)
@@ -10,13 +11,16 @@ Button::Button(std::string t, SpriteComposite s, std::function<void(GameContext&
     textPos.x += 50.f;
     textPos.y -= 5.5f;
     text.setPosition(textPos);
+    viewOffset = { view.getCenter().x - (view.getSize().x / 2), view.getCenter().y - (view.getSize().y / 2) };
 }
 
-Button::Button(SpriteComposite s, std::function<void(GameContext&)> action) :
+Button::Button(SpriteComposite s, std::function<void(GameContext&)> action, sf::View& view) :
     Entity(std::move(s)),
     onClick(std::move(action)),
     text(getMainFont(), "")
-{}
+{
+    viewOffset = { view.getCenter().x - (view.getSize().x/2), view.getCenter().y - (view.getSize().y / 2) };
+}
 
 void Button::handleEvents(const sf::Event& e, GameContext& ctx) {
     if (const auto* mouseMove = e.getIf<sf::Event::MouseMoved>()) {
@@ -25,10 +29,10 @@ void Button::handleEvents(const sf::Event& e, GameContext& ctx) {
 
         if (!text.getString().isEmpty()) {
             sf::FloatRect textBounds = text.getGlobalBounds();
-            unionBounds.position.x = std::min(spriteBounds.position.x, textBounds.position.x);
-            unionBounds.position.y = std::min(spriteBounds.position.y, textBounds.position.y);
-            unionBounds.size.x = std::max(spriteBounds.position.x + spriteBounds.size.x, textBounds.position.x + textBounds.size.x) - unionBounds.position.x;
-            unionBounds.size.y = std::max(spriteBounds.position.y + spriteBounds.size.y, textBounds.position.y + textBounds.size.y) - unionBounds.position.y;
+            unionBounds.position.x = std::min(spriteBounds.position.x - viewOffset.x, textBounds.position.x - viewOffset.x);
+            unionBounds.position.y = std::min(spriteBounds.position.y - viewOffset.y, textBounds.position.y - viewOffset.y);
+            unionBounds.size.x = std::max(spriteBounds.position.x - viewOffset.x + spriteBounds.size.x, textBounds.position.x - viewOffset.x + textBounds.size.x) - unionBounds.position.x;
+            unionBounds.size.y = std::max(spriteBounds.position.y - viewOffset.y + spriteBounds.size.y, textBounds.position.y - viewOffset.y + textBounds.size.y) - unionBounds.position.y;
         }
 
         hovered = unionBounds.contains({ (float)mouseMove->position.x, (float)mouseMove->position.y });

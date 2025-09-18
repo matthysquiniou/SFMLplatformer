@@ -5,14 +5,14 @@
 
 class LevelChoiceState : public State {
 public:
-    LevelChoiceState(sf::Vector2u windowSize) {
+    LevelChoiceState(sf::Vector2u windowSize, sf::View& view) {
         // BACKGROUND
 
         for (float x = 0.f; x < windowSize.x; x += 64.f)
         {
             for (float y = 0.f; y < windowSize.y; y += 64.f)
             {
-                entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::BG_GREEN), { x, y }));
+                entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::BG_GREEN), { x, y }));
             }
         }
 
@@ -26,24 +26,24 @@ public:
 
         const float tile = 16.f;
 
-        entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_TOP_LEFT), framePos));
-        entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_TOP_RIGHT), { framePos.x + frameSize.x - tile, framePos.y }));
-        entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_BOTTOM_LEFT), { framePos.x, framePos.y + frameSize.y - tile }));
-        entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_BOTTOM_RIGHT), { framePos.x + frameSize.x - tile, framePos.y + frameSize.y - tile }));
+        entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_TOP_LEFT), framePos));
+        entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_TOP_RIGHT), { framePos.x + frameSize.x - tile, framePos.y }));
+        entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_BOTTOM_LEFT), { framePos.x, framePos.y + frameSize.y - tile }));
+        entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_BOTTOM_RIGHT), { framePos.x + frameSize.x - tile, framePos.y + frameSize.y - tile }));
         
         for (float x = framePos.x + tile; x < framePos.x + frameSize.x - tile; x += tile) {
-            entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_TOP), { x, framePos.y }));
-            entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_BOTTOM), { x, framePos.y + frameSize.y - tile }));
+            entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_TOP), { x, framePos.y }));
+            entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_BOTTOM), { x, framePos.y + frameSize.y - tile }));
         }
 
         for (float y = framePos.y + tile; y < framePos.y + frameSize.y - tile; y += tile) {
-            entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_LEFT), { framePos.x, y }));
-            entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_RIGHT), { framePos.x + frameSize.x - tile, y }));
+            entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_LEFT), { framePos.x, y }));
+            entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_RIGHT), { framePos.x + frameSize.x - tile, y }));
         }
 
         for (float x = framePos.x + tile; x < framePos.x + frameSize.x - tile; x += tile) {
             for (float y = framePos.y + tile; y < framePos.y + frameSize.y - tile; y += tile) {
-                entityManager.addEntity<Entity>(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_MIDDLE), { x, y }));
+                entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::GREEN_FRAME_MIDDLE), { x, y }));
             }
         }
 
@@ -51,18 +51,19 @@ public:
 
         sf::Vector2f titlePos = { framePos.x + frameSize.x / 2, framePos.y + 50.f };
 
-        entityManager.addEntity<Text>(EntityFactory::makeText("LEVELS", 40, titlePos));
+        entityManager.addEntity(EntityFactory::makeText("LEVELS", 40, titlePos));
 
         // RETURN MENU BUTTON
 
         sf::Vector2f returnMenuPos = { framePos.x + 50.f, framePos.y + 50.f };
 
-        entityManager.addEntity<Button>(EntityFactory::makeTextButtonGreen(
+        entityManager.addEntity(EntityFactory::makeTextButtonGreen(
             "MENU",
             returnMenuPos,
             [](GameContext& ctx) {
                 ctx.currentState = GameState::MENU;
-            })
+            },
+            view)
         );
 
         // LEVEL BUTTON
@@ -84,8 +85,8 @@ public:
                 startLevelButtonPos.y + row * buttonSpacingY
             };
 
-            entityManager.addEntity<Button>(
-                EntityFactory::makeLevelButton(i, buttonPos)
+            entityManager.addEntity(
+                EntityFactory::makeLevelButton(i, buttonPos, view)
             );
         }
 

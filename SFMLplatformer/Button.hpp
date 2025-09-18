@@ -1,16 +1,11 @@
 #pragma once
 #include "Entity.hpp"
-#include "Assets.hpp"
 #include <functional>
 
 class Button : public Entity {
-    std::function<void(GameContext&)> onClick;
-    bool hovered = false;
-
-
 public:
-    Button(std::string t, SpriteComposite s, std::function<void(GameContext&)> action);
-    Button(SpriteComposite s, std::function<void(GameContext&)> action);
+    Button(std::string t, SpriteComposite s, std::function<void(GameContext&)> action, sf::View& view);
+    Button(SpriteComposite s, std::function<void(GameContext&)> action, sf::View& view);
 
     void handleEvents(const sf::Event& e, GameContext& ctx) override;
 
@@ -20,4 +15,9 @@ public:
 
 private:
     sf::Text text;
+    sf::Vector2f viewOffset;
+
+    std::function<void(GameContext&)> onClick;
+    bool hovered = false;
+
 };

@@ -104,12 +104,14 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\vsLib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\vsLib\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,17 +124,22 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\vsLib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\vsLib\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BoxManager.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="EnemyCactus.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -140,6 +147,7 @@
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PhysicEngine.cpp" />
+    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SFMLplatformer.cpp" />
@@ -154,7 +162,11 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Assets.hpp" />
+    <ClInclude Include="Box.hpp" />
+    <ClInclude Include="BoxManager.hpp" />
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Collision.hpp" />
+    <ClInclude Include="EnemyCactus.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="EntityFactory.hpp" />
     <ClInclude Include="EntityManager.hpp" />
@@ -165,6 +177,7 @@
     <ClInclude Include="MenuState.hpp" />
     <ClInclude Include="PauseState.hpp" />
     <ClInclude Include="PhysicEngine.hpp" />
+    <ClInclude Include="Platform.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayState.hpp" />
     <ClInclude Include="SoundState.hpp" />

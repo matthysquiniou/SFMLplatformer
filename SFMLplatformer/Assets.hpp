@@ -187,6 +187,125 @@ enum class AssetID {
     WARN_BAR_MIDDLE,
     WARN_BAR_RIGHT,
 
+    // PLATFORM TILES
+    PLATFORM_GRASS_1_TOP_LEFT,
+    PLATFORM_GRASS_1_TOP,
+    PLATFORM_GRASS_1_TOP_RIGHT,
+    PLATFORM_GRASS_1_MIDDLE_LEFT,
+    PLATFORM_GRASS_1_MIDDLE,
+    PLATFORM_GRASS_1_MIDDLE_RIGHT,
+    PLATFORM_GRASS_1_BOTTOM_LEFT,
+    PLATFORM_GRASS_1_BOTTOM,
+    PLATFORM_GRASS_1_BOTTOM_RIGHT,
+    PLATFORM_GRASS_1_INSIDE_TOP_LEFT,
+    PLATFORM_GRASS_1_INSIDE_TOP_RIGHT,
+    PLATFORM_GRASS_1_INSIDE_BOTTOM_LEFT,
+    PLATFORM_GRASS_1_INSIDE_BOTTOM_RIGHT,
+
+    PLATFORM_GRASS_2_TOP_LEFT,
+    PLATFORM_GRASS_2_TOP,
+    PLATFORM_GRASS_2_TOP_RIGHT,
+    PLATFORM_GRASS_2_MIDDLE_LEFT,
+    PLATFORM_GRASS_2_MIDDLE,
+    PLATFORM_GRASS_2_MIDDLE_RIGHT,
+    PLATFORM_GRASS_2_BOTTOM_LEFT,
+    PLATFORM_GRASS_2_BOTTOM,
+    PLATFORM_GRASS_2_BOTTOM_RIGHT,
+    PLATFORM_GRASS_2_INSIDE_TOP_LEFT,
+    PLATFORM_GRASS_2_INSIDE_TOP_RIGHT,
+    PLATFORM_GRASS_2_INSIDE_BOTTOM_LEFT,
+    PLATFORM_GRASS_2_INSIDE_BOTTOM_RIGHT,
+
+    PLATFORM_BLOCK_1_TOP_LEFT,
+    PLATFORM_BLOCK_1_TOP,
+    PLATFORM_BLOCK_1_TOP_RIGHT,
+    PLATFORM_BLOCK_1_MIDDLE_LEFT,
+    PLATFORM_BLOCK_1_MIDDLE,
+    PLATFORM_BLOCK_1_MIDDLE_RIGHT,
+    PLATFORM_BLOCK_1_BOTTOM_LEFT,
+    PLATFORM_BLOCK_1_BOTTOM,
+    PLATFORM_BLOCK_1_BOTTOM_RIGHT,
+    PLATFORM_BLOCK_1_INSIDE_TOP_LEFT,
+    PLATFORM_BLOCK_1_INSIDE_TOP_RIGHT,
+    PLATFORM_BLOCK_1_INSIDE_BOTTOM_LEFT,
+    PLATFORM_BLOCK_1_INSIDE_BOTTOM_RIGHT,
+
+    PLATFORM_BLOCK_2_TOP_LEFT,
+    PLATFORM_BLOCK_2_TOP,
+    PLATFORM_BLOCK_2_TOP_RIGHT,
+    PLATFORM_BLOCK_2_MIDDLE_LEFT,
+    PLATFORM_BLOCK_2_MIDDLE,
+    PLATFORM_BLOCK_2_MIDDLE_RIGHT,
+    PLATFORM_BLOCK_2_BOTTOM_LEFT,
+    PLATFORM_BLOCK_2_BOTTOM,
+    PLATFORM_BLOCK_2_BOTTOM_RIGHT,
+    PLATFORM_BLOCK_2_INSIDE_TOP_LEFT,
+    PLATFORM_BLOCK_2_INSIDE_TOP_RIGHT,
+    PLATFORM_BLOCK_2_INSIDE_BOTTOM_LEFT,
+    PLATFORM_BLOCK_2_INSIDE_BOTTOM_RIGHT,
+
+    PLATFORM_METAL_1_TOP_LEFT,
+    PLATFORM_METAL_1_TOP,
+    PLATFORM_METAL_1_TOP_RIGHT,
+    PLATFORM_METAL_1_MIDDLE_LEFT,
+    PLATFORM_METAL_1_MIDDLE,
+    PLATFORM_METAL_1_MIDDLE_RIGHT,
+    PLATFORM_METAL_1_BOTTOM_LEFT,
+    PLATFORM_METAL_1_BOTTOM,
+    PLATFORM_METAL_1_BOTTOM_RIGHT,
+    PLATFORM_METAL_1_INSIDE_TOP_LEFT,
+    PLATFORM_METAL_1_INSIDE_TOP_RIGHT,
+    PLATFORM_METAL_1_INSIDE_BOTTOM_LEFT,
+    PLATFORM_METAL_1_INSIDE_BOTTOM_RIGHT,
+
+    PLATFORM_METAL_2_TOP_LEFT,
+    PLATFORM_METAL_2_TOP,
+    PLATFORM_METAL_2_TOP_RIGHT,
+    PLATFORM_METAL_2_MIDDLE_LEFT,
+    PLATFORM_METAL_2_MIDDLE,
+    PLATFORM_METAL_2_MIDDLE_RIGHT,
+    PLATFORM_METAL_2_BOTTOM_LEFT,
+    PLATFORM_METAL_2_BOTTOM,
+    PLATFORM_METAL_2_BOTTOM_RIGHT,
+    PLATFORM_METAL_2_INSIDE_TOP_LEFT,
+    PLATFORM_METAL_2_INSIDE_TOP_RIGHT,
+    PLATFORM_METAL_2_INSIDE_BOTTOM_LEFT,
+    PLATFORM_METAL_2_INSIDE_BOTTOM_RIGHT,
+
+    PLATFORM_FULL_GREEN_H_BAR_LEFT,
+    PLATFORM_FULL_GREEN_H_BAR,
+    PLATFORM_FULL_GREEN_H_BAR_RIGHT,
+    PLATFORM_FULL_GREEN_V_BAR_TOP,
+    PLATFORM_FULL_GREEN_V_BAR,
+    PLATFORM_FULL_GREEN_V_BAR_BOTTOM,
+    PLATFORM_FULL_GREEN_1_1,
+    PLATFORM_FULL_GREEN_2_2_TOP_LEFT,
+    PLATFORM_FULL_GREEN_2_2_TOP_RIGHT,
+    PLATFORM_FULL_GREEN_2_2_BOTTOM_LEFT,
+    PLATFORM_FULL_GREEN_2_2_BOTTOM_RIGHT,
+
+    PLATFORM_FULL_METAL_H_BAR_LEFT,
+    PLATFORM_FULL_METAL_H_BAR,
+    PLATFORM_FULL_METAL_H_BAR_RIGHT,
+    PLATFORM_FULL_METAL_V_BAR_TOP,
+    PLATFORM_FULL_METAL_V_BAR,
+    PLATFORM_FULL_METAL_V_BAR_BOTTOM,
+    PLATFORM_FULL_METAL_1_1,
+    PLATFORM_FULL_METAL_2_2_TOP_LEFT,
+    PLATFORM_FULL_METAL_2_2_TOP_RIGHT,
+    PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT,
+    PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT,
+
+    PLATFORM_MINI_1_LEFT,
+    PLATFORM_MINI_1,
+    PLATFORM_MINI_1_RIGHT,
+    PLATFORM_MINI_2_LEFT,
+    PLATFORM_MINI_2,
+    PLATFORM_MINI_2_RIGHT,
+    PLATFORM_MINI_3_LEFT,
+    PLATFORM_MINI_3,
+    PLATFORM_MINI_3_RIGHT,
+
     // MAIN CHARACTER
     MC_1_DOUBLE_JUMP,
     MC_1_FALL,
@@ -210,7 +329,7 @@ enum class AssetID {
     MC_3_IDLE,
     MC_3_JUMP,
     MC_3_RUN,
-    MC_3_WALL_JUMP
+    MC_3_WALL_JUMP,
 };
 
 inline const std::string& assetPath(AssetID id) {
@@ -396,6 +515,125 @@ inline const std::string& assetPath(AssetID id) {
     static const std::string WARN_BAR_LEFT_PATH = "assets/5 GUI/Interface/Tile_50.png";
     static const std::string WARN_BAR_MIDDLE_PATH = "assets/5 GUI/Interface/Tile_51.png";
     static const std::string WARN_BAR_RIGHT_PATH = "assets/5 GUI/Interface/Tile_52.png";
+
+    // PLATFORM TILES
+    static const std::string PLATFORM_GRASS_1_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_01.png";
+    static const std::string PLATFORM_GRASS_1_TOP_PATH = "assets/2 Locations/Tiles/Tile_02.png";
+    static const std::string PLATFORM_GRASS_1_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_03.png";
+    static const std::string PLATFORM_GRASS_1_MIDDLE_LEFT_PATH = "assets/2 Locations/Tiles/Tile_15.png";
+    static const std::string PLATFORM_GRASS_1_MIDDLE_PATH = "assets/2 Locations/Tiles/Tile_16.png";
+    static const std::string PLATFORM_GRASS_1_MIDDLE_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_17.png";
+    static const std::string PLATFORM_GRASS_1_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_29.png";
+    static const std::string PLATFORM_GRASS_1_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_30.png";
+    static const std::string PLATFORM_GRASS_1_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_31.png";
+    static const std::string PLATFORM_GRASS_1_INSIDE_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_04.png";
+    static const std::string PLATFORM_GRASS_1_INSIDE_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_05.png";
+    static const std::string PLATFORM_GRASS_1_INSIDE_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_18.png";
+    static const std::string PLATFORM_GRASS_1_INSIDE_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_19.png";
+
+    static const std::string PLATFORM_GRASS_2_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_06.png";
+    static const std::string PLATFORM_GRASS_2_TOP_PATH = "assets/2 Locations/Tiles/Tile_07.png";
+    static const std::string PLATFORM_GRASS_2_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_08.png";
+    static const std::string PLATFORM_GRASS_2_MIDDLE_LEFT_PATH = "assets/2 Locations/Tiles/Tile_20.png";
+    static const std::string PLATFORM_GRASS_2_MIDDLE_PATH = "assets/2 Locations/Tiles/Tile_21.png";
+    static const std::string PLATFORM_GRASS_2_MIDDLE_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_22.png";
+    static const std::string PLATFORM_GRASS_2_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_34.png";
+    static const std::string PLATFORM_GRASS_2_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_35.png";
+    static const std::string PLATFORM_GRASS_2_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_36.png";
+    static const std::string PLATFORM_GRASS_2_INSIDE_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_09.png";
+    static const std::string PLATFORM_GRASS_2_INSIDE_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_10.png";
+    static const std::string PLATFORM_GRASS_2_INSIDE_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_23.png";
+    static const std::string PLATFORM_GRASS_2_INSIDE_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_24.png";
+
+    static const std::string PLATFORM_BLOCK_1_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_43.png";
+    static const std::string PLATFORM_BLOCK_1_TOP_PATH = "assets/2 Locations/Tiles/Tile_44.png";
+    static const std::string PLATFORM_BLOCK_1_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_45.png";
+    static const std::string PLATFORM_BLOCK_1_MIDDLE_LEFT_PATH = "assets/2 Locations/Tiles/Tile_57.png";
+    static const std::string PLATFORM_BLOCK_1_MIDDLE_PATH = "assets/2 Locations/Tiles/Tile_58.png";
+    static const std::string PLATFORM_BLOCK_1_MIDDLE_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_59.png";
+    static const std::string PLATFORM_BLOCK_1_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_71.png";
+    static const std::string PLATFORM_BLOCK_1_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_72.png";
+    static const std::string PLATFORM_BLOCK_1_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_73.png";
+    static const std::string PLATFORM_BLOCK_1_INSIDE_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_46.png";
+    static const std::string PLATFORM_BLOCK_1_INSIDE_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_47.png";
+    static const std::string PLATFORM_BLOCK_1_INSIDE_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_60.png";
+    static const std::string PLATFORM_BLOCK_1_INSIDE_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_61.png";
+
+    static const std::string PLATFORM_BLOCK_2_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_90.png";
+    static const std::string PLATFORM_BLOCK_2_TOP_PATH = "assets/2 Locations/Tiles/Tile_91.png";
+    static const std::string PLATFORM_BLOCK_2_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_92.png";
+    static const std::string PLATFORM_BLOCK_2_MIDDLE_LEFT_PATH = "assets/2 Locations/Tiles/Tile_104.png";
+    static const std::string PLATFORM_BLOCK_2_MIDDLE_PATH = "assets/2 Locations/Tiles/Tile_105.png";
+    static const std::string PLATFORM_BLOCK_2_MIDDLE_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_106.png";
+    static const std::string PLATFORM_BLOCK_2_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_118.png";
+    static const std::string PLATFORM_BLOCK_2_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_119.png";
+    static const std::string PLATFORM_BLOCK_2_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_120.png";
+    static const std::string PLATFORM_BLOCK_2_INSIDE_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_93.png";
+    static const std::string PLATFORM_BLOCK_2_INSIDE_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_94.png";
+    static const std::string PLATFORM_BLOCK_2_INSIDE_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_107.png";
+    static const std::string PLATFORM_BLOCK_2_INSIDE_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_108.png";
+
+    static const std::string PLATFORM_METAL_1_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_48.png";
+    static const std::string PLATFORM_METAL_1_TOP_PATH = "assets/2 Locations/Tiles/Tile_49.png";
+    static const std::string PLATFORM_METAL_1_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_50.png";
+    static const std::string PLATFORM_METAL_1_MIDDLE_LEFT_PATH = "assets/2 Locations/Tiles/Tile_62.png";
+    static const std::string PLATFORM_METAL_1_MIDDLE_PATH = "assets/2 Locations/Tiles/Tile_63.png";
+    static const std::string PLATFORM_METAL_1_MIDDLE_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_64.png";
+    static const std::string PLATFORM_METAL_1_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_76.png";
+    static const std::string PLATFORM_METAL_1_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_77.png";
+    static const std::string PLATFORM_METAL_1_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_78.png";
+    static const std::string PLATFORM_METAL_1_INSIDE_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_51.png";
+    static const std::string PLATFORM_METAL_1_INSIDE_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_52.png";
+    static const std::string PLATFORM_METAL_1_INSIDE_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_65.png";
+    static const std::string PLATFORM_METAL_1_INSIDE_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_66.png";
+
+    static const std::string PLATFORM_METAL_2_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_85.png";
+    static const std::string PLATFORM_METAL_2_TOP_PATH = "assets/2 Locations/Tiles/Tile_86.png";
+    static const std::string PLATFORM_METAL_2_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_87.png";
+    static const std::string PLATFORM_METAL_2_MIDDLE_LEFT_PATH = "assets/2 Locations/Tiles/Tile_99.png";
+    static const std::string PLATFORM_METAL_2_MIDDLE_PATH = "assets/2 Locations/Tiles/Tile_100.png";
+    static const std::string PLATFORM_METAL_2_MIDDLE_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_101.png";
+    static const std::string PLATFORM_METAL_2_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_113.png";
+    static const std::string PLATFORM_METAL_2_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_114.png";
+    static const std::string PLATFORM_METAL_2_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_115.png";
+    static const std::string PLATFORM_METAL_2_INSIDE_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_88.png";
+    static const std::string PLATFORM_METAL_2_INSIDE_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_89.png";
+    static const std::string PLATFORM_METAL_2_INSIDE_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_102.png";
+    static const std::string PLATFORM_METAL_2_INSIDE_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_103.png";
+
+    static const std::string PLATFORM_FULL_GREEN_H_BAR_LEFT_PATH = "assets/2 Locations/Tiles/Tile_53.png";
+    static const std::string PLATFORM_FULL_GREEN_H_BAR_PATH = "assets/2 Locations/Tiles/Tile_54.png";
+    static const std::string PLATFORM_FULL_GREEN_H_BAR_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_55.png";
+    static const std::string PLATFORM_FULL_GREEN_V_BAR_TOP_PATH = "assets/2 Locations/Tiles/Tile_56.png";
+    static const std::string PLATFORM_FULL_GREEN_V_BAR_PATH = "assets/2 Locations/Tiles/Tile_70.png";
+    static const std::string PLATFORM_FULL_GREEN_V_BAR_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_84.png";
+    static const std::string PLATFORM_FULL_GREEN_1_1_PATH = "assets/2 Locations/Tiles/Tile_67.png";
+    static const std::string PLATFORM_FULL_GREEN_2_2_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_68.png";
+    static const std::string PLATFORM_FULL_GREEN_2_2_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_69.png";
+    static const std::string PLATFORM_FULL_GREEN_2_2_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_82.png";
+    static const std::string PLATFORM_FULL_GREEN_2_2_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_83.png";
+
+    static const std::string PLATFORM_FULL_METAL_H_BAR_LEFT_PATH = "assets/2 Locations/Tiles/Tile_11.png";
+    static const std::string PLATFORM_FULL_METAL_H_BAR_PATH = "assets/2 Locations/Tiles/Tile_12.png";
+    static const std::string PLATFORM_FULL_METAL_H_BAR_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_13.png";
+    static const std::string PLATFORM_FULL_METAL_V_BAR_TOP_PATH = "assets/2 Locations/Tiles/Tile_14.png";
+    static const std::string PLATFORM_FULL_METAL_V_BAR_PATH = "assets/2 Locations/Tiles/Tile_28.png";
+    static const std::string PLATFORM_FULL_METAL_V_BAR_BOTTOM_PATH = "assets/2 Locations/Tiles/Tile_42.png";
+    static const std::string PLATFORM_FULL_METAL_1_1_PATH = "assets/2 Locations/Tiles/Tile_25.png";
+    static const std::string PLATFORM_FULL_METAL_2_2_TOP_LEFT_PATH = "assets/2 Locations/Tiles/Tile_26.png";
+    static const std::string PLATFORM_FULL_METAL_2_2_TOP_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_27.png";
+    static const std::string PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT_PATH = "assets/2 Locations/Tiles/Tile_40.png";
+    static const std::string PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_41.png";
+
+    static const std::string PLATFORM_MINI_1_LEFT_PATH = "assets/2 Locations/Tiles/Tile_95.png";
+    static const std::string PLATFORM_MINI_1_PATH = "assets/2 Locations/Tiles/Tile_96.png";
+    static const std::string PLATFORM_MINI_1_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_97.png";
+    static const std::string PLATFORM_MINI_2_LEFT_PATH = "assets/2 Locations/Tiles/Tile_109.png";
+    static const std::string PLATFORM_MINI_2_PATH = "assets/2 Locations/Tiles/Tile_110.png";
+    static const std::string PLATFORM_MINI_2_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_111.png";
+    static const std::string PLATFORM_MINI_3_LEFT_PATH = "assets/2 Locations/Tiles/Tile_123.png";
+    static const std::string PLATFORM_MINI_3_PATH = "assets/2 Locations/Tiles/Tile_124.png";
+    static const std::string PLATFORM_MINI_3_RIGHT_PATH = "assets/2 Locations/Tiles/Tile_125.png";
 
     // MAIN CHARACTER
     static const std::string MC_1_DOUBLE_JUMP_PATH = "assets/1 Main Characters/1/Double_Jump.png";
@@ -606,6 +844,124 @@ inline const std::string& assetPath(AssetID id) {
     case AssetID::WARN_BAR_MIDDLE:         return WARN_BAR_MIDDLE_PATH;
     case AssetID::WARN_BAR_RIGHT:          return WARN_BAR_RIGHT_PATH;
 
+        // PLATFORM TILES
+    case AssetID::PLATFORM_GRASS_1_TOP_LEFT: return PLATFORM_GRASS_1_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_1_TOP: return PLATFORM_GRASS_1_TOP_PATH;
+    case AssetID::PLATFORM_GRASS_1_TOP_RIGHT: return PLATFORM_GRASS_1_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_1_MIDDLE_LEFT: return PLATFORM_GRASS_1_MIDDLE_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_1_MIDDLE: return PLATFORM_GRASS_1_MIDDLE_PATH;
+    case AssetID::PLATFORM_GRASS_1_MIDDLE_RIGHT: return PLATFORM_GRASS_1_MIDDLE_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_1_BOTTOM_LEFT: return PLATFORM_GRASS_1_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_1_BOTTOM: return PLATFORM_GRASS_1_BOTTOM_PATH;
+    case AssetID::PLATFORM_GRASS_1_BOTTOM_RIGHT: return PLATFORM_GRASS_1_BOTTOM_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_1_INSIDE_TOP_LEFT: return PLATFORM_GRASS_1_INSIDE_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_1_INSIDE_TOP_RIGHT: return PLATFORM_GRASS_1_INSIDE_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_1_INSIDE_BOTTOM_LEFT: return PLATFORM_GRASS_1_INSIDE_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_1_INSIDE_BOTTOM_RIGHT: return PLATFORM_GRASS_1_INSIDE_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_GRASS_2_TOP_LEFT: return PLATFORM_GRASS_2_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_2_TOP: return PLATFORM_GRASS_2_TOP_PATH;
+    case AssetID::PLATFORM_GRASS_2_TOP_RIGHT: return PLATFORM_GRASS_2_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_2_MIDDLE_LEFT: return PLATFORM_GRASS_2_MIDDLE_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_2_MIDDLE: return PLATFORM_GRASS_2_MIDDLE_PATH;
+    case AssetID::PLATFORM_GRASS_2_MIDDLE_RIGHT: return PLATFORM_GRASS_2_MIDDLE_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_2_BOTTOM_LEFT: return PLATFORM_GRASS_2_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_2_BOTTOM: return PLATFORM_GRASS_2_BOTTOM_PATH;
+    case AssetID::PLATFORM_GRASS_2_BOTTOM_RIGHT: return PLATFORM_GRASS_2_BOTTOM_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_2_INSIDE_TOP_LEFT: return PLATFORM_GRASS_2_INSIDE_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_2_INSIDE_TOP_RIGHT: return PLATFORM_GRASS_2_INSIDE_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_GRASS_2_INSIDE_BOTTOM_LEFT: return PLATFORM_GRASS_2_INSIDE_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_GRASS_2_INSIDE_BOTTOM_RIGHT: return PLATFORM_GRASS_2_INSIDE_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_BLOCK_1_TOP_LEFT: return PLATFORM_BLOCK_1_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_TOP: return PLATFORM_BLOCK_1_TOP_PATH;
+    case AssetID::PLATFORM_BLOCK_1_TOP_RIGHT: return PLATFORM_BLOCK_1_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_MIDDLE_LEFT: return PLATFORM_BLOCK_1_MIDDLE_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_MIDDLE: return PLATFORM_BLOCK_1_MIDDLE_PATH;
+    case AssetID::PLATFORM_BLOCK_1_MIDDLE_RIGHT: return PLATFORM_BLOCK_1_MIDDLE_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_BOTTOM_LEFT: return PLATFORM_BLOCK_1_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_BOTTOM: return PLATFORM_BLOCK_1_BOTTOM_PATH;
+    case AssetID::PLATFORM_BLOCK_1_BOTTOM_RIGHT: return PLATFORM_BLOCK_1_BOTTOM_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_INSIDE_TOP_LEFT: return PLATFORM_BLOCK_1_INSIDE_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_INSIDE_TOP_RIGHT: return PLATFORM_BLOCK_1_INSIDE_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_INSIDE_BOTTOM_LEFT: return PLATFORM_BLOCK_1_INSIDE_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_1_INSIDE_BOTTOM_RIGHT: return PLATFORM_BLOCK_1_INSIDE_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_BLOCK_2_TOP_LEFT: return PLATFORM_BLOCK_2_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_TOP: return PLATFORM_BLOCK_2_TOP_PATH;
+    case AssetID::PLATFORM_BLOCK_2_TOP_RIGHT: return PLATFORM_BLOCK_2_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_MIDDLE_LEFT: return PLATFORM_BLOCK_2_MIDDLE_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_MIDDLE: return PLATFORM_BLOCK_2_MIDDLE_PATH;
+    case AssetID::PLATFORM_BLOCK_2_MIDDLE_RIGHT: return PLATFORM_BLOCK_2_MIDDLE_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_BOTTOM_LEFT: return PLATFORM_BLOCK_2_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_BOTTOM: return PLATFORM_BLOCK_2_BOTTOM_PATH;
+    case AssetID::PLATFORM_BLOCK_2_BOTTOM_RIGHT: return PLATFORM_BLOCK_2_BOTTOM_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_INSIDE_TOP_LEFT: return PLATFORM_BLOCK_2_INSIDE_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_INSIDE_TOP_RIGHT: return PLATFORM_BLOCK_2_INSIDE_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_INSIDE_BOTTOM_LEFT: return PLATFORM_BLOCK_2_INSIDE_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_BLOCK_2_INSIDE_BOTTOM_RIGHT: return PLATFORM_BLOCK_2_INSIDE_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_METAL_1_TOP_LEFT: return PLATFORM_METAL_1_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_1_TOP: return PLATFORM_METAL_1_TOP_PATH;
+    case AssetID::PLATFORM_METAL_1_TOP_RIGHT: return PLATFORM_METAL_1_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_1_MIDDLE_LEFT: return PLATFORM_METAL_1_MIDDLE_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_1_MIDDLE: return PLATFORM_METAL_1_MIDDLE_PATH;
+    case AssetID::PLATFORM_METAL_1_MIDDLE_RIGHT: return PLATFORM_METAL_1_MIDDLE_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_1_BOTTOM_LEFT: return PLATFORM_METAL_1_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_1_BOTTOM: return PLATFORM_METAL_1_BOTTOM_PATH;
+    case AssetID::PLATFORM_METAL_1_BOTTOM_RIGHT: return PLATFORM_METAL_1_BOTTOM_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_1_INSIDE_TOP_LEFT: return PLATFORM_METAL_1_INSIDE_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_1_INSIDE_TOP_RIGHT: return PLATFORM_METAL_1_INSIDE_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_1_INSIDE_BOTTOM_LEFT: return PLATFORM_METAL_1_INSIDE_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_1_INSIDE_BOTTOM_RIGHT: return PLATFORM_METAL_1_INSIDE_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_METAL_2_TOP_LEFT: return PLATFORM_METAL_2_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_2_TOP: return PLATFORM_METAL_2_TOP_PATH;
+    case AssetID::PLATFORM_METAL_2_TOP_RIGHT: return PLATFORM_METAL_2_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_2_MIDDLE_LEFT: return PLATFORM_METAL_2_MIDDLE_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_2_MIDDLE: return PLATFORM_METAL_2_MIDDLE_PATH;
+    case AssetID::PLATFORM_METAL_2_MIDDLE_RIGHT: return PLATFORM_METAL_2_MIDDLE_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_2_BOTTOM_LEFT: return PLATFORM_METAL_2_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_2_BOTTOM: return PLATFORM_METAL_2_BOTTOM_PATH;
+    case AssetID::PLATFORM_METAL_2_BOTTOM_RIGHT: return PLATFORM_METAL_2_BOTTOM_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_2_INSIDE_TOP_LEFT: return PLATFORM_METAL_2_INSIDE_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_2_INSIDE_TOP_RIGHT: return PLATFORM_METAL_2_INSIDE_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_METAL_2_INSIDE_BOTTOM_LEFT: return PLATFORM_METAL_2_INSIDE_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_METAL_2_INSIDE_BOTTOM_RIGHT: return PLATFORM_METAL_2_INSIDE_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_FULL_GREEN_H_BAR_LEFT: return PLATFORM_FULL_GREEN_H_BAR_LEFT_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_H_BAR: return PLATFORM_FULL_GREEN_H_BAR_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_H_BAR_RIGHT: return PLATFORM_FULL_GREEN_H_BAR_RIGHT_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_V_BAR_TOP: return PLATFORM_FULL_GREEN_V_BAR_TOP_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_V_BAR: return PLATFORM_FULL_GREEN_V_BAR_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_V_BAR_BOTTOM: return PLATFORM_FULL_GREEN_V_BAR_BOTTOM_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_1_1: return PLATFORM_FULL_GREEN_1_1_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_2_2_TOP_LEFT: return PLATFORM_FULL_GREEN_2_2_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_2_2_TOP_RIGHT: return PLATFORM_FULL_GREEN_2_2_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_2_2_BOTTOM_LEFT: return PLATFORM_FULL_GREEN_2_2_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_FULL_GREEN_2_2_BOTTOM_RIGHT: return PLATFORM_FULL_GREEN_2_2_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_FULL_METAL_H_BAR_LEFT: return PLATFORM_FULL_METAL_H_BAR_LEFT_PATH;
+    case AssetID::PLATFORM_FULL_METAL_H_BAR: return PLATFORM_FULL_METAL_H_BAR_PATH;
+    case AssetID::PLATFORM_FULL_METAL_H_BAR_RIGHT: return PLATFORM_FULL_METAL_H_BAR_RIGHT_PATH;
+    case AssetID::PLATFORM_FULL_METAL_V_BAR_TOP: return PLATFORM_FULL_METAL_V_BAR_TOP_PATH;
+    case AssetID::PLATFORM_FULL_METAL_V_BAR: return PLATFORM_FULL_METAL_V_BAR_PATH;
+    case AssetID::PLATFORM_FULL_METAL_V_BAR_BOTTOM: return PLATFORM_FULL_METAL_V_BAR_BOTTOM_PATH;
+    case AssetID::PLATFORM_FULL_METAL_1_1: return PLATFORM_FULL_METAL_1_1_PATH;
+    case AssetID::PLATFORM_FULL_METAL_2_2_TOP_LEFT: return PLATFORM_FULL_METAL_2_2_TOP_LEFT_PATH;
+    case AssetID::PLATFORM_FULL_METAL_2_2_TOP_RIGHT: return PLATFORM_FULL_METAL_2_2_TOP_RIGHT_PATH;
+    case AssetID::PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT: return PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT_PATH;
+    case AssetID::PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT: return PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT_PATH;
+
+    case AssetID::PLATFORM_MINI_1_LEFT: return PLATFORM_MINI_1_LEFT_PATH;
+    case AssetID::PLATFORM_MINI_1: return PLATFORM_MINI_1_PATH;
+    case AssetID::PLATFORM_MINI_1_RIGHT: return PLATFORM_MINI_1_RIGHT_PATH;
+    case AssetID::PLATFORM_MINI_2_LEFT: return PLATFORM_MINI_2_LEFT_PATH;
+    case AssetID::PLATFORM_MINI_2: return PLATFORM_MINI_2_PATH;
+    case AssetID::PLATFORM_MINI_2_RIGHT: return PLATFORM_MINI_2_RIGHT_PATH;
+    case AssetID::PLATFORM_MINI_3_LEFT: return PLATFORM_MINI_3_LEFT_PATH;
+    case AssetID::PLATFORM_MINI_3: return PLATFORM_MINI_3_PATH;
+    case AssetID::PLATFORM_MINI_3_RIGHT: return PLATFORM_MINI_3_RIGHT_PATH;
         // MAIN CHARACTER
     case AssetID::MC_1_DOUBLE_JUMP:          return MC_1_DOUBLE_JUMP_PATH;
     case AssetID::MC_1_FALL:          return MC_1_FALL_PATH;
