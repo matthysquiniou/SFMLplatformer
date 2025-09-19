@@ -1,21 +1,23 @@
 #include "Collision.hpp"
+#include <iostream>
 
 namespace Collision {
 
     bool shouldCollide(EntityType a, EntityType b) {
+        if (a > b) std::swap(a, b);
         if ((a == EntityType::Player && b == EntityType::Platform) ||
             (a == EntityType::Enemy && b == EntityType::Platform) ||
-            (a == EntityType::Player && b == EntityType::Enemy) ||
-            (a == EntityType::Enemy && b == EntityType::Player)) {
+            (a == EntityType::Player && b == EntityType::Enemy)) {
             return true;
         }
         return false;
     }
 
     bool shouldCollide(BoxType a, BoxType b) {
+        if (a > b) std::swap(a, b);
         if ((a == BoxType::Collision && b == BoxType::Collision) ||
-            (a == BoxType::Hit && b == BoxType::Hurt) ||
-            (a == BoxType::Hurt && b == BoxType::Hit)) {
+            (a == BoxType::Hurt && b == BoxType::Hit) ||
+            (a == BoxType::Collision && b == BoxType::CollisionObserver)) {
             return true;
         }
         return false;
@@ -25,6 +27,7 @@ namespace Collision {
         auto& managers = BoxManager::allManagers;
         for (size_t i = 0; i < managers.size(); ++i) {
             auto* mgrA = managers[i];
+
             for (size_t j = i + 1; j < managers.size(); ++j) {
                 auto* mgrB = managers[j];
 

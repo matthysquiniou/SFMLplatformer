@@ -330,6 +330,46 @@ enum class AssetID {
     MC_3_JUMP,
     MC_3_RUN,
     MC_3_WALL_JUMP,
+
+    MC_APPEARING,
+    MC_DESAPPEARING,
+
+    // ENEMY
+    ENEMY_TV_FALL,
+    ENEMY_TV_HIT,
+    ENEMY_TV_IDLE,
+    ENEMY_TV_JUMP,
+    ENEMY_TV_RUN,
+
+    ENEMY_CACTUS_FALL,
+    ENEMY_CACTUS_HIT,
+    ENEMY_CACTUS_IDLE,
+    ENEMY_CACTUS_JUMP,
+    ENEMY_CACTUS_RUN,
+
+    ENEMY_BARREL_CHARGE,
+    ENEMY_BARREL_HIT,
+    ENEMY_BARREL_IDLE,
+    ENEMY_BARREL_STUN,
+    ENEMY_BARREL_WALK,
+
+    ENEMY_CANON_ATTACK,
+    ENEMY_CANON_HIT,
+    ENEMY_CANON_IDLE,
+    ENEMY_CANON_WALK,
+    ENEMY_CANON_BALL_1,
+    ENEMY_CANON_BALL_2,
+
+    ENEMY_FLYER_ATTACK,
+    ENEMY_FLYER_FLY,
+    ENEMY_FLYER_HIT,
+    ENEMY_FLYER_IDLE,
+
+    ENEMY_TOAD_ATTACK,
+    ENEMY_TOAD_HIT,
+    ENEMY_TOAD_IDLE,
+    ENEMY_TOAD_RUN,
+    ENEMY_TOAD_RUN_ATTACK
 };
 
 inline const std::string& assetPath(AssetID id) {
@@ -660,6 +700,47 @@ inline const std::string& assetPath(AssetID id) {
     static const std::string MC_3_RUN_PATH = "assets/1 Main Characters/3/Run.png";
     static const std::string MC_3_WALL_JUMP_PATH = "assets/1 Main Characters/3/Wall_Jump.png";
 
+    static const std::string MC_APPEARING_PATH = "assets/1 Main Characters/Appearing.png";
+    static const std::string MC_DESAPPEARING_PATH = "assets/1 Main Characters/Desappearing.png";
+
+    //ENEMY
+
+    static const std::string ENEMY_TV_FALL_PATH = "assets/4 Enemies/1/Fall.png";
+    static const std::string ENEMY_TV_HIT_PATH = "assets/4 Enemies/1/Hit.png";
+    static const std::string ENEMY_TV_IDLE_PATH = "assets/4 Enemies/1/Idle.png";
+    static const std::string ENEMY_TV_JUMP_PATH = "assets/4 Enemies/1/Jump.png";
+    static const std::string ENEMY_TV_RUN_PATH = "assets/4 Enemies/1/Run.png";
+
+    static const std::string ENEMY_CACTUS_FALL_PATH = "assets/4 Enemies/2/Fall.png";
+    static const std::string ENEMY_CACTUS_HIT_PATH = "assets/4 Enemies/2/Hit.png";
+    static const std::string ENEMY_CACTUS_IDLE_PATH = "assets/4 Enemies/2/Idle.png";
+    static const std::string ENEMY_CACTUS_JUMP_PATH = "assets/4 Enemies/2/Jump.png";
+    static const std::string ENEMY_CACTUS_RUN_PATH = "assets/4 Enemies/2/Run.png";
+
+    static const std::string ENEMY_BARREL_CHARGE_PATH = "assets/4 Enemies/3/Charge.png";
+    static const std::string ENEMY_BARREL_HIT_PATH = "assets/4 Enemies/3/Hit.png";
+    static const std::string ENEMY_BARREL_IDLE_PATH = "assets/4 Enemies/3/Idle.png";
+    static const std::string ENEMY_BARREL_STUN_PATH = "assets/4 Enemies/3/Stun.png";
+    static const std::string ENEMY_BARREL_WALK_PATH = "assets/4 Enemies/3/Walk.png";
+
+    static const std::string ENEMY_CANON_ATTACK_PATH = "assets/4 Enemies/4/Attack.png";
+    static const std::string ENEMY_CANON_HIT_PATH = "assets/4 Enemies/4/Hit.png";
+    static const std::string ENEMY_CANON_IDLE_PATH = "assets/4 Enemies/4/Idle.png";
+    static const std::string ENEMY_CANON_WALK_PATH = "assets/4 Enemies/4/Walk.png";
+    static const std::string ENEMY_CANON_BALL_1_PATH = "assets/4 Enemies/4/Cannonball1.png";
+    static const std::string ENEMY_CANON_BALL_2_PATH = "assets/4 Enemies/4/Cannonball2.png";
+
+    static const std::string ENEMY_FLYER_ATTACK_PATH = "assets/4 Enemies/5/Attack.png";
+    static const std::string ENEMY_FLYER_FLY_PATH = "assets/4 Enemies/5/Fly.png";
+    static const std::string ENEMY_FLYER_HIT_PATH = "assets/4 Enemies/5/Hit.png";
+    static const std::string ENEMY_FLYER_IDLE_PATH = "assets/4 Enemies/5/Idle.png";
+
+    static const std::string ENEMY_TOAD_ATTACK_PATH = "assets/4 Enemies/6/Attack.png";
+    static const std::string ENEMY_TOAD_HIT_PATH = "assets/4 Enemies/6/Hit.png";
+    static const std::string ENEMY_TOAD_IDLE_PATH = "assets/4 Enemies/6/Idle.png";
+    static const std::string ENEMY_TOAD_RUN_PATH = "assets/4 Enemies/6/Run.png";
+    static const std::string ENEMY_TOAD_RUN_ATTACK_PATH = "assets/4 Enemies/6/Run_Attack.png";
+
     switch (id) {
 
         // FONT
@@ -986,6 +1067,46 @@ inline const std::string& assetPath(AssetID id) {
     case AssetID::MC_3_JUMP:          return MC_3_JUMP_PATH;
     case AssetID::MC_3_RUN:          return MC_3_RUN_PATH;
     case AssetID::MC_3_WALL_JUMP:          return MC_3_WALL_JUMP_PATH;
+
+    case AssetID::MC_APPEARING:         return MC_APPEARING_PATH;
+    case AssetID::MC_DESAPPEARING:         return MC_DESAPPEARING_PATH;
+
+        //ENEMY
+    case AssetID::ENEMY_TV_FALL:   return ENEMY_TV_FALL_PATH;
+    case AssetID::ENEMY_TV_HIT:    return ENEMY_TV_HIT_PATH;
+    case AssetID::ENEMY_TV_IDLE:   return ENEMY_TV_IDLE_PATH;
+    case AssetID::ENEMY_TV_JUMP:   return ENEMY_TV_JUMP_PATH;
+    case AssetID::ENEMY_TV_RUN:    return ENEMY_TV_RUN_PATH;
+
+    case AssetID::ENEMY_CACTUS_FALL:     return ENEMY_CACTUS_FALL_PATH;
+    case AssetID::ENEMY_CACTUS_HIT:      return ENEMY_CACTUS_HIT_PATH;
+    case AssetID::ENEMY_CACTUS_IDLE:     return ENEMY_CACTUS_IDLE_PATH;
+    case AssetID::ENEMY_CACTUS_JUMP:     return ENEMY_CACTUS_JUMP_PATH;
+    case AssetID::ENEMY_CACTUS_RUN:      return ENEMY_CACTUS_RUN_PATH;
+
+    case AssetID::ENEMY_BARREL_CHARGE:   return ENEMY_BARREL_CHARGE_PATH;
+    case AssetID::ENEMY_BARREL_HIT:      return ENEMY_BARREL_HIT_PATH;
+    case AssetID::ENEMY_BARREL_IDLE:     return ENEMY_BARREL_IDLE_PATH;
+    case AssetID::ENEMY_BARREL_STUN:     return ENEMY_BARREL_STUN_PATH;
+    case AssetID::ENEMY_BARREL_WALK:     return ENEMY_BARREL_WALK_PATH;
+
+    case AssetID::ENEMY_CANON_ATTACK:    return ENEMY_CANON_ATTACK_PATH;
+    case AssetID::ENEMY_CANON_HIT:       return ENEMY_CANON_HIT_PATH;
+    case AssetID::ENEMY_CANON_IDLE:      return ENEMY_CANON_IDLE_PATH;
+    case AssetID::ENEMY_CANON_WALK:      return ENEMY_CANON_WALK_PATH;
+    case AssetID::ENEMY_CANON_BALL_1:    return ENEMY_CANON_BALL_1_PATH;
+    case AssetID::ENEMY_CANON_BALL_2:    return ENEMY_CANON_BALL_2_PATH;
+
+    case AssetID::ENEMY_FLYER_ATTACK:    return ENEMY_FLYER_ATTACK_PATH;
+    case AssetID::ENEMY_FLYER_FLY:       return ENEMY_FLYER_FLY_PATH;
+    case AssetID::ENEMY_FLYER_HIT:       return ENEMY_FLYER_HIT_PATH;
+    case AssetID::ENEMY_FLYER_IDLE:      return ENEMY_FLYER_IDLE_PATH;
+
+    case AssetID::ENEMY_TOAD_ATTACK:     return ENEMY_TOAD_ATTACK_PATH;
+    case AssetID::ENEMY_TOAD_HIT:        return ENEMY_TOAD_HIT_PATH;
+    case AssetID::ENEMY_TOAD_IDLE:       return ENEMY_TOAD_IDLE_PATH;
+    case AssetID::ENEMY_TOAD_RUN:        return ENEMY_TOAD_RUN_PATH;
+    case AssetID::ENEMY_TOAD_RUN_ATTACK: return ENEMY_TOAD_RUN_ATTACK_PATH;
 
     }
 

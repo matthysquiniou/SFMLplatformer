@@ -1,32 +1,17 @@
-#include "EnemyCactus.hpp"
+#include "EnemyFlyer.hpp"
 #include <iostream>
 
-EnemyCactus::EnemyCactus(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
-	boxManager.addBox({ {12.f,20.f} ,{24.f,24.f} }, BoxType::Collision);
-	boxManager.addBox({ {12.f,20.f} ,{24.f,8.f} }, BoxType::Hit);
-	boxManager.addBox({ {12.f,28.f} ,{24.f,20.f} }, BoxType::Hurt);
-	boxManager.addBox({ {-4.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
-	boxManager.addBox({ {36.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
+EnemyFlyer::EnemyFlyer(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
+	boxManager.addBox({ {12.f,0.f} ,{24.f,24.f} }, BoxType::Collision);
+	boxManager.addBox({ {12.f,0.f} ,{24.f,8.f} }, BoxType::Hit);
+	boxManager.addBox({ {12.f,8.f} ,{24.f,20.f} }, BoxType::Hurt);
+	boxManager.addBox({ {-4.f,28.f} ,{16.f,200.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
+	boxManager.addBox({ {36.f,28.f} ,{16.f,200.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
+	boxManager.addBox({ {12.f,28.f} ,{24.f,200.f} }, BoxType::CollisionObserver, ObserverID::PLAYER);
+	baseY = sprite.getPosition().y;
 }
 
-void EnemyCactus::handleEvents(const sf::Event& e, GameContext& ctx) {
-	if (e.is<sf::Event::KeyPressed>())
-	{
-		auto key = e.getIf<sf::Event::KeyPressed>();
-		switch (key->code)
-		{
-		case sf::Keyboard::Key::Up:
-			if (!playerJumped && isGrounded)
-			{
-				jumpTime = 0.f;
-				playerJumped = true;
-			}
-			break;
-		}
-	}
-}
-
-void EnemyCactus::update(float dt, GameContext& ctx) {
+void EnemyFlyer::update(float dt, GameContext& ctx) {
 
 	if (hasBeenHit)
 	{
@@ -38,50 +23,30 @@ void EnemyCactus::update(float dt, GameContext& ctx) {
 		return;
 	}
 
-	if (jumpTime > 1.f && playerJumped)
-	{
-		playerJumped = false;
-		velocityY = -500.f;
-	}
+	physicEngine.updateEnemyFlyerPhysic(*this, dt);
 
-	physicEngine.updateEnemyCactusPhysic(*this, dt);
-
-	if (velocityY > 0)
+	if ((direction != 0) && !isAttacking)
 	{
-		switchAnimation(EnemyCactusAnimation::FALL);
-	}
-
-	if (velocityY < 0)
-	{
-		switchAnimation(EnemyCactusAnimation::JUMP);
-	}
-
-	if (isGrounded && (direction != 0))
-	{
-		switchAnimation(EnemyCactusAnimation::RUN);
+		switchAnimation(EnemyFlyerAnimation::FLY);
 	}
 
 	boxManager.updateBoxesPosition(sprite.getPosition());
 
-	isGrounded = false;
-
 	directionChangedTime += dt;
-
-	jumpTime += dt;
 
 	sprite.update(dt);
 }
 
-void EnemyCactus::draw(sf::RenderWindow& window, GameContext& ctx) {
+void EnemyFlyer::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
 	boxManager.draw(window);
 }
 
-EntityType EnemyCactus::getType() {
+EntityType EnemyFlyer::getType() {
 	return EntityType::Enemy;
 }
 
-void EnemyCactus::doCollision() {
+void EnemyFlyer::doCollision() {
 	if (pendingCollisions.empty()) return;
 	const float NOISE = 0.5f;
 	const float EPS = 0.001f;
@@ -144,9 +109,17 @@ void EnemyCactus::doCollision() {
 			if (pc.myBox.observerID == ObserverID::DIRECTION_1) direction1Flag = true;
 			if (pc.myBox.observerID == ObserverID::DIRECTION_2) direction2Flag = true;
 		}
+		else if (myBoxType == BoxType::CollisionObserver && otherType == EntityType::Player && !isAttacking && !isGoingUp) {
+			if (pc.myBox.observerID == ObserverID::PLAYER) {
+				isAttacking = true;
+				velocityY = 650.f;
+				velocityX = 0.f;
+				switchAnimation(EnemyFlyerAnimation::ATTACK);
+			}
+		}
 		// being hit
 		else if (myBoxType == BoxType::Hit && otherType == EntityType::Player) {
-			switchAnimation(EnemyCactusAnimation::HIT);
+			switchAnimation(EnemyFlyerAnimation::HIT);
 			hasBeenHit = true;
 			boxManager.disableBoxType(BoxType::Hit);
 			boxManager.disableBoxType(BoxType::Hurt);
@@ -159,7 +132,8 @@ void EnemyCactus::doCollision() {
 	if (hasFloor) {
 		totalMove.y -= (maxFloor - EPS);
 		velocityY = 0.f;
-		isGrounded = true;
+		isAttacking = false;
+		isGoingUp = true;
 	}
 
 	if (hasCeil) {
@@ -184,28 +158,30 @@ void EnemyCactus::doCollision() {
 		sprite.move(totalMove);
 	}
 
-	if ((!direction1Flag || !direction2Flag) && isGrounded && directionChangedTime > 0.5f)
+	if ((!direction1Flag || !direction2Flag) && directionChangedTime > 0.5f)
 	{
+		if (!direction1Flag) sprite.move({ 2.f,0.f });
+		if (!direction2Flag) sprite.move({ -2.f,0.f });
 		direction *= -1;
+		sprite.flipX = !sprite.flipX;
 		velocityX = 0;
 		directionChangedTime = 0.f;
-		sprite.flipX = !sprite.flipX;
 	}
 
 	pendingCollisions.clear();
 }
 
-void EnemyCactus::onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) {
+void EnemyFlyer::onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) {
 	pendingCollisions.push_back({ &other, myBox, otherBox, intersection });
 }
 
-void EnemyCactus::switchAnimation(EnemyCactusAnimation newAnimation) {
-	if (newAnimation == activeAnimation || (activeAnimation == EnemyCactusAnimation::HIT && sprite.isAnimationGoing())) return;
+void EnemyFlyer::switchAnimation(EnemyFlyerAnimation newAnimation) {
+	if (newAnimation == activeAnimation || (activeAnimation == EnemyFlyerAnimation::HIT && sprite.isAnimationGoing())) return;
 	sprite.resetAnimation(activeAnimation);
 	sprite.setVisible(activeAnimation, false);
 	sprite.setVisible(newAnimation, true);
 	sprite.update(0.f);
-	if (newAnimation == EnemyCactusAnimation::HIT)
+	if (newAnimation == EnemyFlyerAnimation::HIT)
 	{
 		sprite.stopAnimationAfterLoop(newAnimation);
 	}

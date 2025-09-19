@@ -18,6 +18,10 @@ void BoxManager::addBox(const sf::FloatRect& r, BoxType t) {
     boxes.push_back(Box{ {{0.f,0.f}, r.size }, r, t, true});
 }
 
+void BoxManager::addBox(const sf::FloatRect& r, BoxType t, int observerID) {
+    boxes.push_back(Box{ {{0.f,0.f}, r.size }, r, t, true, observerID });
+}
+
 void BoxManager::clear() {
     boxes.clear();
 }
@@ -29,6 +33,30 @@ void BoxManager::updateBoxesPosition(sf::Vector2f pos) {
     }
 }
 
+void BoxManager::disableBoxType(BoxType boxType) {
+    for (auto& box : boxes) {
+        if (box.type == boxType) box.active = false;
+    }
+}
+
+
+void BoxManager::activateBoxType(BoxType boxType) {
+    for (auto& box : boxes) {
+        if (box.type == boxType) box.active = true;
+    }
+}
+
+void BoxManager::disableBoxObserver(int observerID) {
+    for (auto& box : boxes) {
+        if (box.observerID == observerID) box.active = false;
+    }
+}
+
+void BoxManager::activateBoxObserver(int observerID) {
+    for (auto& box : boxes) {
+        if (box.observerID == observerID) box.active = true;
+    }
+}
 
 EntityType BoxManager::getType() const { return type; }
 Entity* BoxManager::getEntity() const { return entity; }
@@ -38,6 +66,8 @@ const std::vector<Box>& BoxManager::getBoxes() const { return boxes; }
 
 void BoxManager::draw(sf::RenderWindow& win) {
     for (auto& b : boxes) {
+        if (!b.active) continue;
+
         sf::RectangleShape shape;
         shape.setPosition({ b.rect.position.x, b.rect.position.y });
         shape.setSize({ b.rect.size.x, b.rect.size.y });
@@ -47,6 +77,7 @@ void BoxManager::draw(sf::RenderWindow& win) {
         case BoxType::Collision: shape.setOutlineColor(sf::Color::Blue); break;
         case BoxType::Hurt:      shape.setOutlineColor(sf::Color::Green); break;
         case BoxType::Hit:       shape.setOutlineColor(sf::Color::Red); break;
+        case BoxType::CollisionObserver:       shape.setOutlineColor(sf::Color::Cyan); break;
         }
         shape.setOutlineThickness(1.f);
         win.draw(shape);

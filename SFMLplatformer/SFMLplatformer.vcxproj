@@ -100,11 +100,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\vsLib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,11 +121,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\vsLib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +141,11 @@
     <ClCompile Include="BoxManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClInclude Include="EnemyBarrel.hpp" />
+    <ClCompile Include="EnemyBarrel.cpp" />
     <ClCompile Include="EnemyCactus.cpp" />
+    <ClCompile Include="EnemyFlyer.cpp" />
+    <ClCompile Include="EnemyTv.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -153,9 +159,11 @@
     <ClCompile Include="SFMLplatformer.cpp" />
     <ClCompile Include="SoundState.cpp" />
     <ClCompile Include="SpriteComposite.cpp" />
-    <ClCompile Include="SpriteComposite.hpp" />
+    <ClInclude Include="EnemyFlyer.hpp" />
+    <ClInclude Include="EnemyTv.hpp" />
+    <ClInclude Include="SpriteComposite.hpp" />
     <ClCompile Include="SpriteWrapper.cpp" />
-    <ClCompile Include="SpriteWrapper.hpp" />
+    <ClInclude Include="SpriteWrapper.hpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>

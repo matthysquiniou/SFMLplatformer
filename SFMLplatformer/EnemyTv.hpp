@@ -5,7 +5,7 @@
 #include <functional>
 #include <cmath>
 
-class EnemyCactus : public Entity {
+class EnemyTv : public Entity {
 
 	struct PendingCollision {
 		Entity* other;
@@ -14,7 +14,7 @@ class EnemyCactus : public Entity {
 		sf::FloatRect intersection;
 	};
 
-	enum EnemyCactusAnimation {
+	enum EnemyTvAnimation {
 		FALL = 0,
 		HIT = 1,
 		IDLE = 2,
@@ -28,9 +28,7 @@ class EnemyCactus : public Entity {
 	};
 
 public:
-	EnemyCactus(SpriteComposite s);
-
-	void handleEvents(const sf::Event& e, GameContext& ctx) override;
+	EnemyTv(SpriteComposite s);
 
 	void update(float dt, GameContext& ctx) override;
 
@@ -40,8 +38,8 @@ public:
 
 	void onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) override;
 
-	void switchAnimation(EnemyCactusAnimation newAnimation);
-	
+	void switchAnimation(EnemyTvAnimation newAnimation);
+
 	void doCollision();
 
 	bool isGrounded = false;
@@ -49,8 +47,6 @@ public:
 	int direction = -1;
 
 	float directionChangedTime = 0.5f;
-
-	bool playerJumped = false;
 
 	float jumpTime = 0.f;
 
@@ -65,7 +61,7 @@ public:
 	bool hasBeenHit = false;
 
 private:
-	EnemyCactusAnimation activeAnimation = EnemyCactusAnimation::IDLE;
+	EnemyTvAnimation activeAnimation = EnemyTvAnimation::IDLE;
 
 	PhysicEngine physicEngine;
 

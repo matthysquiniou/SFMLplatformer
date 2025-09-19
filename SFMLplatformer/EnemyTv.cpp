@@ -1,32 +1,15 @@
-#include "EnemyCactus.hpp"
+#include "EnemyTv.hpp"
 #include <iostream>
 
-EnemyCactus::EnemyCactus(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
+EnemyTv::EnemyTv(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
 	boxManager.addBox({ {12.f,20.f} ,{24.f,24.f} }, BoxType::Collision);
 	boxManager.addBox({ {12.f,20.f} ,{24.f,8.f} }, BoxType::Hit);
 	boxManager.addBox({ {12.f,28.f} ,{24.f,20.f} }, BoxType::Hurt);
-	boxManager.addBox({ {-4.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
-	boxManager.addBox({ {36.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
+	boxManager.addBox({ {-4.f,48.f} ,{16.f,64.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
+	boxManager.addBox({ {36.f,48.f} ,{16.f,64.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
 }
 
-void EnemyCactus::handleEvents(const sf::Event& e, GameContext& ctx) {
-	if (e.is<sf::Event::KeyPressed>())
-	{
-		auto key = e.getIf<sf::Event::KeyPressed>();
-		switch (key->code)
-		{
-		case sf::Keyboard::Key::Up:
-			if (!playerJumped && isGrounded)
-			{
-				jumpTime = 0.f;
-				playerJumped = true;
-			}
-			break;
-		}
-	}
-}
-
-void EnemyCactus::update(float dt, GameContext& ctx) {
+void EnemyTv::update(float dt, GameContext& ctx) {
 
 	if (hasBeenHit)
 	{
@@ -38,27 +21,27 @@ void EnemyCactus::update(float dt, GameContext& ctx) {
 		return;
 	}
 
-	if (jumpTime > 1.f && playerJumped)
+	if (jumpTime > 3.f && isGrounded)
 	{
-		playerJumped = false;
-		velocityY = -500.f;
+		jumpTime = 0.f;
+		velocityY = -275.f;
 	}
 
-	physicEngine.updateEnemyCactusPhysic(*this, dt);
+	physicEngine.updateEnemyTvPhysic(*this, dt);
 
 	if (velocityY > 0)
 	{
-		switchAnimation(EnemyCactusAnimation::FALL);
+		switchAnimation(EnemyTvAnimation::FALL);
 	}
 
 	if (velocityY < 0)
 	{
-		switchAnimation(EnemyCactusAnimation::JUMP);
+		switchAnimation(EnemyTvAnimation::JUMP);
 	}
 
 	if (isGrounded && (direction != 0))
 	{
-		switchAnimation(EnemyCactusAnimation::RUN);
+		switchAnimation(EnemyTvAnimation::RUN);
 	}
 
 	boxManager.updateBoxesPosition(sprite.getPosition());
@@ -72,16 +55,16 @@ void EnemyCactus::update(float dt, GameContext& ctx) {
 	sprite.update(dt);
 }
 
-void EnemyCactus::draw(sf::RenderWindow& window, GameContext& ctx) {
+void EnemyTv::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
 	boxManager.draw(window);
 }
 
-EntityType EnemyCactus::getType() {
+EntityType EnemyTv::getType() {
 	return EntityType::Enemy;
 }
 
-void EnemyCactus::doCollision() {
+void EnemyTv::doCollision() {
 	if (pendingCollisions.empty()) return;
 	const float NOISE = 0.5f;
 	const float EPS = 0.001f;
@@ -146,7 +129,7 @@ void EnemyCactus::doCollision() {
 		}
 		// being hit
 		else if (myBoxType == BoxType::Hit && otherType == EntityType::Player) {
-			switchAnimation(EnemyCactusAnimation::HIT);
+			switchAnimation(EnemyTvAnimation::HIT);
 			hasBeenHit = true;
 			boxManager.disableBoxType(BoxType::Hit);
 			boxManager.disableBoxType(BoxType::Hurt);
@@ -184,28 +167,28 @@ void EnemyCactus::doCollision() {
 		sprite.move(totalMove);
 	}
 
-	if ((!direction1Flag || !direction2Flag) && isGrounded && directionChangedTime > 0.5f)
+	if ((!direction1Flag || !direction2Flag) && directionChangedTime > 0.5f)
 	{
 		direction *= -1;
+		sprite.flipX = !sprite.flipX;
 		velocityX = 0;
 		directionChangedTime = 0.f;
-		sprite.flipX = !sprite.flipX;
 	}
 
 	pendingCollisions.clear();
 }
 
-void EnemyCactus::onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) {
+void EnemyTv::onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) {
 	pendingCollisions.push_back({ &other, myBox, otherBox, intersection });
 }
 
-void EnemyCactus::switchAnimation(EnemyCactusAnimation newAnimation) {
-	if (newAnimation == activeAnimation || (activeAnimation == EnemyCactusAnimation::HIT && sprite.isAnimationGoing())) return;
+void EnemyTv::switchAnimation(EnemyTvAnimation newAnimation) {
+	if (newAnimation == activeAnimation || (activeAnimation == EnemyTvAnimation::HIT && sprite.isAnimationGoing())) return;
 	sprite.resetAnimation(activeAnimation);
 	sprite.setVisible(activeAnimation, false);
 	sprite.setVisible(newAnimation, true);
 	sprite.update(0.f);
-	if (newAnimation == EnemyCactusAnimation::HIT)
+	if (newAnimation == EnemyTvAnimation::HIT)
 	{
 		sprite.stopAnimationAfterLoop(newAnimation);
 	}

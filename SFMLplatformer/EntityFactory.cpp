@@ -300,6 +300,9 @@ std::shared_ptr <Player> EntityFactory::makePlayer1(sf::Vector2f pos, sf::View& 
     sprite.addChild(assetPath(AssetID::MC_1_JUMP), false);
     sprite.addChild(assetPath(AssetID::MC_1_RUN), true, { 32,32 }, 12, 0.1f, 12, 1);
     sprite.addChild(assetPath(AssetID::MC_1_WALL_JUMP), true, { 32,32 }, 5, 0.1f, 5, 1);
+    sprite.addChild(assetPath(AssetID::MC_APPEARING), true, { 96,96 }, 7, 0.2f, 7, 1, {-32.f,-32.f});
+    sprite.addChild(assetPath(AssetID::MC_DESAPPEARING), true, { 96,96 }, 7, 0.15f, 7, 1, { -32.f,-32.f });
+
 
     sprite.setVisible(0, false);
     sprite.setVisible(1, false);
@@ -307,6 +310,62 @@ std::shared_ptr <Player> EntityFactory::makePlayer1(sf::Vector2f pos, sf::View& 
     sprite.setVisible(4, false);
     sprite.setVisible(5, false);
     sprite.setVisible(6, false);
+    sprite.setVisible(7, false);
+    sprite.setVisible(8, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Player>(sprite, view);
+}
+
+std::shared_ptr <Player> EntityFactory::makePlayer2(sf::Vector2f pos, sf::View& view) {
+
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::MC_2_DOUBLE_JUMP), true, { 32,32 }, 6, 0.1f, 6, 1);
+    sprite.addChild(assetPath(AssetID::MC_2_FALL), false);
+    sprite.addChild(assetPath(AssetID::MC_2_HIT), true, { 32,32 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::MC_2_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::MC_2_JUMP), false);
+    sprite.addChild(assetPath(AssetID::MC_2_RUN), true, { 32,32 }, 12, 0.1f, 12, 1);
+    sprite.addChild(assetPath(AssetID::MC_2_WALL_JUMP), true, { 32,32 }, 5, 0.1f, 5, 1);
+    sprite.addChild(assetPath(AssetID::MC_APPEARING), true, { 96,96 }, 7, 0.2f, 7, 1, { -32.f,-32.f });
+    sprite.addChild(assetPath(AssetID::MC_DESAPPEARING), true, { 96,96 }, 7, 0.15f, 7, 1, { -32.f,-32.f });
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(2, false);
+    sprite.setVisible(4, false);
+    sprite.setVisible(5, false);
+    sprite.setVisible(6, false);
+    sprite.setVisible(7, false);
+    sprite.setVisible(8, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Player>(sprite, view);
+}
+
+std::shared_ptr <Player> EntityFactory::makePlayer3(sf::Vector2f pos, sf::View& view) {
+
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::MC_3_DOUBLE_JUMP), true, { 32,32 }, 6, 0.1f, 6, 1);
+    sprite.addChild(assetPath(AssetID::MC_3_FALL), false);
+    sprite.addChild(assetPath(AssetID::MC_3_HIT), true, { 32,32 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::MC_3_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::MC_3_JUMP), false);
+    sprite.addChild(assetPath(AssetID::MC_3_RUN), true, { 32,32 }, 12, 0.1f, 12, 1);
+    sprite.addChild(assetPath(AssetID::MC_3_WALL_JUMP), true, { 32,32 }, 5, 0.1f, 5, 1);
+    sprite.addChild(assetPath(AssetID::MC_APPEARING), true, { 96,96 }, 7, 0.2f, 7, 1, { -32.f,-32.f });
+    sprite.addChild(assetPath(AssetID::MC_DESAPPEARING), true, { 96,96 }, 7, 0.15f, 7, 1, { -32.f,-32.f });
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(2, false);
+    sprite.setVisible(4, false);
+    sprite.setVisible(5, false);
+    sprite.setVisible(6, false);
+    sprite.setVisible(7, false);
+    sprite.setVisible(8, false);
 
     sprite.setPosition(pos);
 
@@ -327,11 +386,11 @@ std::shared_ptr <Platform> EntityFactory::makePlatform(sf::Vector2f pos, const s
 
 std::shared_ptr <EnemyCactus> EntityFactory::makeEnemyCactus(sf::Vector2f pos) {
     SpriteComposite sprite;
-    sprite.addChild(assetPath(AssetID::MC_1_FALL), false);
-    sprite.addChild(assetPath(AssetID::MC_1_HIT), true, { 32,32 }, 7, 0.1f, 7, 1);
-    sprite.addChild(assetPath(AssetID::MC_1_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
-    sprite.addChild(assetPath(AssetID::MC_1_JUMP), false);
-    sprite.addChild(assetPath(AssetID::MC_1_RUN), true, { 32,32 }, 12, 0.1f, 12, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_CACTUS_FALL), false);
+    sprite.addChild(assetPath(AssetID::ENEMY_CACTUS_HIT), true, { 48,48 }, 4, 0.1f, 4, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_CACTUS_IDLE), true, { 48,48 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_CACTUS_JUMP), false);
+    sprite.addChild(assetPath(AssetID::ENEMY_CACTUS_RUN), true, { 48,48 }, 12, 0.1f, 12, 1);
 
     sprite.setVisible(0, false);
     sprite.setVisible(1, false);
@@ -342,3 +401,57 @@ std::shared_ptr <EnemyCactus> EntityFactory::makeEnemyCactus(sf::Vector2f pos) {
 
     return std::make_shared<EnemyCactus>(sprite);
 }
+
+std::shared_ptr <EnemyTv> EntityFactory::makeEnemyTv(sf::Vector2f pos) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::ENEMY_TV_FALL), true, { 48,48 }, 3, 0.1f, 3, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_TV_HIT), true, { 48,48 }, 5, 0.1f, 5, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_TV_IDLE), true, { 48,48 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_TV_JUMP), true, { 48,48 }, 3, 0.1f, 3, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_TV_RUN), true, { 48,48 }, 12, 0.1f, 12, 1);
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(3, false);
+    sprite.setVisible(4, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<EnemyTv>(sprite);
+}
+
+std::shared_ptr <EnemyBarrel> EntityFactory::makeEnemyBarrel(sf::Vector2f pos) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::ENEMY_BARREL_CHARGE), true, { 48,48 }, 12, 0.1f, 12, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_BARREL_HIT), true, { 48,48 }, 5, 0.1f, 5, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_BARREL_IDLE), true, { 48,48 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_BARREL_STUN), true, { 48,48 }, 8, 0.1f, 8, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_BARREL_WALK), true, { 48,48 }, 12, 0.1f, 12, 1);
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(3, false);
+    sprite.setVisible(4, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<EnemyBarrel>(sprite);
+}
+
+std::shared_ptr<EnemyFlyer> EntityFactory::makeEnemyFlyer(sf::Vector2f pos) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::ENEMY_FLYER_ATTACK), true, { 48,48 }, 8, 0.1f, 8, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_FLYER_FLY), true, { 48,48 }, 6, 0.1f, 6, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_FLYER_HIT), true, { 48,48 }, 4, 0.1f, 4, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_FLYER_IDLE), true, { 48,48 }, 6, 0.1f, 6, 1);
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(2, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<EnemyFlyer>(sprite);
+}
+
+ 

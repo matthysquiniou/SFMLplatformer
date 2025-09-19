@@ -5,7 +5,7 @@
 #include <functional>
 #include <cmath>
 
-class EnemyCactus : public Entity {
+class EnemyBarrel : public Entity {
 
 	struct PendingCollision {
 		Entity* other;
@@ -14,23 +14,23 @@ class EnemyCactus : public Entity {
 		sf::FloatRect intersection;
 	};
 
-	enum EnemyCactusAnimation {
-		FALL = 0,
+	enum EnemyBarrelAnimation {
+		CHARGE = 0,
 		HIT = 1,
 		IDLE = 2,
-		JUMP = 3,
-		RUN = 4
+		STUN = 3,
+		WALK = 4
 	};
 
 	enum ObserverID {
 		DIRECTION_1 = 0,
-		DIRECTION_2 = 1
+		DIRECTION_2 = 1,
+		PLAYER_1 = 2,
+		PLAYER_2 = 3
 	};
 
 public:
-	EnemyCactus(SpriteComposite s);
-
-	void handleEvents(const sf::Event& e, GameContext& ctx) override;
+	EnemyBarrel(SpriteComposite s);
 
 	void update(float dt, GameContext& ctx) override;
 
@@ -40,32 +40,44 @@ public:
 
 	void onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) override;
 
-	void switchAnimation(EnemyCactusAnimation newAnimation);
-	
+	void switchAnimation(EnemyBarrelAnimation newAnimation);
+
+	void switchPlayerObserver();
+
 	void doCollision();
 
+	void activateStun();
+
 	bool isGrounded = false;
+
+	bool isRunning = false;
+
+	bool isStuned = false;
 
 	int direction = -1;
 
 	float directionChangedTime = 0.5f;
 
-	bool playerJumped = false;
-
-	float jumpTime = 0.f;
+	float stunTime = 0.f;
 
 	float velocityX = 0.f;
 
 	float velocityY = 0.f;
 
-	float maxRunVelocity = 200.f;
+	float maxWalkVelocity = 200.f;
 
-	float runAcceleration = 300.f;
+	float walkAcceleration = 300.f;
+
+	float maxRunVelocity = 800.f;
+
+	float runAcceleration = 1000.f;
 
 	bool hasBeenHit = false;
 
+	ObserverID activePlayerObserver = ObserverID::PLAYER_1;
+
 private:
-	EnemyCactusAnimation activeAnimation = EnemyCactusAnimation::IDLE;
+	EnemyBarrelAnimation activeAnimation = EnemyBarrelAnimation::IDLE;
 
 	PhysicEngine physicEngine;
 

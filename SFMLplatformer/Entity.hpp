@@ -11,6 +11,8 @@ protected:
     SpriteComposite sprite;
 
 public:
+    bool deleteIt = false;
+
     Entity() : sprite{} {}
     Entity(SpriteComposite s) : sprite(std::move(s)) {}
     virtual ~Entity() = default;

@@ -9,8 +9,13 @@ public:
     ~BoxManager();
 
     void addBox(const sf::FloatRect& r, BoxType t);
+    void addBox(const sf::FloatRect& r, BoxType t, int observerID);
     void clear();
     void updateBoxesPosition(sf::Vector2f pos);
+    void disableBoxType( BoxType boxType );
+    void activateBoxType(BoxType boxType);
+    void disableBoxObserver(int observerID);
+    void activateBoxObserver(int observerID);
 
     EntityType getType() const;
     Entity* getEntity() const;

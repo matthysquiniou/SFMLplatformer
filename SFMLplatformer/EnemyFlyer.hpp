@@ -5,7 +5,7 @@
 #include <functional>
 #include <cmath>
 
-class EnemyCactus : public Entity {
+class EnemyFlyer : public Entity {
 
 	struct PendingCollision {
 		Entity* other;
@@ -14,23 +14,21 @@ class EnemyCactus : public Entity {
 		sf::FloatRect intersection;
 	};
 
-	enum EnemyCactusAnimation {
-		FALL = 0,
-		HIT = 1,
-		IDLE = 2,
-		JUMP = 3,
-		RUN = 4
+	enum EnemyFlyerAnimation {
+		ATTACK = 0,
+		FLY = 1,
+		HIT = 2,
+		IDLE = 3
 	};
 
 	enum ObserverID {
 		DIRECTION_1 = 0,
-		DIRECTION_2 = 1
+		DIRECTION_2 = 1,
+		PLAYER = 2
 	};
 
 public:
-	EnemyCactus(SpriteComposite s);
-
-	void handleEvents(const sf::Event& e, GameContext& ctx) override;
+	EnemyFlyer(SpriteComposite s);
 
 	void update(float dt, GameContext& ctx) override;
 
@@ -40,32 +38,34 @@ public:
 
 	void onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) override;
 
-	void switchAnimation(EnemyCactusAnimation newAnimation);
-	
-	void doCollision();
+	void switchAnimation(EnemyFlyerAnimation newAnimation);
 
-	bool isGrounded = false;
+	void doCollision();
 
 	int direction = -1;
 
 	float directionChangedTime = 0.5f;
 
-	bool playerJumped = false;
-
-	float jumpTime = 0.f;
+	float velocityY = 0.f;
 
 	float velocityX = 0.f;
 
-	float velocityY = 0.f;
+	float baseY;
 
-	float maxRunVelocity = 200.f;
+	bool isGoingUp = false;
 
-	float runAcceleration = 300.f;
+	float goingUpSpeed = 75.f;
+
+	float maxFlyVelocity = 250.f;
+
+	float flyAcceleration = 300.f;
+
+	bool isAttacking = false;
 
 	bool hasBeenHit = false;
 
 private:
-	EnemyCactusAnimation activeAnimation = EnemyCactusAnimation::IDLE;
+	EnemyFlyerAnimation activeAnimation = EnemyFlyerAnimation::IDLE;
 
 	PhysicEngine physicEngine;
 

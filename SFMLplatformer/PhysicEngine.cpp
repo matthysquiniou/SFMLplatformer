@@ -1,5 +1,9 @@
 #include "PhysicEngine.hpp"
 #include "Player.hpp"
+#include "EnemyCactus.hpp"
+#include "EnemyTv.hpp"
+#include "EnemyBarrel.hpp"
+#include "EnemyFlyer.hpp"
 
 void PhysicEngine::updatePlayerPhysic(Player& player, float dt) {
     switch (player.direction)
@@ -33,4 +37,142 @@ void PhysicEngine::updatePlayerPhysic(Player& player, float dt) {
     }
 
     player.getSprite().move({ player.velocityX * dt , player.velocityY * dt });
+}
+
+
+void PhysicEngine::updateEnemyCactusPhysic(EnemyCactus& cactus, float dt) {
+    switch (cactus.direction)
+    {
+    case -1:
+        if (cactus.maxRunVelocity > abs(cactus.velocityX))
+        {
+            cactus.velocityX -= cactus.runAcceleration * dt;
+        }
+        break;
+    case 1:
+        if (cactus.maxRunVelocity > cactus.velocityX)
+        {
+            cactus.velocityX += cactus.runAcceleration * dt;
+        }
+        break;
+    default:
+        break;
+    }
+
+    if (!cactus.isGrounded) {
+        cactus.velocityY += gravity * dt;
+    }
+
+    cactus.getSprite().move({ cactus.velocityX * dt , cactus.velocityY * dt });
+}
+
+void PhysicEngine::updateEnemyTvPhysic(EnemyTv& tv, float dt) {
+    switch (tv.direction)
+    {
+    case -1:
+        if (tv.maxRunVelocity > abs(tv.velocityX))
+        {
+            tv.velocityX -= tv.runAcceleration * dt;
+        }
+        break;
+    case 1:
+        if (tv.maxRunVelocity > tv.velocityX)
+        {
+            tv.velocityX += tv.runAcceleration * dt;
+        }
+        break;
+    default:
+        break;
+    }
+
+    if (!tv.isGrounded) {
+        tv.velocityY += gravity * dt;
+    }
+
+    tv.getSprite().move({ tv.velocityX * dt , tv.velocityY * dt });
+}
+
+void PhysicEngine::updateEnemyBarrelPhysic(EnemyBarrel& barrel, float dt) {
+    if (barrel.isStuned) return;
+
+    switch (barrel.direction)
+    {
+    case -1:
+        if (barrel.isRunning)
+        {
+            if (barrel.maxRunVelocity > abs(barrel.velocityX))
+            {
+                barrel.velocityX -= barrel.runAcceleration * dt;
+            }
+        } else {
+            if (barrel.maxWalkVelocity > abs(barrel.velocityX))
+            {
+                barrel.velocityX -= barrel.walkAcceleration * dt;
+            }
+        }
+
+        break;
+    case 1:
+        if (barrel.isRunning)
+        {
+            if (barrel.maxRunVelocity > barrel.velocityX)
+            {
+                barrel.velocityX += barrel.runAcceleration * dt;
+            }
+        } else {
+            if (barrel.maxWalkVelocity > barrel.velocityX)
+            {
+                barrel.velocityX += barrel.walkAcceleration * dt;
+            }
+        }
+
+        break;
+    default:
+        break;
+    }
+
+    if (!barrel.isGrounded) {
+        barrel.velocityY += gravity * dt;
+    }
+
+    barrel.getSprite().move({ barrel.velocityX * dt , barrel.velocityY * dt });
+}
+
+void PhysicEngine::updateEnemyFlyerPhysic(EnemyFlyer& flyer, float dt) {
+
+    switch (flyer.direction)
+    {
+    case -1:
+        if (flyer.isAttacking || flyer.isGoingUp) break;
+        if (flyer.maxFlyVelocity > abs(flyer.velocityX))
+        {
+            flyer.velocityX -= flyer.flyAcceleration * dt;
+        }
+        
+        break;
+    case 1:
+        if (flyer.isAttacking || flyer.isGoingUp) break;
+        if (flyer.maxFlyVelocity > flyer.velocityX)
+        {
+            flyer.velocityX += flyer.flyAcceleration * dt;
+        }
+
+        break;
+    default:
+        break;
+    }
+
+    if (flyer.isGoingUp)
+    {
+        flyer.velocityY = -flyer.goingUpSpeed;
+    }else if (!flyer.isAttacking) {
+        flyer.velocityY = 0.f;
+    }
+
+    if (flyer.isGoingUp && flyer.getSprite().getPosition().y < flyer.baseY)
+    {
+        flyer.isGoingUp = false;
+    }
+
+    flyer.getSprite().move({ flyer.velocityX * dt , flyer.velocityY * dt });
 }

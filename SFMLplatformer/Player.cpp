@@ -1,9 +1,10 @@
 #include "Player.hpp"
 
 Player::Player(SpriteComposite s, sf::View& view) : Entity(std::move(s)), boxManager(EntityType::Player, this), view(view) {
+	respawnPos = sprite.getPosition();
 	boxManager.addBox({ {5.f,2.f} ,{24.f,28.f}}, BoxType::Collision);
-	boxManager.addBox({ {5.f,2.f} ,{24.f,18.f} }, BoxType::Hit);
-	boxManager.addBox({ {5.f,20.f} ,{24.f,10.f} }, BoxType::Hurt);
+	boxManager.addBox({ {5.f,2.f} ,{24.f,20.f} }, BoxType::Hit);
+	boxManager.addBox({ {5.f,22.f} ,{24.f,8.f} }, BoxType::Hurt);
 }
 
 void Player::handleEvents(const sf::Event& e, GameContext& ctx) {
@@ -77,6 +78,21 @@ void Player::handleEvents(const sf::Event& e, GameContext& ctx) {
 }
 
 void Player::update(float dt, GameContext& ctx) {
+
+	if (hasBeenHit)
+	{
+		sprite.update(dt);
+		if (!sprite.isAnimationGoing() && activeAnimation == PlayerAnimation::HIT)
+		{
+			switchAnimation(PlayerAnimation::DESAPPEARING);
+		}
+		if (!sprite.isAnimationGoing() && activeAnimation == PlayerAnimation::DESAPPEARING)
+		{
+			respawn();
+		}
+		return;
+	}
+
 	physicEngine.updatePlayerPhysic(*this, dt);
 
 	if (velocityY > 0 && ((activeAnimation != PlayerAnimation::WALL_JUMP && activeAnimation != PlayerAnimation::DOUBLE_JUMP) || (activeAnimation == PlayerAnimation::DOUBLE_JUMP && !sprite.isAnimationGoing()) || (activeAnimation == PlayerAnimation::WALL_JUMP && !isOnWall)))
@@ -133,14 +149,15 @@ void Player::doCollision() {
 	float maxLeft = 0.f; bool hasLeft = false; Box leftBox;
 	float maxRight = 0.f; bool hasRight = false; Box rightBox;
 
-	std::vector<PendingCollision> otherCollisions;
-
 	for (auto& pc : pendingCollisions) {
 		if (pc.intersection.size.x < NOISE && pc.intersection.size.y < NOISE) continue;
 
 		EntityType otherType = pc.other->getType();
+		BoxType myBoxType = pc.myBox.type;
+
+		//platform
 		
-		if (otherType == EntityType::Platform) { 
+		if (otherType == EntityType::Platform && myBoxType == BoxType::Collision) {
 			const auto& inter = pc.intersection;
 
 			if (inter.size.x < inter.size.y) {
@@ -175,9 +192,11 @@ void Player::doCollision() {
 					}
 				}
 			}
-		}
-		else {
-			otherCollisions.push_back(pc);
+		} else if ( myBoxType == BoxType::Hit && otherType == EntityType::Enemy) {
+			switchAnimation(PlayerAnimation::HIT);
+			boxManager.disableBoxType(BoxType::Hit);
+			boxManager.disableBoxType(BoxType::Hurt);
+			hasBeenHit = true;
 		}
 	}
 
@@ -210,11 +229,15 @@ void Player::doCollision() {
 		sprite.move(totalMove);
 	}
 
-	for (auto& pc : otherCollisions) {
-		// TODO::otherCollisions
-	}
-
 	pendingCollisions.clear();
+}
+
+void Player::respawn() {
+	sprite.setPosition(respawnPos);
+	hasBeenHit = false;
+	boxManager.activateBoxType(BoxType::Hit);
+	boxManager.activateBoxType(BoxType::Hurt);
+	switchAnimation(PlayerAnimation::APPEARING);
 }
 
 
@@ -223,11 +246,18 @@ void Player::onCollision(Entity& other, const Box& myBox, const Box& otherBox, s
 }
 
 void Player::switchAnimation(PlayerAnimation newAnimation) {
-	if (newAnimation == activeAnimation || (activeAnimation == PlayerAnimation::HIT && sprite.isAnimationGoing())) return;
+	if (newAnimation == activeAnimation ||
+		(activeAnimation == PlayerAnimation::HIT && sprite.isAnimationGoing()) ||
+		(activeAnimation == PlayerAnimation::APPEARING && sprite.isAnimationGoing()) ||
+		(activeAnimation == PlayerAnimation::DESAPPEARING && sprite.isAnimationGoing()) ) return;
 	sprite.resetAnimation(activeAnimation);
 	sprite.setVisible(activeAnimation, false);
 	sprite.setVisible(newAnimation, true);
-	if (newAnimation == PlayerAnimation::HIT || newAnimation == PlayerAnimation::DOUBLE_JUMP)
+	sprite.update(0.f);
+	if (newAnimation == PlayerAnimation::HIT ||
+		newAnimation == PlayerAnimation::DOUBLE_JUMP || 
+		newAnimation == PlayerAnimation::DESAPPEARING ||
+		newAnimation == PlayerAnimation::APPEARING)
 	{
 		sprite.stopAnimationAfterLoop(newAnimation);
 	}

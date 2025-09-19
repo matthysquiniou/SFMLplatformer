@@ -47,7 +47,7 @@ void PlayState::loadLevelBase(unsigned int levelBase) {
     {
     case 0:
         entityManager.addEntity(EntityFactory::makePlayer1({ 100.f,500.f },view));
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 60; i++) {
             entityManager.addEntity(EntityFactory::makePlatform({ i * 16.f, 550.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
         }
 
@@ -62,8 +62,8 @@ void PlayState::loadLevelBase(unsigned int levelBase) {
         for (int j = 0; j < 12; j++) {
             entityManager.addEntity(EntityFactory::makePlatform({ 600.f, 534.f - j * 16.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
         }
-
-        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 600.f,400.f }));
+        
+        entityManager.addEntity(EntityFactory::makeEnemyFlyer({ 350.f,350.f }));
         break;
     case 1:
         break;

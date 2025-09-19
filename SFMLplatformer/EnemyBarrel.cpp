@@ -1,32 +1,18 @@
-#include "EnemyCactus.hpp"
+#include "EnemyBarrel.hpp"
 #include <iostream>
 
-EnemyCactus::EnemyCactus(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
+EnemyBarrel::EnemyBarrel(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
 	boxManager.addBox({ {12.f,20.f} ,{24.f,24.f} }, BoxType::Collision);
 	boxManager.addBox({ {12.f,20.f} ,{24.f,8.f} }, BoxType::Hit);
 	boxManager.addBox({ {12.f,28.f} ,{24.f,20.f} }, BoxType::Hurt);
 	boxManager.addBox({ {-4.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
 	boxManager.addBox({ {36.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
+	boxManager.addBox({ {-288.f,20.f} ,{300.f,28.f} }, BoxType::CollisionObserver, ObserverID::PLAYER_1);
+	boxManager.addBox({ {36.f,20.f} ,{300.f,28.f} }, BoxType::CollisionObserver, ObserverID::PLAYER_2);
+	boxManager.disableBoxObserver(ObserverID::PLAYER_2);
 }
 
-void EnemyCactus::handleEvents(const sf::Event& e, GameContext& ctx) {
-	if (e.is<sf::Event::KeyPressed>())
-	{
-		auto key = e.getIf<sf::Event::KeyPressed>();
-		switch (key->code)
-		{
-		case sf::Keyboard::Key::Up:
-			if (!playerJumped && isGrounded)
-			{
-				jumpTime = 0.f;
-				playerJumped = true;
-			}
-			break;
-		}
-	}
-}
-
-void EnemyCactus::update(float dt, GameContext& ctx) {
+void EnemyBarrel::update(float dt, GameContext& ctx) {
 
 	if (hasBeenHit)
 	{
@@ -38,27 +24,27 @@ void EnemyCactus::update(float dt, GameContext& ctx) {
 		return;
 	}
 
-	if (jumpTime > 1.f && playerJumped)
+	if (isStuned)
 	{
-		playerJumped = false;
-		velocityY = -500.f;
+		stunTime += dt;
+		if (stunTime > 5.f)
+		{
+			isStuned = false;
+		}
 	}
 
-	physicEngine.updateEnemyCactusPhysic(*this, dt);
+	physicEngine.updateEnemyBarrelPhysic(*this, dt);
 
-	if (velocityY > 0)
+	if (isGrounded && (direction != 0) && !isStuned)
 	{
-		switchAnimation(EnemyCactusAnimation::FALL);
-	}
-
-	if (velocityY < 0)
-	{
-		switchAnimation(EnemyCactusAnimation::JUMP);
-	}
-
-	if (isGrounded && (direction != 0))
-	{
-		switchAnimation(EnemyCactusAnimation::RUN);
+		if (isRunning)
+		{
+			switchAnimation(EnemyBarrelAnimation::CHARGE);
+		}
+		else {
+			switchAnimation(EnemyBarrelAnimation::WALK);
+		}
+		
 	}
 
 	boxManager.updateBoxesPosition(sprite.getPosition());
@@ -67,21 +53,21 @@ void EnemyCactus::update(float dt, GameContext& ctx) {
 
 	directionChangedTime += dt;
 
-	jumpTime += dt;
+	stunTime += dt;
 
 	sprite.update(dt);
 }
 
-void EnemyCactus::draw(sf::RenderWindow& window, GameContext& ctx) {
+void EnemyBarrel::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
 	boxManager.draw(window);
 }
 
-EntityType EnemyCactus::getType() {
+EntityType EnemyBarrel::getType() {
 	return EntityType::Enemy;
 }
 
-void EnemyCactus::doCollision() {
+void EnemyBarrel::doCollision() {
 	if (pendingCollisions.empty()) return;
 	const float NOISE = 0.5f;
 	const float EPS = 0.001f;
@@ -144,9 +130,12 @@ void EnemyCactus::doCollision() {
 			if (pc.myBox.observerID == ObserverID::DIRECTION_1) direction1Flag = true;
 			if (pc.myBox.observerID == ObserverID::DIRECTION_2) direction2Flag = true;
 		}
+		else if (myBoxType == BoxType::CollisionObserver && otherType == EntityType::Player) {
+			if (pc.myBox.observerID == ObserverID::PLAYER_1 || pc.myBox.observerID == ObserverID::PLAYER_2) isRunning = true;
+		}
 		// being hit
 		else if (myBoxType == BoxType::Hit && otherType == EntityType::Player) {
-			switchAnimation(EnemyCactusAnimation::HIT);
+			switchAnimation(EnemyBarrelAnimation::HIT);
 			hasBeenHit = true;
 			boxManager.disableBoxType(BoxType::Hit);
 			boxManager.disableBoxType(BoxType::Hurt);
@@ -167,47 +156,75 @@ void EnemyCactus::doCollision() {
 		velocityY = 0.f;
 	}
 
-	if (hasRight) {
+	if (hasRight && !isStuned) {
+		if (isRunning) activateStun();
 		totalMove.x -= (maxRight - EPS);
 		velocityX = 0.f;
 		direction *= -1;
 		sprite.flipX = !sprite.flipX;
+		switchPlayerObserver();
 	}
-	if (hasLeft) {
+	if (hasLeft && !isStuned) {
+		if (isRunning) activateStun();
 		totalMove.x += (maxLeft - EPS);
 		velocityX = 0.f;
 		direction *= -1;
 		sprite.flipX = !sprite.flipX;
+		switchPlayerObserver();
 	}
 
 	if (totalMove.x != 0.f || totalMove.y != 0.f) {
 		sprite.move(totalMove);
 	}
 
-	if ((!direction1Flag || !direction2Flag) && isGrounded && directionChangedTime > 0.5f)
+	if ((!direction1Flag || !direction2Flag) && directionChangedTime > 0.5f && !isStuned)
 	{
+		if (isRunning) activateStun();
+		if (!direction1Flag) sprite.move({ 2.f,0.f });
+		if (!direction2Flag) sprite.move({ -2.f,0.f });
+		switchPlayerObserver();
 		direction *= -1;
+		sprite.flipX = !sprite.flipX;
 		velocityX = 0;
 		directionChangedTime = 0.f;
-		sprite.flipX = !sprite.flipX;
 	}
 
 	pendingCollisions.clear();
 }
 
-void EnemyCactus::onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) {
+void EnemyBarrel::onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) {
 	pendingCollisions.push_back({ &other, myBox, otherBox, intersection });
 }
 
-void EnemyCactus::switchAnimation(EnemyCactusAnimation newAnimation) {
-	if (newAnimation == activeAnimation || (activeAnimation == EnemyCactusAnimation::HIT && sprite.isAnimationGoing())) return;
+void EnemyBarrel::switchAnimation(EnemyBarrelAnimation newAnimation) {
+	if (newAnimation == activeAnimation || (activeAnimation == EnemyBarrelAnimation::HIT && sprite.isAnimationGoing())) return;
 	sprite.resetAnimation(activeAnimation);
 	sprite.setVisible(activeAnimation, false);
 	sprite.setVisible(newAnimation, true);
 	sprite.update(0.f);
-	if (newAnimation == EnemyCactusAnimation::HIT)
+	if (newAnimation == EnemyBarrelAnimation::HIT)
 	{
 		sprite.stopAnimationAfterLoop(newAnimation);
 	}
 	activeAnimation = newAnimation;
+}
+
+void EnemyBarrel::switchPlayerObserver() {
+	if (activePlayerObserver == ObserverID::PLAYER_1)
+	{
+		activePlayerObserver = ObserverID::PLAYER_2;
+		boxManager.activateBoxObserver(ObserverID::PLAYER_2);
+		boxManager.disableBoxObserver(ObserverID::PLAYER_1);
+	} else {
+		activePlayerObserver = ObserverID::PLAYER_1;
+		boxManager.activateBoxObserver(ObserverID::PLAYER_1);
+		boxManager.disableBoxObserver(ObserverID::PLAYER_2);
+	}
+}
+
+void EnemyBarrel::activateStun() {
+	isStuned = true;
+	isRunning = false;
+	stunTime = 0.f;
+	switchAnimation(EnemyBarrelAnimation::STUN);
 }

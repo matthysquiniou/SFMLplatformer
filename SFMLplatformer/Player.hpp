@@ -23,7 +23,9 @@ class Player : public Entity {
 		IDLE = 3,
 		JUMP = 4,
 		RUN = 5,
-		WALL_JUMP = 6
+		WALL_JUMP = 6,
+		APPEARING = 7,
+		DESAPPEARING = 8
 	};
 
 public:
@@ -43,6 +45,10 @@ public:
 
 	void switchAnimation(PlayerAnimation newAnimation);
 
+	void respawn();
+
+	sf::Vector2f respawnPos;
+
 	bool isGrounded = false;
 
 	bool doubleJumpUsed = false;
@@ -60,6 +66,8 @@ public:
 	float maxRunVelocity = 400.f;
 
 	float runAcceleration = 500.f;
+
+	bool hasBeenHit = false;
 
 private:
 	PlayerAnimation activeAnimation = PlayerAnimation::IDLE;
