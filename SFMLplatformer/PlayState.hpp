@@ -3,10 +3,11 @@
 #include "EntityManager.hpp"
 #include "EntityFactory.hpp"
 #include "Collision.hpp"
+#include "Assets.hpp"
 
 class PlayState : public State {
 public:
-    PlayState(sf::Vector2u windowSize, sf::View& view) : windowSize(windowSize), view(view) {}
+    PlayState(sf::Vector2u windowSize, sf::View& view) : windowSize(windowSize), view(view), score(getMainFont(), "0", 24) {}
 
     void handleEvents(std::optional<sf::Event> event, GameContext& ctx) override;
 
@@ -14,16 +15,20 @@ public:
 
     void draw(sf::RenderWindow& window, GameContext& ctx) override;
 
-    void loadLevel(unsigned int level);
+    void loadLevel(unsigned int level, int character);
 
 private:
-    void loadLevelBase(unsigned int levelBase);
+    void loadLevelBase(unsigned int levelBase, int character);
 
     void loadLevelObj(unsigned int levelObj);
+
+    void loadPlayer(int character, sf::Vector2f pos);
 
     EntityManager entityManager;
 
     sf::Vector2u windowSize;
 
     sf::View& view;
+
+    sf::Text score;
 };

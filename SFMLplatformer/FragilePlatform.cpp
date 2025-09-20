@@ -8,13 +8,13 @@ FragilePlatform::FragilePlatform(SpriteComposite s) : Entity(std::move(s)), boxM
 void FragilePlatform::update(float dt, GameContext& ctx) {
 	if (hasBeenTouch)
 	{
+		sprite.update(dt);
+
 		if (!sprite.isAnimationGoing())
 		{
 			sprite.setVisible(0, false);
 			boxManager.disableBoxType(BoxType::Collision);
 			respawnTime += dt;
-		} else {
-			sprite.update(dt);
 		}
 
 		if (respawnTime > 15.f)
@@ -51,7 +51,7 @@ void FragilePlatform::doCollision() {
 
 		EntityType otherType = pc.other->getType();
 
-		if (otherType == EntityType::Player) {
+		if (otherType == EntityType::Player && !hasBeenTouch) {
 			hasBeenTouch = true;
 			sprite.setAnimationActive(0, true);
 			sprite.stopAnimationAfterLoop(0);

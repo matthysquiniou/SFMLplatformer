@@ -9,7 +9,7 @@ void Gem::update(float dt, GameContext& ctx) {
 	sprite.update(dt);
 	if (hasBeenTouch)
 	{
-		// TODO :: add to "score"
+		ctx.score += 10;
 		deleteIt = true;
 	}
 }

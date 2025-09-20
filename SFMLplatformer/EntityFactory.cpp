@@ -14,6 +14,26 @@ std::shared_ptr <Entity> EntityFactory::makeVisual(const std::string& path, sf::
     return std::make_shared<Entity>(sprite);
 }
 
+std::shared_ptr <CharacterPickingEntity> EntityFactory::makeCharacterPickingEntity(int character, sf::Vector2f pos) {
+    SpriteComposite sprite;
+    switch (character)
+    {
+    case 1:
+        sprite.addChild(assetPath(AssetID::MC_1_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
+        break;
+    case 2:
+        sprite.addChild(assetPath(AssetID::MC_2_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
+        break;
+    case 3:
+        sprite.addChild(assetPath(AssetID::MC_3_IDLE), true, { 32,32 }, 11, 0.1f, 11, 1);
+        break;
+    default:
+        break;
+    }
+    sprite.setPosition(pos);
+    return std::make_shared<CharacterPickingEntity>(sprite,character);
+}
+
 std::shared_ptr <Button> EntityFactory::makeTextButtonBlue(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick, sf::View& view) {
     SpriteComposite sprite;
     sprite.addChild(assetPath(AssetID::BUTTON_BLUE_UP), false);
@@ -283,7 +303,7 @@ std::shared_ptr <Button> EntityFactory::makeLevelButton(unsigned int level, sf::
         sprite,
         [level](GameContext& ctx) {
             ctx.currentLevel = level;
-            ctx.playState->loadLevel(level);
+            ctx.playState->loadLevel(level, ctx.character);
             ctx.currentState = GameState::PLAY;
         },
         view);
@@ -566,4 +586,31 @@ std::shared_ptr<Cup> EntityFactory::makeCup(sf::Vector2f pos) {
     sprite.setPosition(pos);
 
     return std::make_shared<Cup>(sprite);
+}
+
+std::shared_ptr<Trap> EntityFactory::makeTrap(sf::Vector2f pos, Trap::TrapType trapType, bool flipY) {
+    SpriteComposite sprite;
+
+    sprite.flipY = flipY;
+
+    float animationDelay = 0.33f;
+
+    switch (trapType)
+    {
+    case Trap::SAW:
+        sprite.addChild(assetPath(AssetID::SAW), true, { 48,48 }, 7, animationDelay, 7, 1);
+        break;
+    case Trap::SPIKE:
+        sprite.addChild(assetPath(AssetID::SPIKE), true, { 48,48 }, 7, animationDelay, 7, 1);
+        break;
+    case Trap::ELECTRICITY:
+        sprite.addChild(assetPath(AssetID::ELECTRICITY), true, { 48,48 }, 7, animationDelay, 7, 1);
+        break;
+    default:
+        break;
+    }
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Trap>(sprite, trapType, animationDelay);
 }

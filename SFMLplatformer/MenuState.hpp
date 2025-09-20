@@ -57,9 +57,10 @@ public:
 
         // BUTTONS
 
-        sf::Vector2f buttonPos1 = { framePos.x + 100.f, framePos.y + (frameSize.y / 5) * 2 };
-        sf::Vector2f buttonPos2 = { framePos.x + 100.f, framePos.y + (frameSize.y / 5) * 3 };
-        sf::Vector2f buttonPos3 = { framePos.x + 100.f, framePos.y + (frameSize.y / 5) * 4 };
+        sf::Vector2f buttonPos1 = { framePos.x + 100.f, framePos.y + (frameSize.y / 6) * 2 };
+        sf::Vector2f buttonPos2 = { framePos.x + 100.f, framePos.y + (frameSize.y / 6) * 3 };
+        sf::Vector2f buttonPos3 = { framePos.x + 100.f, framePos.y + (frameSize.y / 6) * 4 };
+        sf::Vector2f buttonPos4 = { framePos.x + 100.f, framePos.y + (frameSize.y / 6) * 5 };
 
         entityManager.addEntity(EntityFactory::makeTextButtonOrange(
             "LEVELS",
@@ -80,8 +81,17 @@ public:
         );
 
         entityManager.addEntity(EntityFactory::makeTextButtonOrange(
-            "EXIT",
+            "CHARACTER",
             buttonPos3,
+            [](GameContext& ctx) {
+                ctx.currentState = GameState::CHARACTER_PICKING;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonOrange(
+            "EXIT",
+            buttonPos4,
             [](GameContext& ctx) {
                 ctx.currentState = GameState::EXIT;
             },

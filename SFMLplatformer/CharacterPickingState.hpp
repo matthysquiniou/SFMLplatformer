@@ -3,16 +3,16 @@
 #include "EntityManager.hpp"
 #include "EntityFactory.hpp"
 
-class SoundState : public State {
+class CharacterPickingState : public State {
 public:
-    SoundState(sf::Vector2u windowSize, sf::View& view) {
+    CharacterPickingState(sf::Vector2u windowSize, sf::View& view) {
         // BACKGROUND
 
         for (float x = 0.f; x < windowSize.x; x += 64.f)
         {
             for (float y = 0.f; y < windowSize.y; y += 64.f)
             {
-                entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::BG_GREY), { x, y }));
+                entityManager.addEntity(EntityFactory::makeVisual(assetPath(AssetID::BG_PURPLE), { x, y }));
             }
         }
 
@@ -51,7 +51,7 @@ public:
 
         sf::Vector2f titlePos = { framePos.x + frameSize.x / 2, framePos.y + (frameSize.y / 6) };
 
-        entityManager.addEntity(EntityFactory::makeText("SOUND", 40, titlePos));
+        entityManager.addEntity(EntityFactory::makeText("CHARACTER PICKING", 40, titlePos));
 
         // RETURN MENU BUTTON
 
@@ -66,8 +66,36 @@ public:
             view)
         );
 
-        //TODO :: make buttons to change sound value and display the value 
-        // music / interface / gameplay 
+        // BUTTON PICK
+
+        sf::Vector2f buttonPick1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 6) * 3 };
+        sf::Vector2f buttonPick2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 6) * 3 };
+
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonPick1,
+            [](GameContext& ctx) {
+                ctx.character = (ctx.character + 1) % 3 + 1;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonPick2,
+            [](GameContext& ctx) {
+                ctx.character = ctx.character % 3 + 1;
+            },
+            view)
+        );
+
+        sf::Vector2f characterPos = { framePos.x + (frameSize.x / 2) - 16.f, framePos.y + (frameSize.y / 6) * 3 };
+
+        entityManager.addEntity(EntityFactory::makeCharacterPickingEntity(1, characterPos));
+        entityManager.addEntity(EntityFactory::makeCharacterPickingEntity(2, characterPos));
+        entityManager.addEntity(EntityFactory::makeCharacterPickingEntity(3, characterPos));
+
     }
 
     void handleEvents(std::optional<sf::Event> event, GameContext& ctx) override;

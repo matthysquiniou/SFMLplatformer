@@ -4,7 +4,7 @@
 #include <functional>
 #include <cmath>
 
-class Cup : public Entity {
+class Trap : public Entity {
 
 	struct PendingCollision {
 		Entity* other;
@@ -13,13 +13,16 @@ class Cup : public Entity {
 		sf::FloatRect intersection;
 	};
 
-	enum CupAnimation {
-		IDLE = 0,
-		TOUCH = 1
+public:
+
+	enum TrapType
+	{
+		SAW = 0,
+		SPIKE = 1,
+		ELECTRICITY = 2
 	};
 
-public:
-	Cup(SpriteComposite s);
+	Trap(SpriteComposite s, TrapType trapType, float animationDelay);
 
 	void update(float dt, GameContext& ctx) override;
 
@@ -27,19 +30,21 @@ public:
 
 	EntityType getType() override;
 
-	void onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) override;
+	void updateHurtBox();
 
-	void doCollision();
+	TrapType trapType;
 
-	void switchAnimation(CupAnimation newAnimation);
+	float animationDelay;
 
-	bool hasBeenTouch = false;
+	float animationTime = 0.f;
 
-	bool scoreGiven = false;
+	float idleTime = 2.f;
+
+	bool isIdling = false;
+
+	int hurtBoxActive = 1;
 
 private:
-	CupAnimation activeAnimation = CupAnimation::IDLE;
-
 	BoxManager boxManager;
 
 	std::vector<PendingCollision> pendingCollisions;

@@ -81,7 +81,7 @@ void NextLevelState::loadNextLevel(GameContext& ctx) {
             "NEXT LEVEL",
             buttonPos1,
             [](GameContext& ctx) {
-                ctx.playState->loadLevel(ctx.currentLevel++);
+                ctx.playState->loadLevel(ctx.currentLevel++, ctx.character);
                 ctx.currentState = GameState::PLAY;
             },
             view)
@@ -92,7 +92,7 @@ void NextLevelState::loadNextLevel(GameContext& ctx) {
         "RESTART",
         buttonPos2,
         [](GameContext& ctx) {
-            ctx.playState->loadLevel(ctx.currentLevel);
+            ctx.playState->loadLevel(ctx.currentLevel, ctx.character);
             ctx.currentState = GameState::PLAY;
         },
         view)

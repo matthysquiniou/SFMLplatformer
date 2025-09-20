@@ -5,5 +5,6 @@ enum GameState {
 	PLAY = 4,
 	PAUSE = 5,
 	NEXT_LEVEL = 6,
-	EXIT = 7
+	EXIT = 7,
+	CHARACTER_PICKING = 8
 };

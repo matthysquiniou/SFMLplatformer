@@ -8,17 +8,19 @@ class PauseState;
 class SoundState;
 class LevelChoiceState;
 class NextLevelState;
+class CharacterPickingState;
 
 struct GameContext {
     GameState currentState = GameState::MENU;
 
-    //TODO
+    //TODO : sound
     float musicVolume = 100.f;
     float interfaceVolume = 100.f;
     float sfxVolume = 100.f;
 
+    int character = 1;
     int currentLevel = 0;
-    int score = 0; //TODO
+    int score = 0;
 
     std::unique_ptr<MenuState> menuState;
     std::unique_ptr<PlayState> playState;
@@ -26,4 +28,5 @@ struct GameContext {
     std::unique_ptr<SoundState> soundState;
     std::unique_ptr<LevelChoiceState> levelChoiceState;
     std::unique_ptr<NextLevelState> nextLevelState;
+    std::unique_ptr<CharacterPickingState> characterPickingState;
 };

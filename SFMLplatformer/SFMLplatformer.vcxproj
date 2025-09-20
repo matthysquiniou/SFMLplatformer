@@ -140,8 +140,13 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BoxManager.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CharacterPickingEntity.cpp" />
+    <ClCompile Include="CharacterPickingState.cpp" />
     <ClCompile Include="Checkpoint.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Trap.cpp" />
+    <ClInclude Include="CharacterPickingEntity.hpp" />
+    <ClInclude Include="CharacterPickingState.hpp" />
     <ClInclude Include="Checkpoint.hpp" />
     <ClInclude Include="Cup.hpp" />
     <ClInclude Include="EnemyBarrel.hpp" />
@@ -180,6 +185,7 @@
     <ClInclude Include="SpriteWrapper.hpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClInclude Include="Trap.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />

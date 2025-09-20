@@ -21,6 +21,7 @@ void EnemyCanon::update(float dt, GameContext& ctx) {
 		if (!sprite.isAnimationGoing())
 		{
 			deleteIt = true;
+			ctx.score += 50;
 		}
 		return;
 	}

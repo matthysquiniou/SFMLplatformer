@@ -10,6 +10,11 @@ void Checkpoint::update(float dt, GameContext& ctx) {
 	{
 		switchAnimation(CheckpointAnimation::IDLE);
 	}
+	if (!scoreGiven && activated)
+	{
+		ctx.score += 50;
+		scoreGiven = true;
+	}
 	sprite.update(dt);
 }
 
@@ -34,7 +39,7 @@ void Checkpoint::doCollision() {
 
 		EntityType otherType = pc.other->getType();
 
-		if (otherType == EntityType::Player) {
+		if (otherType == EntityType::Player && !activated) {
 			activated = true;
 			switchAnimation(CheckpointAnimation::OUT);
 		}

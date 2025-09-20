@@ -36,6 +36,8 @@ public:
 
 	bool activated = false;
 
+	bool scoreGiven = false;
+
 private:
 	CheckpointAnimation activeAnimation = CheckpointAnimation::EMPTY;
 

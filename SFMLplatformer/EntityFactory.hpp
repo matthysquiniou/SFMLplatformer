@@ -15,12 +15,16 @@
 #include "FragilePlatform.hpp"
 #include "Gem.hpp"
 #include "Cup.hpp"
+#include "Trap.hpp"
+#include "CharacterPickingEntity.hpp"
 
 class EntityFactory {
 public:
     static std::shared_ptr <Text> makeText(std::string text, unsigned int size, sf::Vector2f pos);
 
     static std::shared_ptr <Entity> makeVisual(const std::string& path, sf::Vector2f pos);
+
+    static std::shared_ptr <CharacterPickingEntity> makeCharacterPickingEntity(int character,sf::Vector2f pos);
 
     static std::shared_ptr <Button> makeTextButtonBlue(std::string text, sf::Vector2f pos, std::function<void(GameContext&)> onClick, sf::View& view);
 
@@ -63,4 +67,6 @@ public:
     static std::shared_ptr<Gem>makeGem(sf::Vector2f pos,int gemType);
 
     static std::shared_ptr<Cup>makeCup(sf::Vector2f pos);
+
+    static std::shared_ptr<Trap>makeTrap(sf::Vector2f pos, Trap::TrapType trapType, bool flipY);
 };

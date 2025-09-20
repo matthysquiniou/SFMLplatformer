@@ -97,7 +97,7 @@ void PauseState::loadPause() {
         "RESTART",
         buttonPos2,
         [](GameContext& ctx) {
-            ctx.playState->loadLevel(ctx.currentLevel);
+            ctx.playState->loadLevel(ctx.currentLevel, ctx.character);
             ctx.currentState = GameState::PLAY;
         },
         view)

@@ -41,6 +41,10 @@ void Game::handleEvents() {
             ctx.nextLevelState->handleEvents(event, ctx);
             break;
 
+        case GameState::CHARACTER_PICKING:
+            ctx.characterPickingState->handleEvents(event, ctx);
+            break;
+
         default:
             break;
         }
@@ -71,6 +75,10 @@ void Game::update(float dt) {
 
     case GameState::NEXT_LEVEL:
         ctx.nextLevelState->update(dt, ctx);
+        break;
+
+    case GameState::CHARACTER_PICKING:
+        ctx.characterPickingState->update(dt, ctx);
         break;
 
     case GameState::EXIT:
@@ -112,6 +120,10 @@ void Game::draw() {
     case GameState::NEXT_LEVEL:
         ctx.playState->draw(window, ctx);
         ctx.nextLevelState->draw(window, ctx);
+        break;
+
+    case GameState::CHARACTER_PICKING:
+        ctx.characterPickingState->draw(window, ctx);
         break;
 
     default:

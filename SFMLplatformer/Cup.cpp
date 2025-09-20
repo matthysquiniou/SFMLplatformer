@@ -13,6 +13,12 @@ void Cup::update(float dt, GameContext& ctx) {
 		ctx.currentState = GameState::NEXT_LEVEL;
 		ctx.nextLevelState->loadNextLevel(ctx);
 	}
+
+	if (!scoreGiven && hasBeenTouch)
+	{
+		ctx.score += 500;
+		scoreGiven = true;
+	}
 }
 
 void Cup::draw(sf::RenderWindow& window, GameContext& ctx) {
@@ -36,7 +42,7 @@ void Cup::doCollision() {
 
 		EntityType otherType = pc.other->getType();
 
-		if (otherType == EntityType::Player) {
+		if (otherType == EntityType::Player && !hasBeenTouch) {
 			hasBeenTouch = true;
 			switchAnimation(CupAnimation::TOUCH);
 		}
