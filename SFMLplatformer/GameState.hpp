@@ -4,5 +4,6 @@ enum GameState {
 	LEVEL_CHOICE = 3,
 	PLAY = 4,
 	PAUSE = 5,
-	EXIT = 6
+	NEXT_LEVEL = 6,
+	EXIT = 7
 };

@@ -1,0 +1,225 @@
+#include "EnemyCanon.hpp"
+#include "EntityFactory.hpp"
+#include <iostream>
+
+EnemyCanon::EnemyCanon(SpriteComposite s, EntityManager& entityManager) : Entity(std::move(s)), boxManager(EntityType::Enemy, this), entityManager(entityManager) {
+	boxManager.addBox({ {12.f,20.f} ,{24.f,24.f} }, BoxType::Collision);
+	boxManager.addBox({ {12.f,20.f} ,{24.f,8.f} }, BoxType::Hit);
+	boxManager.addBox({ {12.f,28.f} ,{24.f,20.f} }, BoxType::Hurt);
+	boxManager.addBox({ {-4.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
+	boxManager.addBox({ {36.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
+	boxManager.addBox({ {-388.f,20.f} ,{400.f,28.f} }, BoxType::CollisionObserver, ObserverID::PLAYER_1);
+	boxManager.addBox({ {36.f,20.f} ,{400.f,28.f} }, BoxType::CollisionObserver, ObserverID::PLAYER_2);
+	boxManager.disableBoxObserver(ObserverID::PLAYER_2);
+}
+
+void EnemyCanon::update(float dt, GameContext& ctx) {
+
+	if (hasBeenHit)
+	{
+		sprite.update(dt);
+		if (!sprite.isAnimationGoing())
+		{
+			deleteIt = true;
+		}
+		return;
+	}
+
+	if (isIdling)
+	{
+		if (activeAnimation == EnemyCanonAnimation::ATTACK && !sprite.isAnimationGoing()) switchAnimation(EnemyCanonAnimation::IDLE);
+
+		idlingTime += dt;
+		if (idlingTime > 3.f)
+		{
+			isIdling = false;
+		}
+	}
+
+	physicEngine.updateEnemyCanonPhysic(*this, dt);
+
+	if (isGrounded && (direction != 0) && !isIdling)
+	{
+		switchAnimation(EnemyCanonAnimation::WALK);
+	}
+
+	boxManager.updateBoxesPosition(sprite.getPosition());
+
+	isGrounded = false;
+
+	directionChangedTime += dt;
+
+	sprite.update(dt);
+}
+
+void EnemyCanon::draw(sf::RenderWindow& window, GameContext& ctx) {
+	window.draw(sprite);
+	boxManager.draw(window);
+}
+
+EntityType EnemyCanon::getType() {
+	return EntityType::Enemy;
+}
+
+void EnemyCanon::doCollision() {
+	if (pendingCollisions.empty()) return;
+	const float NOISE = 0.5f;
+	const float EPS = 0.001f;
+
+	float maxFloor = 0.f; bool hasFloor = false; Box floorBox;
+	float maxCeil = 0.f; bool hasCeil = false; Box ceilBox;
+	float maxLeft = 0.f; bool hasLeft = false; Box leftBox;
+	float maxRight = 0.f; bool hasRight = false; Box rightBox;
+
+	bool direction1Flag = false;
+	bool direction2Flag = false;
+
+	for (auto& pc : pendingCollisions) {
+
+		if (pc.intersection.size.x < NOISE && pc.intersection.size.y < NOISE) continue;
+
+		EntityType otherType = pc.other->getType();
+		BoxType myBoxType = pc.myBox.type;
+
+		// platform collision
+		if (otherType == EntityType::Platform && myBoxType == BoxType::Collision) {
+
+			const auto& inter = pc.intersection;
+
+			if (inter.size.x < inter.size.y) {
+				if (pc.myBox.rect.position.x < pc.otherBox.rect.position.x) {
+					if (inter.size.x > maxRight) {
+						maxRight = inter.size.x;
+						rightBox = pc.otherBox;
+						hasRight = true;
+					}
+				}
+				else {
+					if (inter.size.x > maxLeft) {
+						maxLeft = inter.size.x;
+						leftBox = pc.otherBox;
+						hasLeft = true;
+					}
+				}
+			}
+			else {
+				if (pc.myBox.rect.position.y < pc.otherBox.rect.position.y) {
+					if (inter.size.y > maxFloor) {
+						maxFloor = inter.size.y;
+						floorBox = pc.otherBox;
+						hasFloor = true;
+					}
+				}
+				else {
+					if (inter.size.y > maxCeil) {
+						maxCeil = inter.size.y;
+						ceilBox = pc.otherBox;
+						hasCeil = true;
+					}
+				}
+			}
+		}
+		// direction change
+		else if (myBoxType == BoxType::CollisionObserver && otherType == EntityType::Platform) {
+			if (pc.myBox.observerID == ObserverID::DIRECTION_1) direction1Flag = true;
+			if (pc.myBox.observerID == ObserverID::DIRECTION_2) direction2Flag = true;
+		}
+		else if (myBoxType == BoxType::CollisionObserver && otherType == EntityType::Player && !isIdling) {
+			if (pc.myBox.observerID == ObserverID::PLAYER_1 || pc.myBox.observerID == ObserverID::PLAYER_2) {
+				shot();
+			}
+		}
+		// being hit
+		else if (myBoxType == BoxType::Hit && otherType == EntityType::Player) {
+			switchAnimation(EnemyCanonAnimation::HIT);
+			hasBeenHit = true;
+			boxManager.disableBoxType(BoxType::Hit);
+			boxManager.disableBoxType(BoxType::Hurt);
+			boxManager.disableBoxType(BoxType::CollisionObserver);
+		}
+	}
+
+	sf::Vector2f totalMove{ 0.f, 0.f };
+
+	if (hasFloor) {
+		totalMove.y -= (maxFloor - EPS);
+		velocityY = 0.f;
+		isGrounded = true;
+	}
+
+	if (hasCeil) {
+		totalMove.y += (maxCeil - EPS);
+		velocityY = 0.f;
+	}
+
+	if (hasRight) {
+		totalMove.x -= (maxRight - EPS);
+		velocityX = 0.f;
+		direction *= -1;
+		sprite.flipX = !sprite.flipX;
+		switchPlayerObserver();
+	}
+	if (hasLeft) {
+		totalMove.x += (maxLeft - EPS);
+		velocityX = 0.f;
+		direction *= -1;
+		sprite.flipX = !sprite.flipX;
+		switchPlayerObserver();
+	}
+
+	if (totalMove.x != 0.f || totalMove.y != 0.f) {
+		sprite.move(totalMove);
+	}
+
+	if ((!direction1Flag || !direction2Flag) && directionChangedTime > 0.5f)
+	{
+		if (!direction1Flag) sprite.move({ 2.f,0.f });
+		if (!direction2Flag) sprite.move({ -2.f,0.f });
+		switchPlayerObserver();
+		direction *= -1;
+		sprite.flipX = !sprite.flipX;
+		velocityX = 0;
+		directionChangedTime = 0.f;
+	}
+
+	pendingCollisions.clear();
+}
+
+void EnemyCanon::onCollision(Entity& other, const Box& myBox, const Box& otherBox, sf::FloatRect intersection) {
+	pendingCollisions.push_back({ &other, myBox, otherBox, intersection });
+}
+
+void EnemyCanon::switchAnimation(EnemyCanonAnimation newAnimation) {
+	if (newAnimation == activeAnimation || (activeAnimation == EnemyCanonAnimation::HIT && sprite.isAnimationGoing())) return;
+	sprite.resetAnimation(activeAnimation);
+	sprite.setVisible(activeAnimation, false);
+	sprite.setVisible(newAnimation, true);
+	sprite.update(0.f);
+	if (newAnimation == EnemyCanonAnimation::HIT || newAnimation == EnemyCanonAnimation::ATTACK)
+	{
+		sprite.stopAnimationAfterLoop(newAnimation);
+	}
+	activeAnimation = newAnimation;
+}
+
+void EnemyCanon::switchPlayerObserver() {
+	if (activePlayerObserver == ObserverID::PLAYER_1)
+	{
+		activePlayerObserver = ObserverID::PLAYER_2;
+		boxManager.activateBoxObserver(ObserverID::PLAYER_2);
+		boxManager.disableBoxObserver(ObserverID::PLAYER_1);
+	}
+	else {
+		activePlayerObserver = ObserverID::PLAYER_1;
+		boxManager.activateBoxObserver(ObserverID::PLAYER_1);
+		boxManager.disableBoxObserver(ObserverID::PLAYER_2);
+	}
+}
+
+void EnemyCanon::shot() {
+	sf::Vector2f position = sprite.getPosition();
+	switchAnimation(EnemyCanonAnimation::ATTACK);
+	isIdling = true;
+	idlingTime = 0.f;
+	entityManager.addEntity(EntityFactory::makeEnemyCanonBall({ position.x, position.y + 20.f }, direction));
+}

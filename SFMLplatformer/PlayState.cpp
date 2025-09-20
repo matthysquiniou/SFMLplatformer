@@ -63,7 +63,21 @@ void PlayState::loadLevelBase(unsigned int levelBase) {
             entityManager.addEntity(EntityFactory::makePlatform({ 600.f, 534.f - j * 16.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
         }
         
-        entityManager.addEntity(EntityFactory::makeEnemyFlyer({ 350.f,350.f }));
+        entityManager.addEntity(EntityFactory::makeEnemyCanon({ 350.f,350.f }, entityManager));
+
+        entityManager.addEntity(EntityFactory::makeCheckpoint2({ 1000.f,500.f }));
+
+        entityManager.addEntity(EntityFactory::makeFragilePlatform({ 300.f,300.f }));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 300.f,280.f }, 1));
+        entityManager.addEntity(EntityFactory::makeGem({ 320.f,280.f }, 2));
+        entityManager.addEntity(EntityFactory::makeGem({ 340.f,280.f }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 360.f,280.f }, 4));
+        entityManager.addEntity(EntityFactory::makeGem({ 380.f,280.f }, 5));
+        entityManager.addEntity(EntityFactory::makeGem({ 400.f,280.f }, 6));
+
+        entityManager.addEntity(EntityFactory::makeCup({ 400.f,380.f }));
+
         break;
     case 1:
         break;

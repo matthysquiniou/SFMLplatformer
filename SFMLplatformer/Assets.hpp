@@ -293,83 +293,107 @@ enum class AssetID {
     PLATFORM_FULL_METAL_1_1,
     PLATFORM_FULL_METAL_2_2_TOP_LEFT,
     PLATFORM_FULL_METAL_2_2_TOP_RIGHT,
-    PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT,
-    PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT,
+        PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT,
+        PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT,
 
-    PLATFORM_MINI_1_LEFT,
-    PLATFORM_MINI_1,
-    PLATFORM_MINI_1_RIGHT,
-    PLATFORM_MINI_2_LEFT,
-    PLATFORM_MINI_2,
-    PLATFORM_MINI_2_RIGHT,
-    PLATFORM_MINI_3_LEFT,
-    PLATFORM_MINI_3,
-    PLATFORM_MINI_3_RIGHT,
+        PLATFORM_MINI_1_LEFT,
+        PLATFORM_MINI_1,
+        PLATFORM_MINI_1_RIGHT,
+        PLATFORM_MINI_2_LEFT,
+        PLATFORM_MINI_2,
+        PLATFORM_MINI_2_RIGHT,
+        PLATFORM_MINI_3_LEFT,
+        PLATFORM_MINI_3,
+        PLATFORM_MINI_3_RIGHT,
 
-    // MAIN CHARACTER
-    MC_1_DOUBLE_JUMP,
-    MC_1_FALL,
-    MC_1_HIT,
-    MC_1_IDLE,
-    MC_1_JUMP,
-    MC_1_RUN,
-    MC_1_WALL_JUMP,
+        // MAIN CHARACTER
+        MC_1_DOUBLE_JUMP,
+        MC_1_FALL,
+        MC_1_HIT,
+        MC_1_IDLE,
+        MC_1_JUMP,
+        MC_1_RUN,
+        MC_1_WALL_JUMP,
 
-    MC_2_DOUBLE_JUMP,
-    MC_2_FALL,
-    MC_2_HIT,
-    MC_2_IDLE,
-    MC_2_JUMP,
-    MC_2_RUN,
-    MC_2_WALL_JUMP,
+        MC_2_DOUBLE_JUMP,
+        MC_2_FALL,
+        MC_2_HIT,
+        MC_2_IDLE,
+        MC_2_JUMP,
+        MC_2_RUN,
+        MC_2_WALL_JUMP,
 
-    MC_3_DOUBLE_JUMP,
-    MC_3_FALL,
-    MC_3_HIT,
-    MC_3_IDLE,
-    MC_3_JUMP,
-    MC_3_RUN,
-    MC_3_WALL_JUMP,
+        MC_3_DOUBLE_JUMP,
+        MC_3_FALL,
+        MC_3_HIT,
+        MC_3_IDLE,
+        MC_3_JUMP,
+        MC_3_RUN,
+        MC_3_WALL_JUMP,
 
-    MC_APPEARING,
-    MC_DESAPPEARING,
+        MC_APPEARING,
+        MC_DESAPPEARING,
 
-    // ENEMY
-    ENEMY_TV_FALL,
-    ENEMY_TV_HIT,
-    ENEMY_TV_IDLE,
-    ENEMY_TV_JUMP,
-    ENEMY_TV_RUN,
+        // ENEMY
+        ENEMY_TV_FALL,
+        ENEMY_TV_HIT,
+        ENEMY_TV_IDLE,
+        ENEMY_TV_JUMP,
+        ENEMY_TV_RUN,
 
-    ENEMY_CACTUS_FALL,
-    ENEMY_CACTUS_HIT,
-    ENEMY_CACTUS_IDLE,
-    ENEMY_CACTUS_JUMP,
-    ENEMY_CACTUS_RUN,
+        ENEMY_CACTUS_FALL,
+        ENEMY_CACTUS_HIT,
+        ENEMY_CACTUS_IDLE,
+        ENEMY_CACTUS_JUMP,
+        ENEMY_CACTUS_RUN,
 
-    ENEMY_BARREL_CHARGE,
-    ENEMY_BARREL_HIT,
-    ENEMY_BARREL_IDLE,
-    ENEMY_BARREL_STUN,
-    ENEMY_BARREL_WALK,
+        ENEMY_BARREL_CHARGE,
+        ENEMY_BARREL_HIT,
+        ENEMY_BARREL_IDLE,
+        ENEMY_BARREL_STUN,
+        ENEMY_BARREL_WALK,
 
-    ENEMY_CANON_ATTACK,
-    ENEMY_CANON_HIT,
-    ENEMY_CANON_IDLE,
-    ENEMY_CANON_WALK,
-    ENEMY_CANON_BALL_1,
-    ENEMY_CANON_BALL_2,
+        ENEMY_CANON_ATTACK,
+        ENEMY_CANON_HIT,
+        ENEMY_CANON_IDLE,
+        ENEMY_CANON_WALK,
+        ENEMY_CANON_BALL_1,
+        ENEMY_CANON_BALL_2,
 
-    ENEMY_FLYER_ATTACK,
-    ENEMY_FLYER_FLY,
-    ENEMY_FLYER_HIT,
-    ENEMY_FLYER_IDLE,
+        ENEMY_FLYER_ATTACK,
+        ENEMY_FLYER_FLY,
+        ENEMY_FLYER_HIT,
+        ENEMY_FLYER_IDLE,
 
-    ENEMY_TOAD_ATTACK,
-    ENEMY_TOAD_HIT,
-    ENEMY_TOAD_IDLE,
-    ENEMY_TOAD_RUN,
-    ENEMY_TOAD_RUN_ATTACK
+        ENEMY_TOAD_ATTACK,
+        ENEMY_TOAD_HIT,
+        ENEMY_TOAD_IDLE,
+        ENEMY_TOAD_RUN,
+        ENEMY_TOAD_RUN_ATTACK,
+
+        // OBJECTS
+
+        CHECKPOINT_EMPTY,
+        CHECKPOINT_1_OUT,
+        CHECKPOINT_2_OUT,
+        CHECKPOINT_1_IDLE,
+        CHECKPOINT_2_IDLE,
+
+        CUP_IDLE,
+        CUP_TOUCH,
+
+        GEM_1,
+        GEM_2,
+        GEM_3,
+        GEM_4,
+        GEM_5,
+        GEM_6,
+
+        // TRAP
+        SAW,
+        SPIKE,
+        FRAGILE_PLATFORM,
+        ELECTRICITY
 };
 
 inline const std::string& assetPath(AssetID id) {
@@ -741,6 +765,32 @@ inline const std::string& assetPath(AssetID id) {
     static const std::string ENEMY_TOAD_RUN_PATH = "assets/4 Enemies/6/Run.png";
     static const std::string ENEMY_TOAD_RUN_ATTACK_PATH = "assets/4 Enemies/6/Run_Attack.png";
 
+
+    // OBJECTS
+
+    static const std::string CHECKPOINT_EMPTY_PATH = "assets/3 Objects/Checkpoints/Checkpoint_No_Flag.png";
+    static const std::string CHECKPOINT_1_OUT_PATH = "assets/3 Objects/Checkpoints/Checkpoint_Flag_Out1.png";
+    static const std::string CHECKPOINT_2_OUT_PATH = "assets/3 Objects/Checkpoints/Checkpoint_Flag_Out2.png";
+    static const std::string CHECKPOINT_1_IDLE_PATH = "assets/3 Objects/Checkpoints/Checkpoint_Flag_Idle1.png";
+    static const std::string CHECKPOINT_2_IDLE_PATH = "assets/3 Objects/Checkpoints/Checkpoint_Flag_Idle2.png";
+
+    static const std::string CUP_IDLE_PATH = "assets/3 Objects/Checkpoints/End_Idle.png";
+    static const std::string CUP_TOUCH_PATH = "assets/3 Objects/Checkpoints/End_Pressed.png";
+
+    static const std::string GEM_1_PATH = "assets/3 Objects/Gems/1.png";
+    static const std::string GEM_2_PATH = "assets/3 Objects/Gems/2.png";
+    static const std::string GEM_3_PATH = "assets/3 Objects/Gems/3.png";
+    static const std::string GEM_4_PATH = "assets/3 Objects/Gems/4.png";
+    static const std::string GEM_5_PATH = "assets/3 Objects/Gems/5.png";
+    static const std::string GEM_6_PATH = "assets/3 Objects/Gems/6.png";
+
+    // TRAP
+
+    static const std::string SAW_PATH = "assets/6 Traps/2.png";
+    static const std::string SPIKE_PATH = "assets/6 Traps/4.png";
+    static const std::string FRAGILE_PLATFORM_PATH = "assets/6 Traps/5.png";
+    static const std::string ELECTRICITY_PATH = "assets/6 Traps/6.png";
+
     switch (id) {
 
         // FONT
@@ -1107,6 +1157,31 @@ inline const std::string& assetPath(AssetID id) {
     case AssetID::ENEMY_TOAD_IDLE:       return ENEMY_TOAD_IDLE_PATH;
     case AssetID::ENEMY_TOAD_RUN:        return ENEMY_TOAD_RUN_PATH;
     case AssetID::ENEMY_TOAD_RUN_ATTACK: return ENEMY_TOAD_RUN_ATTACK_PATH;
+
+        // OBJECTS
+
+    case AssetID::CHECKPOINT_EMPTY:   return CHECKPOINT_EMPTY_PATH;
+    case AssetID::CHECKPOINT_1_OUT:   return CHECKPOINT_1_OUT_PATH;
+    case AssetID::CHECKPOINT_2_OUT:   return CHECKPOINT_2_OUT_PATH;
+    case AssetID::CHECKPOINT_1_IDLE:  return CHECKPOINT_1_IDLE_PATH;
+    case AssetID::CHECKPOINT_2_IDLE:  return CHECKPOINT_2_IDLE_PATH;
+
+    case AssetID::CUP_IDLE:           return CUP_IDLE_PATH;
+    case AssetID::CUP_TOUCH:          return CUP_TOUCH_PATH;
+
+    case AssetID::GEM_1:              return GEM_1_PATH;
+    case AssetID::GEM_2:              return GEM_2_PATH;
+    case AssetID::GEM_3:              return GEM_3_PATH;
+    case AssetID::GEM_4:              return GEM_4_PATH;
+    case AssetID::GEM_5:              return GEM_5_PATH;
+    case AssetID::GEM_6:              return GEM_6_PATH;
+
+        // TRAP
+
+    case AssetID::SAW:                return SAW_PATH;
+    case AssetID::SPIKE:              return SPIKE_PATH;
+    case AssetID::FRAGILE_PLATFORM:   return FRAGILE_PLATFORM_PATH;
+    case AssetID::ELECTRICITY:        return ELECTRICITY_PATH;
 
     }
 

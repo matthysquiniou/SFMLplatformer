@@ -9,6 +9,12 @@
 #include "EnemyTv.hpp"
 #include "EnemyBarrel.hpp"
 #include "EnemyFlyer.hpp"
+#include "EnemyCanon.hpp"
+#include "EnemyCanonBall.hpp"
+#include "Checkpoint.hpp"
+#include "FragilePlatform.hpp"
+#include "Gem.hpp"
+#include "Cup.hpp"
 
 class EntityFactory {
 public:
@@ -43,4 +49,18 @@ public:
     static std::shared_ptr<EnemyBarrel> makeEnemyBarrel(sf::Vector2f pos);
 
     static std::shared_ptr<EnemyFlyer> makeEnemyFlyer(sf::Vector2f pos);
+
+    static std::shared_ptr<EnemyCanon> makeEnemyCanon(sf::Vector2f pos, EntityManager& entityManager);
+
+    static std::shared_ptr<EnemyCanonBall>makeEnemyCanonBall(sf::Vector2f pos, int direction);
+
+    static std::shared_ptr<Checkpoint>makeCheckpoint1(sf::Vector2f pos);
+
+    static std::shared_ptr<Checkpoint>makeCheckpoint2(sf::Vector2f pos);
+
+    static std::shared_ptr<FragilePlatform>makeFragilePlatform(sf::Vector2f pos);
+
+    static std::shared_ptr<Gem>makeGem(sf::Vector2f pos,int gemType);
+
+    static std::shared_ptr<Cup>makeCup(sf::Vector2f pos);
 };

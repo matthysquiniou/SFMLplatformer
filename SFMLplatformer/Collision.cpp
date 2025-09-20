@@ -7,7 +7,9 @@ namespace Collision {
         if (a > b) std::swap(a, b);
         if ((a == EntityType::Player && b == EntityType::Platform) ||
             (a == EntityType::Enemy && b == EntityType::Platform) ||
-            (a == EntityType::Player && b == EntityType::Enemy)) {
+            (a == EntityType::Player && b == EntityType::Enemy) ||
+            (a == EntityType::Player && b == EntityType::Checkpoint) ||
+            (a == EntityType::Player && b == EntityType::Object)) {
             return true;
         }
         return false;

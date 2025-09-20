@@ -454,4 +454,116 @@ std::shared_ptr<EnemyFlyer> EntityFactory::makeEnemyFlyer(sf::Vector2f pos) {
     return std::make_shared<EnemyFlyer>(sprite);
 }
 
- 
+std::shared_ptr<EnemyCanon> EntityFactory::makeEnemyCanon(sf::Vector2f pos, EntityManager& entityManager) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::ENEMY_CANON_ATTACK), true, { 48,48 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_CANON_HIT), true, { 48,48 }, 5, 0.1f, 5, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_CANON_IDLE), true, { 48,48 }, 11, 0.1f, 11, 1);
+    sprite.addChild(assetPath(AssetID::ENEMY_CANON_WALK), true, { 48,48 }, 12, 0.1f, 12, 1);
+
+    sprite.setVisible(0, false);
+    sprite.setVisible(1, false);
+    sprite.setVisible(3, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<EnemyCanon>(sprite, entityManager);
+}
+
+std::shared_ptr<EnemyCanonBall> EntityFactory::makeEnemyCanonBall(sf::Vector2f pos, int direction) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::ENEMY_CANON_BALL_2), false);
+    sprite.addChild(assetPath(AssetID::ENEMY_CANON_BALL_1), false);
+
+    sprite.setVisible(1, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<EnemyCanonBall>(sprite, direction);
+}
+
+std::shared_ptr<Checkpoint> EntityFactory::makeCheckpoint1(sf::Vector2f pos) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::CHECKPOINT_EMPTY), false);
+    sprite.addChild(assetPath(AssetID::CHECKPOINT_1_OUT), true, { 48,48 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::CHECKPOINT_1_IDLE), true, { 48,48 }, 7, 0.1f, 7, 1);
+
+    sprite.setVisible(1, false);
+    sprite.setVisible(2, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Checkpoint>(sprite);
+}
+
+std::shared_ptr<Checkpoint> EntityFactory::makeCheckpoint2(sf::Vector2f pos) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::CHECKPOINT_EMPTY), false);
+    sprite.addChild(assetPath(AssetID::CHECKPOINT_2_OUT), true, { 48,48 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::CHECKPOINT_2_IDLE), true, { 48,48 }, 7, 0.1f, 7, 1);
+
+    sprite.setVisible(1, false);
+    sprite.setVisible(2, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Checkpoint>(sprite);
+}
+
+std::shared_ptr<FragilePlatform> EntityFactory::makeFragilePlatform(sf::Vector2f pos) {
+    SpriteComposite sprite;
+    sprite.addChild(assetPath(AssetID::FRAGILE_PLATFORM), true, { 48,48 }, 7, 0.1f, 7, 1);
+
+    sprite.update(0.f);
+
+    sprite.setAnimationActive(0, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<FragilePlatform>(sprite);
+}
+
+std::shared_ptr<Gem> EntityFactory::makeGem(sf::Vector2f pos, int gemType) {
+    SpriteComposite sprite;
+
+    switch (gemType)
+    {
+    case 1:
+        sprite.addChild(assetPath(AssetID::GEM_1), true, { 16,16 }, 7, 0.1f, 7, 1);
+        break;
+    case 2:
+        sprite.addChild(assetPath(AssetID::GEM_2), true, { 16,16 }, 7, 0.1f, 7, 1);
+        break;
+    case 3:
+        sprite.addChild(assetPath(AssetID::GEM_3), true, { 16,16 }, 7, 0.1f, 7, 1);
+        break;
+    case 4:
+        sprite.addChild(assetPath(AssetID::GEM_4), true, { 16,16 }, 7, 0.1f, 7, 1);
+        break;
+    case 5:
+        sprite.addChild(assetPath(AssetID::GEM_5), true, { 16,16 }, 7, 0.1f, 7, 1);
+        break;
+    case 6:
+        sprite.addChild(assetPath(AssetID::GEM_6), true, { 16,16 }, 7, 0.1f, 7, 1);
+        break;
+    default:
+        break;
+    }
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Gem>(sprite);
+}
+
+std::shared_ptr<Cup> EntityFactory::makeCup(sf::Vector2f pos) {
+    SpriteComposite sprite;
+
+    sprite.addChild(assetPath(AssetID::CUP_IDLE), true, { 64,64 }, 7, 0.1f, 7, 1);
+    sprite.addChild(assetPath(AssetID::CUP_TOUCH), true, { 64,64 }, 7, 0.1f, 7, 1);
+
+    sprite.setVisible(1, false);
+
+    sprite.setPosition(pos);
+
+    return std::make_shared<Cup>(sprite);
+}

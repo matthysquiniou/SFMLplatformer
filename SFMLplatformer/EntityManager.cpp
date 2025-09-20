@@ -13,6 +13,7 @@ void EntityManager::update(float dt, GameContext& ctx) {
                     [](auto& e) { return e->deleteIt; }),
                 entities.end()
             );
+            return;
         }
         entity->update(dt, ctx);
     }

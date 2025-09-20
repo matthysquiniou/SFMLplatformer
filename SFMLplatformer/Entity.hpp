@@ -3,7 +3,7 @@
 #include "GameContext.hpp"
 #include "Box.hpp"
 
-enum class EntityType { Player, Enemy, Platform, Entity };
+enum class EntityType { Player, Enemy, Platform, Object, Checkpoint, Entity };
 
 class Entity {
 

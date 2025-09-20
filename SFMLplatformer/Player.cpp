@@ -197,6 +197,9 @@ void Player::doCollision() {
 			boxManager.disableBoxType(BoxType::Hit);
 			boxManager.disableBoxType(BoxType::Hurt);
 			hasBeenHit = true;
+		} else if ( myBoxType == BoxType::Collision && otherType == EntityType::Checkpoint) {
+			sf::Vector2f checkpointPos = pc.other->getSprite().getPosition();
+			if (respawnPos.y < checkpointPos.y) respawnPos = checkpointPos;
 		}
 	}
 

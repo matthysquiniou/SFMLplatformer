@@ -1,33 +1,24 @@
 #pragma once
-#include "PauseState.hpp"
+#include "NextLevelState.hpp"
 
 
-void PauseState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
+void NextLevelState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
     if (event.has_value()) {
         const sf::Event& e = *event;
-
-        if (e.is<sf::Event::KeyPressed>())
-        {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-                ctx.currentState = GameState::PLAY;
-                return;
-            }
-        }
-
         entityManager.handleEvents(e, ctx);
     }
 }
 
-void PauseState::update(float dt, GameContext& ctx) {
+void NextLevelState::update(float dt, GameContext& ctx) {
     entityManager.update(dt, ctx);
 }
 
-void PauseState::draw(sf::RenderWindow& window, GameContext& ctx) {
+void NextLevelState::draw(sf::RenderWindow& window, GameContext& ctx) {
     window.draw(overlay);
     entityManager.draw(window, ctx);
 }
 
-void PauseState::loadPause() {
+void NextLevelState::loadNextLevel(GameContext& ctx) {
     entityManager.clear();
 
     float viewSizeX = view.getSize().x;
@@ -37,7 +28,7 @@ void PauseState::loadPause() {
     float viewPositionY = view.getCenter().y - (viewSizeY / 2);
 
     // OVERLAY
-    overlay = sf::RectangleShape({ static_cast<float>(viewSizeX) , static_cast<float>(viewSizeY)});
+    overlay = sf::RectangleShape({ static_cast<float>(viewSizeX) , static_cast<float>(viewSizeY) });
     overlay.setFillColor(sf::Color(128, 128, 128, 150));
     overlay.setPosition({ viewPositionX, viewPositionY });
 
@@ -76,7 +67,7 @@ void PauseState::loadPause() {
 
     sf::Vector2f titlePos = { framePos.x + frameSize.x / 2, framePos.y + (frameSize.y / 5) };
 
-    entityManager.addEntity(EntityFactory::makeText("PAUSED", 40, titlePos));
+    entityManager.addEntity(EntityFactory::makeText("LEVEL WON", 40, titlePos));
 
     // BUTTON
 
@@ -84,14 +75,18 @@ void PauseState::loadPause() {
     sf::Vector2f buttonPos2 = { framePos.x + frameSize.x / 3, framePos.y + (frameSize.y / 5) * 3 };
     sf::Vector2f buttonPos3 = { framePos.x + frameSize.x / 3, framePos.y + (frameSize.y / 5) * 4 };
 
-    entityManager.addEntity(EntityFactory::makeTextButtonYellow(
-        "RESUME",
-        buttonPos1,
-        [](GameContext& ctx) {
-            ctx.currentState = GameState::PLAY;
-        },
-        view)
-    );
+    if (ctx.currentLevel != 50)
+    {
+        entityManager.addEntity(EntityFactory::makeTextButtonYellow(
+            "NEXT LEVEL",
+            buttonPos1,
+            [](GameContext& ctx) {
+                ctx.playState->loadLevel(ctx.currentLevel++);
+                ctx.currentState = GameState::PLAY;
+            },
+            view)
+        );
+    }
 
     entityManager.addEntity(EntityFactory::makeTextButtonYellow(
         "RESTART",
@@ -109,7 +104,7 @@ void PauseState::loadPause() {
         [this](GameContext& ctx) {
             ctx.currentState = GameState::LEVEL_CHOICE;
             sf::Vector2f size = this->view.getSize();
-            this->view.setCenter({ size.x / 2.f,size.y / 2.f });
+            this->view.setCenter({ size.x/2.f,size.y/2.f});
         },
         view)
     );

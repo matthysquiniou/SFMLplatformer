@@ -4,6 +4,7 @@
 #include "EnemyTv.hpp"
 #include "EnemyBarrel.hpp"
 #include "EnemyFlyer.hpp"
+#include "EnemyCanon.hpp"
 
 void PhysicEngine::updatePlayerPhysic(Player& player, float dt) {
     switch (player.direction)
@@ -175,4 +176,34 @@ void PhysicEngine::updateEnemyFlyerPhysic(EnemyFlyer& flyer, float dt) {
     }
 
     flyer.getSprite().move({ flyer.velocityX * dt , flyer.velocityY * dt });
+}
+
+void PhysicEngine::updateEnemyCanonPhysic(EnemyCanon& canon, float dt) {
+    if (canon.isIdling) return;
+
+    switch (canon.direction)
+    {
+    case -1:
+        if (canon.maxWalkVelocity > abs(canon.velocityX))
+        {
+            canon.velocityX -= canon.walkAcceleration * dt;
+        }
+
+        break;
+    case 1:
+        if (canon.maxWalkVelocity > canon.velocityX)
+        {
+            canon.velocityX += canon.walkAcceleration * dt;
+        }
+
+        break;
+    default:
+        break;
+    }
+
+    if (!canon.isGrounded) {
+        canon.velocityY += gravity * dt;
+    }
+
+    canon.getSprite().move({ canon.velocityX * dt , canon.velocityY * dt });
 }

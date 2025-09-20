@@ -6,6 +6,7 @@
 #include "PauseState.hpp"
 #include "SoundState.hpp"
 #include "LevelChoiceState.hpp"
+#include "NextLevelState.hpp"
 
 class Game {
 public:
@@ -21,6 +22,7 @@ public:
         ctx.pauseState = std::make_unique<PauseState>(view);
         ctx.soundState = std::make_unique<SoundState>(windowSize, view);
         ctx.levelChoiceState = std::make_unique<LevelChoiceState>(windowSize, view);
+        ctx.nextLevelState = std::make_unique<NextLevelState>(view);
     }
 
     void run();
