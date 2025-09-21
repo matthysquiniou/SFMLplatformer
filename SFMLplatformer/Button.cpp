@@ -1,5 +1,6 @@
 #include "Button.hpp"
 #include "Assets.hpp"
+#include "SoundManager.hpp"
 
 Button::Button(std::string t, SpriteComposite s, std::function<void(GameContext&)> action, sf::View& view) :
     Entity(std::move(s)),
@@ -34,12 +35,17 @@ void Button::handleEvents(const sf::Event& e, GameContext& ctx) {
             unionBounds.size.x = std::max(spriteBounds.position.x - viewOffset.x + spriteBounds.size.x, textBounds.position.x - viewOffset.x + textBounds.size.x) - unionBounds.position.x;
             unionBounds.size.y = std::max(spriteBounds.position.y - viewOffset.y + spriteBounds.size.y, textBounds.position.y - viewOffset.y + textBounds.size.y) - unionBounds.position.y;
         }
-
+        bool previousHover = hovered;
         hovered = unionBounds.contains({ (float)mouseMove->position.x, (float)mouseMove->position.y });
+        if (previousHover != hovered && hovered)
+        {
+            SoundManager::play(SoundManager::SoundName::HOVERED);
+        }
     }
 
     if (hovered && e.is<sf::Event::MouseButtonPressed>()) {
         onClick(ctx);
+        SoundManager::play(SoundManager::SoundName::PUSHED);
     }
 }
 

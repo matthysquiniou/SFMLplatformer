@@ -8,10 +8,11 @@
 #include "LevelChoiceState.hpp"
 #include "NextLevelState.hpp"
 #include "CharacterPickingState.hpp"
+#include "SoundManager.hpp"
 
 class Game {
 public:
-    Game() {
+    Game(): soundManager(ctx) {
         sf::Vector2u windowSize = { 1280, 720 };
         window = sf::RenderWindow(sf::VideoMode(windowSize), "Platformer");
         window.setVerticalSyncEnabled(true);
@@ -26,6 +27,9 @@ public:
         ctx.nextLevelState = std::make_unique<NextLevelState>(view);
         ctx.characterPickingState = std::make_unique<CharacterPickingState>(windowSize, view);
 
+        soundManager.init();
+
+        SoundManager::play(SoundManager::SoundName::BACKGROUND);
     }
     void run();
 
@@ -33,6 +37,7 @@ private:
     sf::RenderWindow window;
     sf::View view;
     sf::Clock clock;
+    SoundManager soundManager;
     GameContext ctx;
 
     void handleEvents();

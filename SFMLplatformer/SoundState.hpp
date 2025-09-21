@@ -7,9 +7,10 @@
 class SoundState : public State {
 public:
     SoundState(sf::Vector2u windowSize, sf::View& view) :
-        music(getMainFont(), "0", 24),
-        sfx(getMainFont(), "0", 24),
-        interface(getMainFont(), "0", 24)
+        master(getMainFont(), "", 24),
+        music(getMainFont(), "", 24),
+        sfx(getMainFont(), "", 24),
+        interface(getMainFont(), "", 24)
     {
         // BACKGROUND
 
@@ -60,7 +61,7 @@ public:
 
         // RETURN MENU BUTTON
 
-        sf::Vector2f buttonMenuPos = { framePos.x + (frameSize.x / 13)*5, framePos.y + (frameSize.y / 6) * 5 };
+        sf::Vector2f buttonMenuPos = { framePos.x + (frameSize.x / 13)*5, framePos.y + (frameSize.y / 7) * 6 };
 
         entityManager.addEntity(EntityFactory::makeTextButtonGrey(
             "MENU",
@@ -73,20 +74,41 @@ public:
 
         // BUTTON SOUND
 
-        sf::Vector2f buttonMusic1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 12) * 4 };
-        sf::Vector2f buttonMusic2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 12) * 4 };
+        sf::Vector2f buttonMaster1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 7) * 2 };
+        sf::Vector2f buttonMaster2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 7) * 2 };
 
-        sf::Vector2f buttonSFX1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 12) * 6 };
-        sf::Vector2f buttonSFX2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 12) * 6 };
+        sf::Vector2f buttonMusic1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 7) * 3 };
+        sf::Vector2f buttonMusic2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 7) * 3 };
 
-        sf::Vector2f buttonInterface1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 12) * 8 };
-        sf::Vector2f buttonInterface2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 12) * 8 };
+        sf::Vector2f buttonSFX1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 7) * 4 };
+        sf::Vector2f buttonSFX2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 7) * 4 };
+
+        sf::Vector2f buttonInterface1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 7) * 5 };
+        sf::Vector2f buttonInterface2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 7) * 5 };
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonMaster1,
+            [](GameContext& ctx) {
+                if (ctx.masterVolume > 0.f) ctx.masterVolume--;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonMaster2,
+            [](GameContext& ctx) {
+                if (ctx.masterVolume < 10.f) ctx.masterVolume++;
+            },
+            view)
+        );
 
         entityManager.addEntity(EntityFactory::makeTextButtonGrey(
             "",
             buttonMusic1,
             [](GameContext& ctx) {
-                if (ctx.musicVolume > 0) ctx.musicVolume--;
+                if (ctx.musicVolume > 0.f) ctx.musicVolume--;
             },
             view)
         );
@@ -95,7 +117,7 @@ public:
             "",
             buttonMusic2,
             [](GameContext& ctx) {
-                if (ctx.musicVolume < 10) ctx.musicVolume++;
+                if (ctx.musicVolume < 10.f) ctx.musicVolume++;
             },
             view)
         );
@@ -104,7 +126,7 @@ public:
             "",
             buttonSFX1,
             [](GameContext& ctx) {
-                if (ctx.sfxVolume > 0) ctx.sfxVolume--;
+                if (ctx.sfxVolume > 0.f) ctx.sfxVolume--;
             },
             view)
         );
@@ -113,7 +135,7 @@ public:
             "",
             buttonSFX2,
             [](GameContext& ctx) {
-                if (ctx.sfxVolume < 10) ctx.sfxVolume++;
+                if (ctx.sfxVolume < 10.f) ctx.sfxVolume++;
             },
             view)
         );
@@ -122,7 +144,7 @@ public:
             "",
             buttonInterface1,
             [](GameContext& ctx) {
-                if (ctx.interfaceVolume > 0) ctx.interfaceVolume--;
+                if (ctx.interfaceVolume > 0.f) ctx.interfaceVolume--;
             },
             view)
         );
@@ -131,15 +153,17 @@ public:
             "",
             buttonInterface2,
             [](GameContext& ctx) {
-                if (ctx.interfaceVolume < 10) ctx.interfaceVolume++;
+                if (ctx.interfaceVolume < 10.f) ctx.interfaceVolume++;
             },
             view)
         );
 
-        sf::Vector2f musicPos = { framePos.x + (frameSize.x / 2) - 60.f, framePos.y + (frameSize.y / 12) * 4 - 7.f };
-        sf::Vector2f SFXPos = { framePos.x + (frameSize.x / 2) - 40.f, framePos.y + (frameSize.y / 12) * 6 - 7.f };
-        sf::Vector2f interfacePos = { framePos.x + (frameSize.x / 2) - 90.f, framePos.y + (frameSize.y / 12) * 8 - 7.f };
+        sf::Vector2f masterPos = { framePos.x + (frameSize.x / 2) - 60.f, framePos.y + (frameSize.y / 7) * 2 - 7.f };
+        sf::Vector2f musicPos = { framePos.x + (frameSize.x / 2) - 55.f, framePos.y + (frameSize.y / 7) * 3 - 7.f };
+        sf::Vector2f SFXPos = { framePos.x + (frameSize.x / 2) - 40.f, framePos.y + (frameSize.y / 7) * 4 - 7.f };
+        sf::Vector2f interfacePos = { framePos.x + (frameSize.x / 2) - 90.f, framePos.y + (frameSize.y / 7) * 5 - 7.f };
 
+        master.setPosition(masterPos);
         music.setPosition(musicPos);
         sfx.setPosition(SFXPos);
         interface.setPosition(interfacePos);
@@ -154,6 +178,8 @@ public:
 private:
 
     EntityManager entityManager;
+
+    sf::Text master;
 
     sf::Text music;
 

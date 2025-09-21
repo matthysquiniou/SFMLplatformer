@@ -67,6 +67,7 @@ void Game::update(float dt) {
 
     case GameState::SOUND:
         ctx.soundState->update(dt, ctx);
+        soundManager.updateVolumes();
         break;
 
     case GameState::LEVEL_CHOICE:

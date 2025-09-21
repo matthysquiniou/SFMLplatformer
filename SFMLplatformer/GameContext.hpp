@@ -13,9 +13,10 @@ class CharacterPickingState;
 struct GameContext {
     GameState currentState = GameState::MENU;
 
-    int musicVolume = 10;
-    int interfaceVolume = 10;
-    int sfxVolume = 10;
+    float masterVolume = 10.f;
+    float musicVolume = 10.f;
+    float interfaceVolume = 10.f;
+    float sfxVolume = 10.f;
 
     int character = 1;
     int currentLevel = 0;

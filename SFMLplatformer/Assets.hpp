@@ -1,11 +1,18 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 enum class AssetID {
 
     // FONT
     MAIN_FONT,
+
+    // SOUND
+    SOUND_UI_PUSHED,
+    SOUND_UI_HOVERED,
+    SOUND_JUMP,
+    SOUND_MUSIC,
 
     // BACKGROUND
     BG_BLUE,
@@ -293,113 +300,119 @@ enum class AssetID {
     PLATFORM_FULL_METAL_1_1,
     PLATFORM_FULL_METAL_2_2_TOP_LEFT,
     PLATFORM_FULL_METAL_2_2_TOP_RIGHT,
-        PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT,
-        PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT,
+    PLATFORM_FULL_METAL_2_2_BOTTOM_LEFT,
+    PLATFORM_FULL_METAL_2_2_BOTTOM_RIGHT,
 
-        PLATFORM_MINI_1_LEFT,
-        PLATFORM_MINI_1,
-        PLATFORM_MINI_1_RIGHT,
-        PLATFORM_MINI_2_LEFT,
-        PLATFORM_MINI_2,
-        PLATFORM_MINI_2_RIGHT,
-        PLATFORM_MINI_3_LEFT,
-        PLATFORM_MINI_3,
-        PLATFORM_MINI_3_RIGHT,
+    PLATFORM_MINI_1_LEFT,
+    PLATFORM_MINI_1,
+    PLATFORM_MINI_1_RIGHT,
+    PLATFORM_MINI_2_LEFT,
+    PLATFORM_MINI_2,
+    PLATFORM_MINI_2_RIGHT,
+    PLATFORM_MINI_3_LEFT,
+    PLATFORM_MINI_3,
+    PLATFORM_MINI_3_RIGHT,
 
-        // MAIN CHARACTER
-        MC_1_DOUBLE_JUMP,
-        MC_1_FALL,
-        MC_1_HIT,
-        MC_1_IDLE,
-        MC_1_JUMP,
-        MC_1_RUN,
-        MC_1_WALL_JUMP,
+    // MAIN CHARACTER
+    MC_1_DOUBLE_JUMP,
+    MC_1_FALL,
+    MC_1_HIT,
+    MC_1_IDLE,
+    MC_1_JUMP,
+    MC_1_RUN,
+    MC_1_WALL_JUMP,
 
-        MC_2_DOUBLE_JUMP,
-        MC_2_FALL,
-        MC_2_HIT,
-        MC_2_IDLE,
-        MC_2_JUMP,
-        MC_2_RUN,
-        MC_2_WALL_JUMP,
+    MC_2_DOUBLE_JUMP,
+    MC_2_FALL,
+    MC_2_HIT,
+    MC_2_IDLE,
+    MC_2_JUMP,
+    MC_2_RUN,
+    MC_2_WALL_JUMP,
 
-        MC_3_DOUBLE_JUMP,
-        MC_3_FALL,
-        MC_3_HIT,
-        MC_3_IDLE,
-        MC_3_JUMP,
-        MC_3_RUN,
-        MC_3_WALL_JUMP,
+    MC_3_DOUBLE_JUMP,
+    MC_3_FALL,
+    MC_3_HIT,
+    MC_3_IDLE,
+    MC_3_JUMP,
+    MC_3_RUN,
+    MC_3_WALL_JUMP,
 
-        MC_APPEARING,
-        MC_DESAPPEARING,
+    MC_APPEARING,
+    MC_DESAPPEARING,
 
-        // ENEMY
-        ENEMY_TV_FALL,
-        ENEMY_TV_HIT,
-        ENEMY_TV_IDLE,
-        ENEMY_TV_JUMP,
-        ENEMY_TV_RUN,
+    // ENEMY
+    ENEMY_TV_FALL,
+    ENEMY_TV_HIT,
+    ENEMY_TV_IDLE,
+    ENEMY_TV_JUMP,
+    ENEMY_TV_RUN,
 
-        ENEMY_CACTUS_FALL,
-        ENEMY_CACTUS_HIT,
-        ENEMY_CACTUS_IDLE,
-        ENEMY_CACTUS_JUMP,
-        ENEMY_CACTUS_RUN,
+    ENEMY_CACTUS_FALL,
+    ENEMY_CACTUS_HIT,
+    ENEMY_CACTUS_IDLE,
+    ENEMY_CACTUS_JUMP,
+    ENEMY_CACTUS_RUN,
 
-        ENEMY_BARREL_CHARGE,
-        ENEMY_BARREL_HIT,
-        ENEMY_BARREL_IDLE,
-        ENEMY_BARREL_STUN,
-        ENEMY_BARREL_WALK,
+    ENEMY_BARREL_CHARGE,
+    ENEMY_BARREL_HIT,
+    ENEMY_BARREL_IDLE,
+    ENEMY_BARREL_STUN,
+    ENEMY_BARREL_WALK,
 
-        ENEMY_CANON_ATTACK,
-        ENEMY_CANON_HIT,
-        ENEMY_CANON_IDLE,
-        ENEMY_CANON_WALK,
-        ENEMY_CANON_BALL_1,
-        ENEMY_CANON_BALL_2,
+    ENEMY_CANON_ATTACK,
+    ENEMY_CANON_HIT,
+    ENEMY_CANON_IDLE,
+    ENEMY_CANON_WALK,
+    ENEMY_CANON_BALL_1,
+    ENEMY_CANON_BALL_2,
 
-        ENEMY_FLYER_ATTACK,
-        ENEMY_FLYER_FLY,
-        ENEMY_FLYER_HIT,
-        ENEMY_FLYER_IDLE,
+    ENEMY_FLYER_ATTACK,
+    ENEMY_FLYER_FLY,
+    ENEMY_FLYER_HIT,
+    ENEMY_FLYER_IDLE,
 
-        ENEMY_TOAD_ATTACK,
-        ENEMY_TOAD_HIT,
-        ENEMY_TOAD_IDLE,
-        ENEMY_TOAD_RUN,
-        ENEMY_TOAD_RUN_ATTACK,
+    ENEMY_TOAD_ATTACK,
+    ENEMY_TOAD_HIT,
+    ENEMY_TOAD_IDLE,
+    ENEMY_TOAD_RUN,
+    ENEMY_TOAD_RUN_ATTACK,
 
-        // OBJECTS
+    // OBJECTS
 
-        CHECKPOINT_EMPTY,
-        CHECKPOINT_1_OUT,
-        CHECKPOINT_2_OUT,
-        CHECKPOINT_1_IDLE,
-        CHECKPOINT_2_IDLE,
+    CHECKPOINT_EMPTY,
+    CHECKPOINT_1_OUT,
+    CHECKPOINT_2_OUT,
+    CHECKPOINT_1_IDLE,
+    CHECKPOINT_2_IDLE,
 
-        CUP_IDLE,
-        CUP_TOUCH,
+    CUP_IDLE,
+    CUP_TOUCH,
 
-        GEM_1,
-        GEM_2,
-        GEM_3,
-        GEM_4,
-        GEM_5,
-        GEM_6,
+    GEM_1,
+    GEM_2,
+    GEM_3,
+    GEM_4,
+    GEM_5,
+    GEM_6,
 
-        // TRAP
-        SAW,
-        SPIKE,
-        FRAGILE_PLATFORM,
-        ELECTRICITY
+    // TRAP
+    SAW,
+    SPIKE,
+    FRAGILE_PLATFORM,
+    ELECTRICITY
 };
 
 inline const std::string& assetPath(AssetID id) {
 
     // FONT 
     static const std::string MAIN_FONT_PATH = "Minecraft.ttf";
+
+    // SOUND
+    static const std::string SOUND_UI_PUSHED_PATH = "assets/Sound/UI_pushed.wav";
+    static const std::string SOUND_UI_HOVERED_PATH = "assets/Sound/UI_hovered.wav";
+    static const std::string SOUND_JUMP_PATH = "assets/Sound/jump.wav";
+    static const std::string SOUND_MUSIC_PATH = "assets/Sound/music.wav";
 
     // BACKGROUND
     static const std::string BG_BLUE_PATH = "assets/2 Locations/Backgrounds/1.png";
@@ -795,6 +808,12 @@ inline const std::string& assetPath(AssetID id) {
 
         // FONT
     case AssetID::MAIN_FONT:   return MAIN_FONT_PATH;
+
+        // SOUND
+    case AssetID::SOUND_UI_PUSHED: return SOUND_UI_PUSHED_PATH;
+    case AssetID::SOUND_UI_HOVERED: return SOUND_UI_HOVERED_PATH;
+    case AssetID::SOUND_JUMP: return SOUND_JUMP_PATH;
+    case AssetID::SOUND_MUSIC: return SOUND_MUSIC_PATH;
 
         // BACKGROUND
     case AssetID::BG_BLUE:   return BG_BLUE_PATH;

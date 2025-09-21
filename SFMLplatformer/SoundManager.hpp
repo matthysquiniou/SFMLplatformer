@@ -2,52 +2,42 @@
 #include <SFML/Audio.hpp>
 #include <unordered_map>
 #include <stdexcept>
+#include "GameContext.hpp"
 
 class SoundManager {
 public:
+    SoundManager(GameContext& ctx) : ctx(ctx) {}
+
     enum class SoundName : int {
         // UI (0-99)
-        Click = 0,
-        Hover = 1,
+        PUSHED = 0,
+        HOVERED = 1,
 
         // Gameplay (100-199)
-        Destruction = 100,
-        Explosion = 101,
-        Hit = 102,
-        Rocket = 103,
-        Swoosh = 104,
+        JUMP = 100,
 
         // Music (200-299)
-        Background = 200
+        BACKGROUND = 200
     };
 
-    static void init();
+    void init();
 
-    static void play(SoundName sound, bool loop = false);
+    static void play(SoundName sound);
     static void stop(SoundName sound);
 
-    // Réglages utilisateur
-    static void setMasterVolume(float v);     // 0–100
-    static void setUiVolume(float v);         // 0–100
-    static void setGameplayVolume(float v);   // 0–100
-    static void setMusicVolume(float v);      // 0–100
+    void updateVolumes();
 
 private:
+    GameContext& ctx;
+
     struct SoundData {
         sf::SoundBuffer buffer;
         sf::Sound sound{ buffer };
-        float baseVolume; // le volume “par défaut” défini au chargement
+        float baseVolume;
     };
 
-    inline static std::unordered_map<SoundName, SoundData> sounds;
-    inline static bool initialized = false;
+    inline static std::unordered_map<SoundName, std::unique_ptr<SoundData>> sounds;
 
-    // volumes courants (facteur global)
-    inline static float masterVolume = 100.f;
-    inline static float uiVolume = 100.f;
-    inline static float gameplayVolume = 100.f;
-    inline static float musicVolume = 100.f;
-
-    static float getCategoryVolume(SoundName sound);
-    static void updateVolume(SoundName sound);
+    float getCategoryVolume(SoundName sound);
+    void updateVolume(SoundName sound);
 };
