@@ -24,6 +24,10 @@ private:
 
     void loadPlayer(int character, sf::Vector2f pos);
 
+    void loadBlocLine(std::string path, float blockSize,int blockNumber, sf::Vector2f startPos, bool isX = true);
+
+    void loadBackgroundAndBounds(sf::FloatRect rect, std::string path);
+
     EntityManager entityManager;
 
     sf::Vector2u windowSize;

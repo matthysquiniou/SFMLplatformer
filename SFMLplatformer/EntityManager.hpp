@@ -1,13 +1,16 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <optional>
 #include "Entity.hpp"
 
 class EntityManager {
 private:
     std::vector<std::shared_ptr<Entity>> entities;
+    std::optional<sf::FloatRect> worldBounds; 
 
 public:
+    void setWorldBounds(const sf::FloatRect& bounds) { worldBounds = bounds; }
     void addEntity(std::shared_ptr<Entity> e) {
         entities.push_back(e);
     }

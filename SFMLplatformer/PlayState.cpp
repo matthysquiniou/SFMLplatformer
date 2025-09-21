@@ -53,6 +53,8 @@ void PlayState::loadLevelBase(unsigned int levelBase, int character) {
     switch (levelBase)
     {
     case 0:
+        loadBackgroundAndBounds({ {-1000.f,-1000.f},{5000.f,3000.f} }, assetPath(AssetID::BG_ORANGE));
+
         for (int i = 0; i < 60; i++) {
             entityManager.addEntity(EntityFactory::makePlatform({ i * 16.f, 550.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
         }
@@ -69,7 +71,7 @@ void PlayState::loadLevelBase(unsigned int levelBase, int character) {
             entityManager.addEntity(EntityFactory::makePlatform({ 600.f, 534.f - j * 16.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
         }
         
-        // entityManager.addEntity(EntityFactory::makeEnemyCanon({ 350.f,350.f }, entityManager));
+        entityManager.addEntity(EntityFactory::makeEnemyCanon({ 350.f,350.f }, entityManager));
 
         entityManager.addEntity(EntityFactory::makeCheckpoint2({ 1000.f,500.f }));
 
@@ -122,4 +124,30 @@ void PlayState::loadPlayer(int character,sf::Vector2f pos) {
     default:
         break;
     }
+}
+
+void PlayState::loadBlocLine(std::string path, float blockSize, int blockNumber, sf::Vector2f startPos, bool isX) {
+    if (isX)
+    {
+        for (int i = 0; i < blockNumber; i++) {
+            entityManager.addEntity(EntityFactory::makePlatform({ i * blockSize + startPos.x, startPos.y }, path));
+        }
+    }
+    else {
+        for (int i = 0; i < blockNumber; i++) {
+            entityManager.addEntity(EntityFactory::makePlatform({ startPos.x, i * blockSize + startPos.y }, path));
+        }
+    }
+}
+
+void PlayState::loadBackgroundAndBounds(sf::FloatRect rect, std::string path) {
+    for (float x = rect.position.x; x < (rect.position.x + rect.size.x); x += 64.f)
+    {
+        for (float y = rect.position.y; y < (rect.position.y + rect.size.y); y += 64.f)
+        {
+            entityManager.addEntity(EntityFactory::makeVisual(path, { x, y }));
+        }
+    }
+
+    entityManager.setWorldBounds(rect);
 }
