@@ -2,10 +2,15 @@
 #include "State.hpp"
 #include "EntityManager.hpp"
 #include "EntityFactory.hpp"
+#include "Assets.hpp"
 
 class SoundState : public State {
 public:
-    SoundState(sf::Vector2u windowSize, sf::View& view) {
+    SoundState(sf::Vector2u windowSize, sf::View& view) :
+        music(getMainFont(), "0", 24),
+        sfx(getMainFont(), "0", 24),
+        interface(getMainFont(), "0", 24)
+    {
         // BACKGROUND
 
         for (float x = 0.f; x < windowSize.x; x += 64.f)
@@ -66,8 +71,78 @@ public:
             view)
         );
 
-        //TODO :: make buttons to change sound value and display the value 
-        // music / interface / gameplay 
+        // BUTTON SOUND
+
+        sf::Vector2f buttonMusic1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 12) * 4 };
+        sf::Vector2f buttonMusic2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 12) * 4 };
+
+        sf::Vector2f buttonSFX1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 12) * 6 };
+        sf::Vector2f buttonSFX2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 12) * 6 };
+
+        sf::Vector2f buttonInterface1 = { framePos.x + frameSize.x / 5, framePos.y + (frameSize.y / 12) * 8 };
+        sf::Vector2f buttonInterface2 = { framePos.x + (frameSize.x / 5) * 4, framePos.y + (frameSize.y / 12) * 8 };
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonMusic1,
+            [](GameContext& ctx) {
+                if (ctx.musicVolume > 0) ctx.musicVolume--;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonMusic2,
+            [](GameContext& ctx) {
+                if (ctx.musicVolume < 10) ctx.musicVolume++;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonSFX1,
+            [](GameContext& ctx) {
+                if (ctx.sfxVolume > 0) ctx.sfxVolume--;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonSFX2,
+            [](GameContext& ctx) {
+                if (ctx.sfxVolume < 10) ctx.sfxVolume++;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonInterface1,
+            [](GameContext& ctx) {
+                if (ctx.interfaceVolume > 0) ctx.interfaceVolume--;
+            },
+            view)
+        );
+
+        entityManager.addEntity(EntityFactory::makeTextButtonGrey(
+            "",
+            buttonInterface2,
+            [](GameContext& ctx) {
+                if (ctx.interfaceVolume < 10) ctx.interfaceVolume++;
+            },
+            view)
+        );
+
+        sf::Vector2f musicPos = { framePos.x + (frameSize.x / 2) - 60.f, framePos.y + (frameSize.y / 12) * 4 - 7.f };
+        sf::Vector2f SFXPos = { framePos.x + (frameSize.x / 2) - 40.f, framePos.y + (frameSize.y / 12) * 6 - 7.f };
+        sf::Vector2f interfacePos = { framePos.x + (frameSize.x / 2) - 90.f, framePos.y + (frameSize.y / 12) * 8 - 7.f };
+
+        music.setPosition(musicPos);
+        sfx.setPosition(SFXPos);
+        interface.setPosition(interfacePos);
     }
 
     void handleEvents(std::optional<sf::Event> event, GameContext& ctx) override;
@@ -79,4 +154,10 @@ public:
 private:
 
     EntityManager entityManager;
+
+    sf::Text music;
+
+    sf::Text sfx;
+
+    sf::Text interface;
 };

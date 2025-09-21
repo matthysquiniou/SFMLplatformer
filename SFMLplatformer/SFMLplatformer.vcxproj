@@ -144,6 +144,7 @@
     <ClCompile Include="CharacterPickingState.cpp" />
     <ClCompile Include="Checkpoint.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Trap.cpp" />
     <ClInclude Include="CharacterPickingEntity.hpp" />
     <ClInclude Include="CharacterPickingState.hpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="FragilePlatform.hpp" />
     <ClInclude Include="Gem.hpp" />
     <ClInclude Include="NextLevelState.hpp" />
+    <ClInclude Include="SoundManager.hpp" />
     <ClInclude Include="SpriteComposite.hpp" />
     <ClCompile Include="SpriteWrapper.cpp" />
     <ClInclude Include="SpriteWrapper.hpp" />
