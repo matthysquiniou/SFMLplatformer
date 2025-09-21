@@ -1,4 +1,5 @@
 #include "Trap.hpp"
+#include "SoundManager.hpp"
 
 Trap::Trap(SpriteComposite s, TrapType trapType, float animationDelay) : Entity(std::move(s)), boxManager(EntityType::Enemy, this), trapType(trapType), animationDelay(animationDelay) {
 
@@ -83,19 +84,41 @@ void Trap::updateHurtBox() {
 	if (animationTime > animationDelay)
 	{
 		if (hurtBoxActive == 7) {
-			boxManager.disableBoxObserver(hurtBoxActive);
+			bool deactivate = boxManager.disableBoxObserver(hurtBoxActive);
 			hurtBoxActive = 1;
-			boxManager.activateBoxObserver(hurtBoxActive);
+			bool activate = boxManager.activateBoxObserver(hurtBoxActive);
 			sprite.setAnimationActive(0, false);
 			sprite.resetAnimation(0);
 			idleTime = 0.f;
 			isIdling = true;
 			animationTime = 0.f;
+			updateSound(activate, deactivate);
 		} else {
-			boxManager.disableBoxObserver(hurtBoxActive);
+			bool deactivate = boxManager.disableBoxObserver(hurtBoxActive);
 			hurtBoxActive++;
-			boxManager.activateBoxObserver(hurtBoxActive);
+			bool activate = boxManager.activateBoxObserver(hurtBoxActive);
 			animationTime -= animationDelay;
+			updateSound(activate, deactivate);
 		}
+	}
+}
+
+void Trap::updateSound(bool activate, bool deactivate) {
+	switch (trapType)
+	{
+	case Trap::SAW:
+		if (activate) SoundManager::play(SoundManager::SoundName::SAW,true);
+		if (deactivate) SoundManager::stop(SoundManager::SoundName::SAW);
+		break;
+	case Trap::SPIKE:
+		if (activate) SoundManager::play(SoundManager::SoundName::SPIKE, true);
+		if (deactivate) SoundManager::play(SoundManager::SoundName::SPIKE);
+		break;
+	case Trap::ELECTRICITY:
+		if (activate) SoundManager::play(SoundManager::SoundName::ELECTRICITY, true);
+		if (deactivate) SoundManager::stop(SoundManager::SoundName::ELECTRICITY);
+		break;
+	default:
+		break;
 	}
 }

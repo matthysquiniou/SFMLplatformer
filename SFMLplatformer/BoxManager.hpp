@@ -14,8 +14,8 @@ public:
     void updateBoxesPosition(sf::Vector2f pos);
     void disableBoxType( BoxType boxType );
     void activateBoxType(BoxType boxType);
-    void disableBoxObserver(int observerID);
-    void activateBoxObserver(int observerID);
+    bool disableBoxObserver(int observerID);
+    bool activateBoxObserver(int observerID);
 
     EntityType getType() const;
     Entity* getEntity() const;

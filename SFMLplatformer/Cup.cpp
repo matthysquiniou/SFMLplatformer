@@ -1,5 +1,6 @@
 #include "Cup.hpp"
 #include "NextLevelState.hpp"
+#include "SoundManager.hpp"
 
 Cup::Cup(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Object, this) {
 	boxManager.addBox({ {8.f,16.f} ,{48.f,48.f} }, BoxType::Collision);
@@ -17,6 +18,7 @@ void Cup::update(float dt, GameContext& ctx) {
 	if (!scoreGiven && hasBeenTouch)
 	{
 		ctx.score += 500;
+		SoundManager::play(SoundManager::SoundName::LEVEL_COMPLETE);
 		scoreGiven = true;
 	}
 }

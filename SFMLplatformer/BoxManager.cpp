@@ -46,16 +46,26 @@ void BoxManager::activateBoxType(BoxType boxType) {
     }
 }
 
-void BoxManager::disableBoxObserver(int observerID) {
+bool BoxManager::disableBoxObserver(int observerID) {
+    bool changed = false;
     for (auto& box : boxes) {
-        if (box.observerID == observerID) box.active = false;
+        if (box.observerID == observerID) {
+            box.active = false;
+            changed = true;
+        } 
     }
+    return changed;
 }
 
-void BoxManager::activateBoxObserver(int observerID) {
+bool BoxManager::activateBoxObserver(int observerID) {
+    bool changed = false;
     for (auto& box : boxes) {
-        if (box.observerID == observerID) box.active = true;
+        if (box.observerID == observerID) {
+            box.active = true;
+            changed = true;
+        }
     }
+    return changed;
 }
 
 EntityType BoxManager::getType() const { return type; }

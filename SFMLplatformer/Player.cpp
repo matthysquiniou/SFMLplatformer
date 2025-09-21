@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include "SoundManager.hpp"
 
 Player::Player(SpriteComposite s, sf::View& view) : Entity(std::move(s)), boxManager(EntityType::Player, this), view(view) {
 	respawnPos = sprite.getPosition();
@@ -20,8 +21,10 @@ void Player::handleEvents(const sf::Event& e, GameContext& ctx) {
 					velocityY = -350.f;
 					velocityX = -300.f;
 					if (sprite.flipX) velocityX *= -1.f;
+					SoundManager::play(SoundManager::SoundName::JUMP);
 				} else {
 					velocityY = -450.f;
+					SoundManager::play(SoundManager::SoundName::JUMP);
 				}
 				switchAnimation(PlayerAnimation::JUMP);
 				isGrounded = false;
@@ -34,15 +37,18 @@ void Player::handleEvents(const sf::Event& e, GameContext& ctx) {
 				doubleJumpUsed = true;
 				velocityY = -450.f;
 				switchAnimation(PlayerAnimation::DOUBLE_JUMP);
+				SoundManager::play(SoundManager::SoundName::JUMP);
 			}
 			break;
 		case sf::Keyboard::Key::Right:
 			sprite.flipX = false;
 			direction = 1;
+			SoundManager::play(SoundManager::SoundName::STEP);
 			break;
 		case sf::Keyboard::Key::Left:
 			sprite.flipX = true;
 			direction = -1;
+			SoundManager::play(SoundManager::SoundName::STEP);
 			break;
 		case sf::Keyboard::Key::Down:
 			fastFall = true;
@@ -60,12 +66,14 @@ void Player::handleEvents(const sf::Event& e, GameContext& ctx) {
 			if (direction == 1)
 			{
 				direction = 0;
+				SoundManager::stop(SoundManager::SoundName::STEP);
 			}
 			break;
 		case sf::Keyboard::Key::Left:
 			if (direction == -1)
 			{
 				direction = 0;
+				SoundManager::stop(SoundManager::SoundName::STEP);
 			}
 			break;
 		case sf::Keyboard::Key::Down:
@@ -85,6 +93,7 @@ void Player::update(float dt, GameContext& ctx) {
 		if (!sprite.isAnimationGoing() && activeAnimation == PlayerAnimation::HIT)
 		{
 			switchAnimation(PlayerAnimation::DESAPPEARING);
+			SoundManager::play(SoundManager::SoundName::PLAYER_DEATH);
 		}
 		if (!sprite.isAnimationGoing() && activeAnimation == PlayerAnimation::DESAPPEARING)
 		{
@@ -241,6 +250,7 @@ void Player::respawn() {
 	boxManager.activateBoxType(BoxType::Hit);
 	boxManager.activateBoxType(BoxType::Hurt);
 	switchAnimation(PlayerAnimation::APPEARING);
+	SoundManager::play(SoundManager::SoundName::RESPAWN);
 }
 
 

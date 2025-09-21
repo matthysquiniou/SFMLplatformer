@@ -1,4 +1,5 @@
 #include "Checkpoint.hpp"
+#include "SoundManager.hpp"
 
 Checkpoint::Checkpoint(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Checkpoint, this) {
 	boxManager.addBox({ {18.f,0.f} ,{12.f,48.f} }, BoxType::Collision);
@@ -14,6 +15,7 @@ void Checkpoint::update(float dt, GameContext& ctx) {
 	{
 		ctx.score += 50;
 		scoreGiven = true;
+		SoundManager::play(SoundManager::SoundName::CHECKPOINT_TAKE);
 	}
 	sprite.update(dt);
 }

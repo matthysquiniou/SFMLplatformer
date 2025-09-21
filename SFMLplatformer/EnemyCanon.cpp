@@ -1,5 +1,6 @@
 #include "EnemyCanon.hpp"
 #include "EntityFactory.hpp"
+#include "SoundManager.hpp"
 #include <iostream>
 
 EnemyCanon::EnemyCanon(SpriteComposite s, EntityManager& entityManager) : Entity(std::move(s)), boxManager(EntityType::Enemy, this), entityManager(entityManager) {
@@ -223,4 +224,5 @@ void EnemyCanon::shot() {
 	isIdling = true;
 	idlingTime = 0.f;
 	entityManager.addEntity(EntityFactory::makeEnemyCanonBall({ position.x, position.y + 20.f }, direction));
+	SoundManager::play(SoundManager::SoundName::SHOT);
 }

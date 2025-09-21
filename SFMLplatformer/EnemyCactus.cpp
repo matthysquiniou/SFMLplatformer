@@ -1,4 +1,5 @@
 #include "EnemyCactus.hpp"
+#include "SoundManager.hpp"
 #include <iostream>
 
 EnemyCactus::EnemyCactus(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
@@ -43,6 +44,7 @@ void EnemyCactus::update(float dt, GameContext& ctx) {
 	{
 		playerJumped = false;
 		velocityY = -500.f;
+		SoundManager::play(SoundManager::SoundName::JUMP);
 	}
 
 	physicEngine.updateEnemyCactusPhysic(*this, dt);

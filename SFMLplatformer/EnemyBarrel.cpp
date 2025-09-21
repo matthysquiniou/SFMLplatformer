@@ -1,4 +1,5 @@
 #include "EnemyBarrel.hpp"
+#include "SoundManager.hpp"
 #include <iostream>
 
 EnemyBarrel::EnemyBarrel(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
@@ -131,8 +132,11 @@ void EnemyBarrel::doCollision() {
 			if (pc.myBox.observerID == ObserverID::DIRECTION_1) direction1Flag = true;
 			if (pc.myBox.observerID == ObserverID::DIRECTION_2) direction2Flag = true;
 		}
-		else if (myBoxType == BoxType::CollisionObserver && otherType == EntityType::Player) {
-			if (pc.myBox.observerID == ObserverID::PLAYER_1 || pc.myBox.observerID == ObserverID::PLAYER_2) isRunning = true;
+		else if (myBoxType == BoxType::CollisionObserver && otherType == EntityType::Player && !isRunning) {
+			if (pc.myBox.observerID == ObserverID::PLAYER_1 || pc.myBox.observerID == ObserverID::PLAYER_2) {
+				isRunning = true;
+				SoundManager::play(SoundManager::SoundName::QUICK_STEP);
+			}
 		}
 		// being hit
 		else if (myBoxType == BoxType::Hit && otherType == EntityType::Player) {
@@ -228,4 +232,6 @@ void EnemyBarrel::activateStun() {
 	isRunning = false;
 	stunTime = 0.f;
 	switchAnimation(EnemyBarrelAnimation::STUN);
+	SoundManager::play(SoundManager::SoundName::STUN);
+	SoundManager::stop(SoundManager::SoundName::QUICK_STEP);
 }

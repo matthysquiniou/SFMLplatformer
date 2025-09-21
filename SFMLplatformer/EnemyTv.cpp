@@ -1,4 +1,5 @@
 #include "EnemyTv.hpp"
+#include "SoundManager.hpp"
 #include <iostream>
 
 EnemyTv::EnemyTv(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
@@ -26,6 +27,7 @@ void EnemyTv::update(float dt, GameContext& ctx) {
 	{
 		jumpTime = 0.f;
 		velocityY = -275.f;
+		SoundManager::play(SoundManager::SoundName::JUMP);
 	}
 
 	physicEngine.updateEnemyTvPhysic(*this, dt);

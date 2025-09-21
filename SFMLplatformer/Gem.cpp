@@ -1,4 +1,5 @@
 #include "Gem.hpp"
+#include "SoundManager.hpp"
 
 Gem::Gem(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Object, this) {
 	boxManager.addBox({ {0.f,0.f} ,{16.f,16.f} }, BoxType::Collision);
@@ -10,6 +11,7 @@ void Gem::update(float dt, GameContext& ctx) {
 	if (hasBeenTouch)
 	{
 		ctx.score += 10;
+		SoundManager::play(SoundManager::SoundName::GEM_COLECT);
 		deleteIt = true;
 	}
 }

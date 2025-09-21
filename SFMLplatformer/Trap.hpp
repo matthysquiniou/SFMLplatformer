@@ -32,6 +32,8 @@ public:
 
 	void updateHurtBox();
 
+	void updateSound(bool activate, bool deactivate);
+
 	TrapType trapType;
 
 	float animationDelay;

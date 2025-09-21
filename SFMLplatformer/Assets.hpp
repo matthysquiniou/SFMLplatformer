@@ -13,6 +13,22 @@ enum class AssetID {
     SOUND_UI_HOVERED,
     SOUND_JUMP,
     SOUND_MUSIC,
+    SOUND_ENEMY_DEAD,
+    SOUND_QUICK_STEP,
+    SOUND_STEP,
+    SOUND_BREAK,
+    SOUND_CHECKPOINT_TAKE,
+    SOUND_ELECTRICITY,
+    SOUND_FLY,
+    SOUND_GEM_COLECT,
+    SOUND_LEVEL_COMPLETE,
+    SOUND_PLAYER_DEATH,
+    SOUND_RESPAWN,
+    SOUND_SAW,
+    SOUND_SPIKE,
+    SOUND_STOMP,
+    SOUND_STUN,
+    SOUND_SHOT,
 
     // BACKGROUND
     BG_BLUE,
@@ -413,6 +429,22 @@ inline const std::string& assetPath(AssetID id) {
     static const std::string SOUND_UI_HOVERED_PATH = "assets/Sound/UI_hovered.wav";
     static const std::string SOUND_JUMP_PATH = "assets/Sound/jump.wav";
     static const std::string SOUND_MUSIC_PATH = "assets/Sound/music.wav";
+    static const std::string SOUND_ENEMY_DEAD_PATH = "assets/Sound/enemy_dead.wav";
+    static const std::string SOUND_QUICK_STEP_PATH = "assets/Sound/quick_step.wav";
+    static const std::string SOUND_STEP_PATH = "assets/Sound/step.wav";
+    static const std::string SOUND_BREAK_PATH = "assets/Sound/break.wav";
+    static const std::string SOUND_CHECKPOINT_TAKE_PATH = "assets/Sound/checkpoint_take.wav";
+    static const std::string SOUND_ELECTRICITY_PATH = "assets/Sound/electricity.wav";
+    static const std::string SOUND_FLY_PATH = "assets/Sound/fly.wav";
+    static const std::string SOUND_GEM_COLECT_PATH = "assets/Sound/gem_colect.wav";
+    static const std::string SOUND_LEVEL_COMPLETE_PATH = "assets/Sound/level_complete.wav";
+    static const std::string SOUND_PLAYER_DEATH_PATH = "assets/Sound/player_death.wav";
+    static const std::string SOUND_RESPAWN_PATH = "assets/Sound/player_respawn.wav";
+    static const std::string SOUND_SAW_PATH = "assets/Sound/saw.wav";
+    static const std::string SOUND_SPIKE_PATH = "assets/Sound/spike.wav";
+    static const std::string SOUND_STOMP_PATH = "assets/Sound/stomp.wav";
+    static const std::string SOUND_STUN_PATH = "assets/Sound/stun.wav";
+    static const std::string SOUND_SHOT_PATH = "assets/Sound/shot.wav";
 
     // BACKGROUND
     static const std::string BG_BLUE_PATH = "assets/2 Locations/Backgrounds/1.png";
@@ -814,6 +846,22 @@ inline const std::string& assetPath(AssetID id) {
     case AssetID::SOUND_UI_HOVERED: return SOUND_UI_HOVERED_PATH;
     case AssetID::SOUND_JUMP: return SOUND_JUMP_PATH;
     case AssetID::SOUND_MUSIC: return SOUND_MUSIC_PATH;
+    case AssetID::SOUND_ENEMY_DEAD:        return SOUND_ENEMY_DEAD_PATH;
+    case AssetID::SOUND_QUICK_STEP:        return SOUND_QUICK_STEP_PATH;
+    case AssetID::SOUND_STEP:              return SOUND_STEP_PATH;
+    case AssetID::SOUND_BREAK:             return SOUND_BREAK_PATH;
+    case AssetID::SOUND_CHECKPOINT_TAKE:   return SOUND_CHECKPOINT_TAKE_PATH;
+    case AssetID::SOUND_ELECTRICITY:       return SOUND_ELECTRICITY_PATH;
+    case AssetID::SOUND_FLY:               return SOUND_FLY_PATH;
+    case AssetID::SOUND_GEM_COLECT:        return SOUND_GEM_COLECT_PATH;
+    case AssetID::SOUND_LEVEL_COMPLETE:    return SOUND_LEVEL_COMPLETE_PATH;
+    case AssetID::SOUND_PLAYER_DEATH:      return SOUND_PLAYER_DEATH_PATH;
+    case AssetID::SOUND_RESPAWN:           return SOUND_RESPAWN_PATH;
+    case AssetID::SOUND_SAW:               return SOUND_SAW_PATH;
+    case AssetID::SOUND_SPIKE:             return SOUND_SPIKE_PATH;
+    case AssetID::SOUND_STOMP:             return SOUND_STOMP_PATH;
+    case AssetID::SOUND_STUN:              return SOUND_STUN_PATH;
+    case AssetID::SOUND_SHOT:              return SOUND_SHOT_PATH;
 
         // BACKGROUND
     case AssetID::BG_BLUE:   return BG_BLUE_PATH;

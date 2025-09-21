@@ -15,6 +15,22 @@ public:
 
         // Gameplay (100-199)
         JUMP = 100,
+        ENEMY_DEAD = 101,
+        QUICK_STEP = 102,
+        STEP = 103,
+        BREAK = 104,
+        CHECKPOINT_TAKE = 105,
+        ELECTRICITY = 106,
+        FLY = 107,
+        GEM_COLECT = 108,
+        LEVEL_COMPLETE = 109,
+        PLAYER_DEATH = 110,
+        RESPAWN = 111,
+        SAW = 112,
+        SPIKE = 113,
+        STOMP = 114,
+        STUN = 115,
+        SHOT = 116,
 
         // Music (200-299)
         BACKGROUND = 200
@@ -22,7 +38,7 @@ public:
 
     void init();
 
-    static void play(SoundName sound);
+    static void play(SoundName sound, bool noReplay = false);
     static void stop(SoundName sound);
 
     void updateVolumes();

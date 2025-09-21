@@ -1,4 +1,5 @@
 #include "EnemyFlyer.hpp"
+#include "SoundManager.hpp"
 #include <iostream>
 
 EnemyFlyer::EnemyFlyer(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Enemy, this) {
@@ -9,6 +10,8 @@ EnemyFlyer::EnemyFlyer(SpriteComposite s) : Entity(std::move(s)), boxManager(Ent
 	boxManager.addBox({ {36.f,28.f} ,{16.f,200.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
 	boxManager.addBox({ {12.f,28.f} ,{24.f,200.f} }, BoxType::CollisionObserver, ObserverID::PLAYER);
 	baseY = sprite.getPosition().y;
+
+	SoundManager::play(SoundManager::SoundName::FLY);
 }
 
 void EnemyFlyer::update(float dt, GameContext& ctx) {
@@ -19,10 +22,13 @@ void EnemyFlyer::update(float dt, GameContext& ctx) {
 		if (!sprite.isAnimationGoing())
 		{
 			deleteIt = true;
+			SoundManager::stop(SoundManager::SoundName::FLY);
 			ctx.score += 50;
 		}
 		return;
 	}
+
+	SoundManager::play(SoundManager::SoundName::FLY);
 
 	physicEngine.updateEnemyFlyerPhysic(*this, dt);
 
@@ -135,6 +141,7 @@ void EnemyFlyer::doCollision() {
 		velocityY = 0.f;
 		isAttacking = false;
 		isGoingUp = true;
+		SoundManager::play(SoundManager::SoundName::STOMP);
 	}
 
 	if (hasCeil) {

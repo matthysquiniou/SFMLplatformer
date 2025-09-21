@@ -1,4 +1,5 @@
 #include "FragilePlatform.hpp"
+#include "SoundManager.hpp"
 
 FragilePlatform::FragilePlatform(SpriteComposite s) : Entity(std::move(s)), boxManager(EntityType::Platform, this) {
 	boxManager.addBox({ {8.f,20.f} ,{32.f,8.f} }, BoxType::Collision);
@@ -52,6 +53,7 @@ void FragilePlatform::doCollision() {
 		EntityType otherType = pc.other->getType();
 
 		if (otherType == EntityType::Player && !hasBeenTouch) {
+			SoundManager::play(SoundManager::SoundName::BREAK);
 			hasBeenTouch = true;
 			sprite.setAnimationActive(0, true);
 			sprite.stopAnimationAfterLoop(0);
