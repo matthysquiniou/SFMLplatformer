@@ -185,8 +185,8 @@ void EnemyBarrel::doCollision() {
 	if ((!direction1Flag || !direction2Flag) && directionChangedTime > 0.5f && !isStuned)
 	{
 		if (isRunning) activateStun();
-		if (!direction1Flag) sprite.move({ 2.f,0.f });
-		if (!direction2Flag) sprite.move({ -2.f,0.f });
+		if (!direction1Flag) sprite.move({ 5.f,0.f });
+		if (!direction2Flag) sprite.move({ -5.f,0.f });
 		switchPlayerObserver();
 		direction *= -1;
 		sprite.flipX = !sprite.flipX;

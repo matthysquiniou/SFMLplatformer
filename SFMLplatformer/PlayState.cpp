@@ -1,6 +1,7 @@
 #pragma once
 #include "PlayState.hpp"
 #include "PauseState.hpp"
+#include <iostream>
 
 void PlayState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
     if (event.has_value()) {
@@ -38,12 +39,16 @@ void PlayState::draw(sf::RenderWindow& window, GameContext& ctx) {
 void PlayState::loadLevel(unsigned int level, int character) {
     entityManager.clear();
 
+    level--;
+
     int levelBase = level / 10;
     int levelAdds = level % 10;
 
     loadLevelBase(levelBase, character);
+    std::cout << (levelBase) << std::endl;
     while (levelAdds>=0)
     {
+        std::cout << (levelBase * 10 + levelAdds) << std::endl;
         loadLevelObj(levelBase * 10 + levelAdds);
         levelAdds--;
     }
@@ -51,7 +56,7 @@ void PlayState::loadLevel(unsigned int level, int character) {
 
 void PlayState::loadLevelBase(unsigned int levelBase, int character) {
     float blockSize = 16.f;
-    sf::FloatRect bounds1 = { {-1000.f,-1000.f},{21000.f,2000.f} };
+    sf::FloatRect bounds1 = { {-1000.f,-1000.f},{16000.f,2000.f} };
     auto addPlatform1 = [&](float px, float py, int count, bool makeVisual)
         {
             loadPlatform(bounds1,
@@ -111,11 +116,45 @@ void PlayState::loadLevelBase(unsigned int levelBase, int character) {
         addPlatform1(800.f * blockSize, 20.f * blockSize, 20, true);
         addPlatform1(830.f * blockSize, 5.f * blockSize, 5, true);
 
+        entityManager.addEntity(EntityFactory::makeGem({ 121.f * blockSize, 23.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 123.f * blockSize, 23.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 125.f * blockSize, 23.f * blockSize }, 3));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 170.f * blockSize, 23.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 172.f * blockSize, 23.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 174.f * blockSize, 23.f * blockSize }, 3));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 290.f * blockSize, -2.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 292.f * blockSize, -2.f * blockSize }, 3));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 350.f * blockSize, -2.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 352.f * blockSize, -2.f * blockSize }, 3));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 480.f * blockSize, 28.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 482.f * blockSize, 28.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 484.f * blockSize, 28.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 486.f * blockSize, 28.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 488.f * blockSize, 28.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 490.f * blockSize, 28.f * blockSize }, 3));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 550.f * blockSize, 8.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 552.f * blockSize, 8.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 554.f * blockSize, 8.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 556.f * blockSize, 8.f * blockSize }, 3));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 670.f * blockSize, -12.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 672.f * blockSize, -12.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 674.f * blockSize, -12.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 676.f * blockSize, -12.f * blockSize }, 3));
+
+        entityManager.addEntity(EntityFactory::makeGem({ 760.f * blockSize, -12.f * blockSize }, 3));
+        entityManager.addEntity(EntityFactory::makeGem({ 762.f * blockSize, -12.f * blockSize }, 3));
+
         entityManager.addEntity(EntityFactory::makeCheckpoint2({ 230.f * blockSize, -3.f * blockSize }));
         entityManager.addEntity(EntityFactory::makeCheckpoint2({ 495.f * blockSize, 12.f * blockSize }));
         entityManager.addEntity(EntityFactory::makeCup({ 830.f * blockSize, 1.f * blockSize }));
 
-        loadPlayer(character, { 50.f,-50.f });
+        loadPlayer(character, { 50.f,-75.f });
         break;
     case 1:
         break;
@@ -136,24 +175,82 @@ void PlayState::loadLevelObj(unsigned int levelObj) {
 
     switch (levelObj)
     {
-    case 1:
+    case 0:
         entityManager.addEntity(EntityFactory::makeEnemyCactus({ 35.f * blockSize, 5.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 490.f * blockSize, 25.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 650.f * blockSize, -5.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 810.f * blockSize, 15.f * blockSize }));
+        break;
+    case 1:
+        entityManager.addEntity(EntityFactory::makeTrap({ 139.f * blockSize, 22.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 140.f * blockSize, 22.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 141.f * blockSize, 22.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 142.f * blockSize, 22.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 143.f * blockSize, 22.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 144.f * blockSize, 22.f * blockSize }, Trap::SPIKE, false));
+
+        entityManager.addEntity(EntityFactory::makeTrap({ 459.f * blockSize, 27.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 460.f * blockSize, 27.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 461.f * blockSize, 27.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 462.f * blockSize, 27.f * blockSize }, Trap::SPIKE, false));
+
+        entityManager.addEntity(EntityFactory::makeTrap({ 729.f * blockSize, -13.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 730.f * blockSize, -13.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 731.f * blockSize, -13.f * blockSize }, Trap::SPIKE, false));
         break;
     case 2:
+        entityManager.addEntity(EntityFactory::makeTrap({ 209.f * blockSize, 7.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 210.f * blockSize, 7.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 211.f * blockSize, 7.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 212.f * blockSize, 7.f * blockSize }, Trap::SPIKE, false));
+
+        entityManager.addEntity(EntityFactory::makeTrap({ 349.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 350.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 351.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 352.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+
+        entityManager.addEntity(EntityFactory::makeTrap({ 679.f * blockSize, -23.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 680.f * blockSize, -23.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 681.f * blockSize, -23.f * blockSize }, Trap::SPIKE, false));
         break;
     case 3:
+        entityManager.addEntity(EntityFactory::makeEnemyBarrel({ 85.f * blockSize, 15.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeEnemyBarrel({ 525.f * blockSize, 15.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeEnemyBarrel({ 615.f * blockSize, -5.f * blockSize }));
         break;
     case 4:
+        entityManager.addEntity(EntityFactory::makeTrap({ 170.f * blockSize, 22.f * blockSize }, Trap::SAW, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 370.f * blockSize, -3.f * blockSize }, Trap::SAW, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 720.f * blockSize, -13.f * blockSize }, Trap::SAW, false));
         break;
     case 5:
+        entityManager.addEntity(EntityFactory::makeTrap({ 123.f * blockSize, 22.f * blockSize }, Trap::ELECTRICITY, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 290.f * blockSize, -3.f * blockSize }, Trap::ELECTRICITY, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 550.f * blockSize, 7.f * blockSize }, Trap::ELECTRICITY, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 740.f * blockSize, -13.f * blockSize }, Trap::ELECTRICITY, false));
         break;
     case 6:
+        entityManager.addEntity(EntityFactory::makeTrap({ 329.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 330.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 331.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 332.f * blockSize, -3.f * blockSize }, Trap::SPIKE, false));
+
+        entityManager.addEntity(EntityFactory::makeTrap({ 519.f * blockSize, 17.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 520.f * blockSize, 17.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 521.f * blockSize, 17.f * blockSize }, Trap::SPIKE, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 522.f * blockSize, 17.f * blockSize }, Trap::SPIKE, false));
         break;
     case 7:
+        entityManager.addEntity(EntityFactory::makeTrap({ 123.f * blockSize, 22.f * blockSize }, Trap::ELECTRICITY, false));
+        entityManager.addEntity(EntityFactory::makeTrap({ 740.f * blockSize, -13.f * blockSize }, Trap::ELECTRICITY, false));
         break;
     case 8:
+        entityManager.addEntity(EntityFactory::makeEnemyBarrel({ 525.f * blockSize, 15.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 220.f * blockSize, 5.f * blockSize }));
         break;
     case 9:
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 50.f * blockSize, 5.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 500.f * blockSize, 25.f * blockSize }));
         break;
     case 10:
         break;
@@ -234,8 +331,6 @@ void PlayState::loadLevelObj(unsigned int levelObj) {
     case 48:
         break;
     case 49:
-        break;
-    case 50:
         break;
     default:
         break;

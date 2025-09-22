@@ -6,8 +6,8 @@ EnemyCactus::EnemyCactus(SpriteComposite s) : Entity(std::move(s)), boxManager(E
 	boxManager.addBox({ {12.f,20.f} ,{24.f,24.f} }, BoxType::Collision);
 	boxManager.addBox({ {12.f,20.f} ,{24.f,8.f} }, BoxType::Hit);
 	boxManager.addBox({ {12.f,28.f} ,{24.f,20.f} }, BoxType::Hurt);
-	boxManager.addBox({ {-4.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
-	boxManager.addBox({ {36.f,48.f} ,{16.f,16.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
+	boxManager.addBox({ {-4.f,48.f} ,{16.f,192.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_1);
+	boxManager.addBox({ {36.f,48.f} ,{16.f,192.f} }, BoxType::CollisionObserver, ObserverID::DIRECTION_2);
 }
 
 void EnemyCactus::handleEvents(const sf::Event& e, GameContext& ctx) {
@@ -187,7 +187,7 @@ void EnemyCactus::doCollision() {
 		sprite.move(totalMove);
 	}
 
-	if ((!direction1Flag || !direction2Flag) && isGrounded && directionChangedTime > 0.5f)
+	if ((!direction1Flag || !direction2Flag) && directionChangedTime > 0.1f)
 	{
 		direction *= -1;
 		velocityX = 0;
