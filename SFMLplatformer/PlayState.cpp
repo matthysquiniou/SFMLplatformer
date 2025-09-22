@@ -31,7 +31,7 @@ void PlayState::update(float dt, GameContext& ctx) {
 }
 
 void PlayState::draw(sf::RenderWindow& window, GameContext& ctx) {
-    entityManager.draw(window, ctx);
+    entityManager.draw(window, ctx, view);
     window.draw(score);
 }
 
@@ -50,46 +50,72 @@ void PlayState::loadLevel(unsigned int level, int character) {
 }
 
 void PlayState::loadLevelBase(unsigned int levelBase, int character) {
+    float blockSize = 16.f;
+    sf::FloatRect bounds1 = { {-1000.f,-1000.f},{21000.f,2000.f} };
+    auto addPlatform1 = [&](float px, float py, int count, bool makeVisual)
+        {
+            loadPlatform(bounds1,
+                { px, py },
+                count,
+                assetPath(AssetID::PLATFORM_GRASS_1_TOP_LEFT),
+                assetPath(AssetID::PLATFORM_GRASS_1_TOP),
+                assetPath(AssetID::PLATFORM_GRASS_1_TOP_RIGHT),
+                makeVisual,
+                assetPath(AssetID::PLATFORM_GRASS_1_MIDDLE_LEFT),
+                assetPath(AssetID::PLATFORM_GRASS_1_MIDDLE),
+                assetPath(AssetID::PLATFORM_GRASS_1_MIDDLE_RIGHT)
+            );
+        };
+
     switch (levelBase)
     {
     case 0:
-        loadBackgroundAndBounds({ {-1000.f,-1000.f},{5000.f,3000.f} }, assetPath(AssetID::BG_ORANGE));
+        loadBackgroundAndBounds(bounds1, assetPath(AssetID::BG_YELLOW));
 
-        for (int i = 0; i < 60; i++) {
-            entityManager.addEntity(EntityFactory::makePlatform({ i * 16.f, 550.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
-        }
+        addPlatform1(0.f, 0.f, 20, true);
+        addPlatform1(40.f * blockSize, 0.f * blockSize, 10, true);
+        addPlatform1(30.f * blockSize, 10.f * blockSize, 30, true);
+        addPlatform1(80.f * blockSize, 20.f * blockSize, 40, true);
+        addPlatform1(120.f * blockSize, 25.f * blockSize, 5, true);
+        addPlatform1(130.f * blockSize, 25.f * blockSize, 5, true);
+        addPlatform1(140.f * blockSize, 25.f * blockSize, 5, true);
+        addPlatform1(150.f * blockSize, 25.f * blockSize, 5, true);
+        addPlatform1(160.f * blockSize, 25.f * blockSize, 5, true);
+        addPlatform1(170.f * blockSize, 25.f * blockSize, 5, true);
+        addPlatform1(180.f * blockSize, 25.f * blockSize, 5, true);
+        addPlatform1(230.f * blockSize, 0.f * blockSize, 5, true);
+        addPlatform1(210.f * blockSize, 10.f * blockSize, 40, true);
+        addPlatform1(270.f * blockSize, 0.f * blockSize, 3, true);
+        addPlatform1(290.f * blockSize, 0.f * blockSize, 3, true);
+        addPlatform1(310.f * blockSize, 0.f * blockSize, 3, true);
+        addPlatform1(330.f * blockSize, 0.f * blockSize, 3, true);
+        addPlatform1(350.f * blockSize, 0.f * blockSize, 3, true);
+        addPlatform1(370.f * blockSize, 0.f * blockSize, 3, true);
+        addPlatform1(400.f * blockSize, 10.f * blockSize, 3, true);
+        addPlatform1(430.f * blockSize, 20.f * blockSize, 3, true);
+        addPlatform1(460.f * blockSize, 30.f * blockSize, 3, true);
+        addPlatform1(495.f * blockSize, 15.f * blockSize, 5, true);
+        addPlatform1(480.f * blockSize, 30.f * blockSize, 30, true);
+        addPlatform1(520.f * blockSize, 20.f * blockSize, 20, true);
+        addPlatform1(550.f * blockSize, 10.f * blockSize, 20, true);
+        addPlatform1(580.f * blockSize, 0.f * blockSize, 20, true);
+        addPlatform1(610.f * blockSize, -10.f * blockSize, 20, true);
+        addPlatform1(680.f * blockSize, -20.f * blockSize, 5, true);
+        addPlatform1(640.f * blockSize, -10.f * blockSize, 50, true);
+        addPlatform1(710.f * blockSize, -10.f * blockSize, 2, true);
+        addPlatform1(720.f * blockSize, -10.f * blockSize, 2, true);
+        addPlatform1(730.f * blockSize, -10.f * blockSize, 2, true);
+        addPlatform1(740.f * blockSize, -10.f * blockSize, 2, true);
+        addPlatform1(750.f * blockSize, -10.f * blockSize, 2, true);
+        addPlatform1(760.f * blockSize, -10.f * blockSize, 2, true);
+        addPlatform1(800.f * blockSize, 20.f * blockSize, 20, true);
+        addPlatform1(830.f * blockSize, 5.f * blockSize, 5, true);
 
-        for (int i = 60; i < 150; i++) {
-            entityManager.addEntity(EntityFactory::makePlatform({ i * 16.f, 550.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
-        }
+        entityManager.addEntity(EntityFactory::makeCheckpoint2({ 230.f * blockSize, -3.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeCheckpoint2({ 495.f * blockSize, 12.f * blockSize }));
+        entityManager.addEntity(EntityFactory::makeCup({ 830.f * blockSize, 1.f * blockSize }));
 
-        for (int i = 0; i < 6; i++) {
-            entityManager.addEntity(EntityFactory::makePlatform({ 200.f + i * 16.f, 450.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
-        }
-
-        for (int j = 0; j < 12; j++) {
-            entityManager.addEntity(EntityFactory::makePlatform({ 600.f, 534.f - j * 16.f }, assetPath(AssetID::PLATFORM_FULL_METAL_1_1)));
-        }
-        
-        entityManager.addEntity(EntityFactory::makeEnemyCanon({ 350.f,350.f }, entityManager));
-
-        entityManager.addEntity(EntityFactory::makeCheckpoint2({ 1000.f,500.f }));
-
-        entityManager.addEntity(EntityFactory::makeFragilePlatform({ 300.f,300.f }));
-
-        entityManager.addEntity(EntityFactory::makeGem({ 300.f,280.f }, 1));
-        entityManager.addEntity(EntityFactory::makeGem({ 320.f,280.f }, 2));
-        entityManager.addEntity(EntityFactory::makeGem({ 340.f,280.f }, 3));
-        entityManager.addEntity(EntityFactory::makeGem({ 360.f,280.f }, 4));
-        entityManager.addEntity(EntityFactory::makeGem({ 380.f,280.f }, 5));
-        entityManager.addEntity(EntityFactory::makeGem({ 400.f,280.f }, 6));
-
-        entityManager.addEntity(EntityFactory::makeCup({ 400.f,380.f }));
-
-        entityManager.addEntity(EntityFactory::makeTrap({ 400.f,330.f },Trap::ELECTRICITY,true));
-
-        loadPlayer(character, { 100.f,500.f });
-
+        loadPlayer(character, { 50.f,-50.f });
         break;
     case 1:
         break;
@@ -106,6 +132,114 @@ void PlayState::loadLevelBase(unsigned int levelBase, int character) {
 }
 
 void PlayState::loadLevelObj(unsigned int levelObj) {
+    float blockSize = 16.f;
+
+    switch (levelObj)
+    {
+    case 1:
+        entityManager.addEntity(EntityFactory::makeEnemyCactus({ 35.f * blockSize, 5.f * blockSize }));
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    case 7:
+        break;
+    case 8:
+        break;
+    case 9:
+        break;
+    case 10:
+        break;
+    case 11:
+        break;
+    case 12:
+        break;
+    case 13:
+        break;
+    case 14:
+        break;
+    case 15:
+        break;
+    case 16:
+        break;
+    case 17:
+        break;
+    case 18:
+        break;
+    case 19:
+        break;
+    case 20:
+        break;
+    case 21:
+        break;
+    case 22:
+        break;
+    case 23:
+        break;
+    case 24:
+        break;
+    case 25:
+        break;
+    case 26:
+        break;
+    case 27:
+        break;
+    case 28:
+        break;
+    case 29:
+        break;
+    case 30:
+        break;
+    case 31:
+        break;
+    case 32:
+        break;
+    case 33:
+        break;
+    case 34:
+        break;
+    case 35:
+        break;
+    case 36:
+        break;
+    case 37:
+        break;
+    case 38:
+        break;
+    case 39:
+        break;
+    case 40:
+        break;
+    case 41:
+        break;
+    case 42:
+        break;
+    case 43:
+        break;
+    case 44:
+        break;
+    case 45:
+        break;
+    case 46:
+        break;
+    case 47:
+        break;
+    case 48:
+        break;
+    case 49:
+        break;
+    case 50:
+        break;
+    default:
+        break;
+    }
 
 }
 
@@ -140,14 +274,57 @@ void PlayState::loadBlocLine(std::string path, float blockSize, int blockNumber,
     }
 }
 
-void PlayState::loadBackgroundAndBounds(sf::FloatRect rect, std::string path) {
-    for (float x = rect.position.x; x < (rect.position.x + rect.size.x); x += 64.f)
+void PlayState::loadVisualLine(std::string path, float blockSize, int blockNumber, sf::Vector2f startPos, bool isX) {
+    if (isX)
     {
-        for (float y = rect.position.y; y < (rect.position.y + rect.size.y); y += 64.f)
+        for (int i = 0; i < blockNumber; i++) {
+            entityManager.addEntity(EntityFactory::makeVisual(path, { i * blockSize + startPos.x, startPos.y }));
+        }
+    }
+    else {
+        for (int i = 0; i < blockNumber; i++) {
+            entityManager.addEntity(EntityFactory::makeVisual(path, { startPos.x, i * blockSize + startPos.y }));
+        }
+    }
+}
+
+void PlayState::loadBackgroundAndBounds(sf::FloatRect rect, std::string path) {
+    for (float x = rect.position.x - (rect.size.x / 2); x < (rect.position.x + rect.size.x * 1.5f); x += 64.f)
+    {
+        for (float y = rect.position.y - (rect.size.y / 2); y < (rect.position.y + rect.size.y * 1.5f); y += 64.f)
         {
             entityManager.addEntity(EntityFactory::makeVisual(path, { x, y }));
         }
     }
 
     entityManager.setWorldBounds(rect);
+}
+
+void PlayState::loadPlatform(
+    sf::FloatRect bounds,
+    sf::Vector2f startPos,
+    int blockNumber,
+    std::string pathStart,
+    std::string pathMiddle,
+    std::string pathEnd,
+    bool loadVisual,
+    std::string pathVStart,
+    std::string pathVMiddle,
+    std::string pathVEnd
+) {
+    float blockSize = 16.f;
+
+    entityManager.addEntity(EntityFactory::makePlatform({ startPos.x, startPos.y }, pathStart));
+
+    loadBlocLine(pathMiddle, blockSize, blockNumber, { startPos.x + blockSize, startPos.y });
+
+    entityManager.addEntity(EntityFactory::makePlatform({ startPos.x + blockNumber * blockSize, startPos.y }, pathEnd));
+
+    if (!loadVisual) return;
+
+    for (float y = startPos.y + blockSize; y < bounds.position.y + bounds.size.y; y += blockSize) {
+        entityManager.addEntity(EntityFactory::makeVisual(pathVStart, { startPos.x, y }));
+        loadVisualLine(pathVMiddle, blockSize, blockNumber, { startPos.x + blockSize, y });
+        entityManager.addEntity(EntityFactory::makeVisual(pathVEnd, { startPos.x + blockNumber * blockSize, y }));
+    }
 }

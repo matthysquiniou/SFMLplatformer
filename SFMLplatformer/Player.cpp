@@ -247,6 +247,8 @@ void Player::doCollision() {
 void Player::respawn() {
 	sprite.setPosition(respawnPos);
 	hasBeenHit = false;
+	velocityX = 0.f;
+	velocityY = 0.f;
 	boxManager.activateBoxType(BoxType::Hit);
 	boxManager.activateBoxType(BoxType::Hurt);
 	switchAnimation(PlayerAnimation::APPEARING);

@@ -9,6 +9,8 @@ private:
     std::vector<std::shared_ptr<Entity>> entities;
     std::optional<sf::FloatRect> worldBounds; 
 
+    sf::FloatRect getViewRect(sf::View& view);
+
 public:
     void setWorldBounds(const sf::FloatRect& bounds) { worldBounds = bounds; }
     void addEntity(std::shared_ptr<Entity> e) {
@@ -18,5 +20,6 @@ public:
     void handleEvents(const sf::Event& e, GameContext& ctx);
     void update(float dt, GameContext& ctx);
     void draw(sf::RenderWindow& window, GameContext& ctx);
+    void draw(sf::RenderWindow& window, GameContext& ctx,sf::View& view);
     void clear();
 };

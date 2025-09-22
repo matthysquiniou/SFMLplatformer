@@ -13,6 +13,8 @@ protected:
 public:
     bool deleteIt = false;
 
+    bool isVisual = false;
+
     Entity() : sprite{} {}
     Entity(SpriteComposite s) : sprite(std::move(s)) {}
     virtual ~Entity() = default;

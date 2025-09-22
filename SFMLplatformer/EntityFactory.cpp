@@ -11,7 +11,9 @@ std::shared_ptr <Entity> EntityFactory::makeVisual(const std::string& path, sf::
     SpriteComposite sprite;
     sprite.addChild(path, false);
     sprite.setPosition(pos);
-    return std::make_shared<Entity>(sprite);
+    auto entity = std::make_shared<Entity>(sprite);
+    entity->isVisual = true;
+    return entity;
 }
 
 std::shared_ptr <CharacterPickingEntity> EntityFactory::makeCharacterPickingEntity(int character, sf::Vector2f pos) {

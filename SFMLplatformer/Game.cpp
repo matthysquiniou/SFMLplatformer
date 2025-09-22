@@ -3,6 +3,7 @@
 void Game::run() {
     while (window.isOpen()) {
         float dt = clock.restart().asSeconds();
+
         handleEvents();
         update(dt);
         draw();
