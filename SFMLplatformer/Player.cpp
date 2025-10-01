@@ -140,7 +140,6 @@ void Player::update(float dt, GameContext& ctx) {
 
 void Player::draw(sf::RenderWindow& window, GameContext& ctx) {
     window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType Player::getType() {

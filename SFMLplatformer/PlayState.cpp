@@ -1,7 +1,6 @@
 #pragma once
 #include "PlayState.hpp"
 #include "PauseState.hpp"
-#include <iostream>
 
 void PlayState::handleEvents(std::optional<sf::Event> event, GameContext& ctx) {
     if (event.has_value()) {
@@ -45,10 +44,8 @@ void PlayState::loadLevel(unsigned int level, int character) {
     int levelAdds = level % 10;
 
     loadLevelBase(levelBase, character);
-    std::cout << (levelBase) << std::endl;
     while (levelAdds>=0)
     {
-        std::cout << (levelBase * 10 + levelAdds) << std::endl;
         loadLevelObj(levelBase * 10 + levelAdds);
         levelAdds--;
     }

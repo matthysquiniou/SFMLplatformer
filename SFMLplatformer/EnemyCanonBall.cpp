@@ -24,7 +24,6 @@ void EnemyCanonBall::update(float dt, GameContext& ctx) {
 
 void EnemyCanonBall::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType EnemyCanonBall::getType() {

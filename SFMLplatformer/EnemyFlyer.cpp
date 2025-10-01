@@ -46,7 +46,6 @@ void EnemyFlyer::update(float dt, GameContext& ctx) {
 
 void EnemyFlyer::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType EnemyFlyer::getType() {

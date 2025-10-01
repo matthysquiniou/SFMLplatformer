@@ -33,7 +33,6 @@ void FragilePlatform::update(float dt, GameContext& ctx) {
 
 void FragilePlatform::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType FragilePlatform::getType() {

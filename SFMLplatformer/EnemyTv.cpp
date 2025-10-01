@@ -60,7 +60,6 @@ void EnemyTv::update(float dt, GameContext& ctx) {
 
 void EnemyTv::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType EnemyTv::getType() {

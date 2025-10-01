@@ -25,7 +25,6 @@ void Cup::update(float dt, GameContext& ctx) {
 
 void Cup::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType Cup::getType() {

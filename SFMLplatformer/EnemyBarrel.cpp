@@ -62,7 +62,6 @@ void EnemyBarrel::update(float dt, GameContext& ctx) {
 
 void EnemyBarrel::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType EnemyBarrel::getType() {

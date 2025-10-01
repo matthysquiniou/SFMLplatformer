@@ -13,6 +13,5 @@ EntityType Platform::getType() {
 }
 
 void Platform::draw(sf::RenderWindow& window, GameContext& ctx) {
-	boxManager.draw(window);
 	window.draw(sprite);
 }

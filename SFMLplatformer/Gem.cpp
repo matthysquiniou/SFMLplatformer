@@ -18,7 +18,6 @@ void Gem::update(float dt, GameContext& ctx) {
 
 void Gem::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType Gem::getType() {

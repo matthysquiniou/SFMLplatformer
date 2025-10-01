@@ -73,7 +73,6 @@ void Trap::update(float dt, GameContext& ctx) {
 
 void Trap::draw(sf::RenderWindow& window, GameContext& ctx) {
 	window.draw(sprite);
-	boxManager.draw(window);
 }
 
 EntityType Trap::getType() {
